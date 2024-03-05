@@ -30,8 +30,8 @@ public class MainActivity extends Activity {
     }
 
     protected void gotojournal(View v){
-//        Intent intent= new Intent(this, journal.class);
-//        startActivity(intent);
+        Intent intent= new Intent(this, Journal.class);
+        startActivity(intent);
     }
     protected void gotoAddPetPage(View v){
 //        Intent intent= new Intent(this, AddPet.class);
@@ -39,11 +39,11 @@ public class MainActivity extends Activity {
     }
 
     protected void gotoSettings(View v){
-//        Intent intent= new Intent(this, AddPet.class);
+//        Intent intent= new Intent(this, Settings.class);
 //        startActivity(intent);
     }
     protected void gotoTips(View v){
-//        Intent intent= new Intent(this, AddPet.class);
+//        Intent intent= new Intent(this, TipsAdvice.class);
 //        startActivity(intent);
     }
 
