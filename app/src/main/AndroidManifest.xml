@@ -25,6 +25,10 @@
             android:exported="false">
         </activity>
         <activity
+            android:name=".Journal"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".Signup"
             android:exported="true">
             <intent-filter>
