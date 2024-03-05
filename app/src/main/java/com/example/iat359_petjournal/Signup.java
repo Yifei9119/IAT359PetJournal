@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Signup extends AppCompatActivity {
-
+// declare variables
     EditText usernameEditText, passwordEditText;
     public static final String DEFAULT = "not available";
 
@@ -26,12 +26,13 @@ public class Signup extends AppCompatActivity {
             retrieveData();
         }
 
+//        retrieving data from sharedPref
         protected void retrieveData(){
             SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
             String username = sharedPrefs.getString("username", DEFAULT);
             String password = sharedPrefs.getString("password", DEFAULT);
 
-
+//    if the username or password isn't equal to the default string then login info exists. Go to login page
             if (!username.equals(DEFAULT)||!password.equals(DEFAULT))
             {
                 Toast.makeText(this, "Login information already exist", Toast.LENGTH_LONG).show();
@@ -39,6 +40,7 @@ public class Signup extends AppCompatActivity {
             }
         }
 
+//        onclick submit button, get the sharedPrefs and place data inside SharedPrefs. Head to Add Pet page
         public void submit (View view){
 
             SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -49,12 +51,12 @@ public class Signup extends AppCompatActivity {
             editor.commit();
             gotoAddPetPage();
         }
-
+//intent to add pet class
         protected void gotoAddPetPage(){
             Intent intent= new Intent(this, AddPet.class);
             startActivity(intent);
         }
-
+//intent to login class
         protected void gotoLoginPage(){
             Intent intent= new Intent(this, Login.class);
             startActivity(intent);

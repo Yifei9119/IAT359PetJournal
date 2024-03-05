@@ -20,7 +20,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addpet);
-
+//        dropdown for pet options
         Spinner dropdown = findViewById(R.id.spinner);
         String[] items = new String[]{"1", "2", "three"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
