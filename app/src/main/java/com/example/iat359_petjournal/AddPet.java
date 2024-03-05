@@ -2,6 +2,7 @@ package com.example.iat359_petjournal;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,26 +31,30 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
 
+        }
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
+    }
 
-                }
-            }
+    protected void gotoHomePage(View v){
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
 
-            }
+    }
 
 
 }

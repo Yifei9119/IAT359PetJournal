@@ -1,7 +1,9 @@
 package com.example.iat359_petjournal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +27,24 @@ public class MainActivity extends Activity {
         tips = (ImageButton) findViewById(R.id.tips_advice);
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
+    }
+
+    protected void gotojournal(View v){
+//        Intent intent= new Intent(this, journal.class);
+//        startActivity(intent);
+    }
+    protected void gotoAddPetPage(View v){
+//        Intent intent= new Intent(this, AddPet.class);
+//        startActivity(intent);
+    }
+
+    protected void gotoSettings(View v){
+//        Intent intent= new Intent(this, AddPet.class);
+//        startActivity(intent);
+    }
+    protected void gotoTips(View v){
+//        Intent intent= new Intent(this, AddPet.class);
+//        startActivity(intent);
     }
 
 
