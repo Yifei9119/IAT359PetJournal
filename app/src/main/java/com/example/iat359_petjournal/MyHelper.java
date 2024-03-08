@@ -10,15 +10,25 @@ public class MyHelper extends SQLiteOpenHelper {
 
     private Context context;
 
-    private static final String CREATE_TABLE =
+    private static final String CREATE_TABLE1 =
             "CREATE TABLE "+
-                    Constants.TABLE_NAME + " (" +
-                    Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Constants.TABLE1_NAME + " (" +
+                    Constants.PETID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.NAME + " TEXT, " +
                     Constants.TYPE + " TEXT);"
             ;
+    private static final String CREATE_TABLE2 =
+            "CREATE TABLE "+
+                    Constants.TABLE2_NAME + " (" +
+                    Constants.TASKID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Constants.DESCRIPTION +" TEXT, "+
+                    Constants.TIME + " TEXT, "+
+                    "PetID_ref INTEGER," + " FOREIGN KEY (PetID_ref) REFERENCES " + Constants.TABLE1_NAME + "("+Constants.PETID+" )) ";
 
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
+            ;
+
+    private static final String DROP_TABLE1 = "DROP TABLE IF EXISTS " + Constants.TABLE1_NAME;
+    private static final String DROP_TABLE2 = "DROP TABLE IF EXISTS " + Constants.TABLE2_NAME;
 
     public MyHelper(Context context){
         super (context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
@@ -28,7 +38,8 @@ public class MyHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(CREATE_TABLE);
+            db.execSQL(CREATE_TABLE1);
+            db.execSQL(CREATE_TABLE2);
             Toast.makeText(context, "onCreate() called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
             Toast.makeText(context, "exception onCreate() db", Toast.LENGTH_LONG).show();
@@ -38,7 +49,10 @@ public class MyHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
-            db.execSQL(DROP_TABLE);
+            db.execSQL(DROP_TABLE1);
+            db.execSQL(DROP_TABLE2);
+
+
             onCreate(db);
             Toast.makeText(context, "onUpgrade called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {

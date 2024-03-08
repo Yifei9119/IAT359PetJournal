@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.Blob;
+
 public class MyDatabase {
     private SQLiteDatabase db;
     private Context context;
@@ -15,24 +17,42 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertData (String name, String type)
+    public long insertPetData (String name, String type)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.NAME, name);
         contentValues.put(Constants.TYPE, type);
-//        contentValues.put(Constants.LOCATION, location);
-//        contentValues.put(Constants.LATIN_NAME, latin_name);
-        long id = db.insert(Constants.TABLE_NAME, null, contentValues);
+
+        long id = db.insert(Constants.TABLE1_NAME, null, contentValues);
+        return id;
+    }
+    
+//incomplete
+    public long insertPhotoData (Blob image){
+        db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        long id = db.insert(Constants.TABLE3_NAME, null, contentValues);
         return id;
     }
 
-    public Cursor getData()
+
+    public Cursor getPetData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE};
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null, null, null, null, null);
+        String[] columns = {Constants.PETID, Constants.NAME, Constants.TYPE};
+        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, null, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor getTaskData()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {Constants.PETID, Constants.NAME, Constants.TYPE};
+        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, null, null, null, null, null);
         return cursor;
     }
 
@@ -44,7 +64,7 @@ public class MyDatabase {
         String[] columns = {Constants.NAME, Constants.TYPE};
 
         String selection = Constants.TYPE + "='" +type+ "'";  //Constants.TYPE = 'type'
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
@@ -52,10 +72,10 @@ public class MyDatabase {
             int index1 = cursor.getColumnIndex(Constants.NAME);
             int index2 = cursor.getColumnIndex(Constants.TYPE);
 
-            String plantName = cursor.getString(index1);
-            String plantType = cursor.getString(index2);
+            String petName = cursor.getString(index1);
+            String petBreed = cursor.getString(index2);
 
-            buffer.append(plantName + "," + plantType + "\n");
+            buffer.append(petName + "," + petBreed + "\n");
         }
         return buffer.toString();
     }
