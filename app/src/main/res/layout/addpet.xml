@@ -110,10 +110,9 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/homePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="gotoHomePage"
             android:text="Add Pet" />
 
     </LinearLayout>

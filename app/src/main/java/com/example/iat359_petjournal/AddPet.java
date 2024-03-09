@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,16 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
+        Button homePage = findViewById(R.id.homePage);
+        homePage.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -46,13 +57,6 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    protected void gotoHomePage(View v){
-
-        Intent intent= new Intent(this, MainActivity.class);
-        startActivity(intent);
 
     }
 
