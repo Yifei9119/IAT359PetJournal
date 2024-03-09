@@ -33,14 +33,14 @@ public class Login extends AppCompatActivity {
 
         if (username.equals(user.getText().toString()) && password.equals(pass.getText().toString())) {
             Toast.makeText(this, "Data retrieve success", Toast.LENGTH_LONG).show();
-            gotoMainActivity();
+            gotoHomePage();
         } else {
             Toast.makeText(this, "No data found", Toast.LENGTH_LONG).show();
             gotoSignup();
         }
     }
 
-    protected void gotoMainActivity () {
+    protected void gotoHomePage () {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

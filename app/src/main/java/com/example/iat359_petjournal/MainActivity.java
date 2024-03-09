@@ -29,18 +29,25 @@ public class MainActivity extends Activity {
         journal = (Button) findViewById(R.id.journal);
     }
 
+// button listening to gotojournal method
+//    after click start intent to journal class
     protected void gotojournal(View v){
         Intent intent= new Intent(this, Journal.class);
         startActivity(intent);
     }
+
+// button listening to gotoAddPetPage method
+//    after click start intent to addPet class
     protected void gotoAddPetPage(View v){
 //        Intent intent= new Intent(this, AddPet.class);
 //        startActivity(intent);
     }
 
+// button listening to gotoSettings method
+//    after click start intent to settings class
     protected void gotoSettings(View v){
-//        Intent intent= new Intent(this, Settings.class);
-//        startActivity(intent);
+        Intent intent= new Intent(this, Settings.class);
+        startActivity(intent);
     }
     protected void gotoTips(View v){
 //        Intent intent= new Intent(this, TipsAdvice.class);

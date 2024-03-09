@@ -27,7 +27,7 @@ public class MyDatabase {
         long id = db.insert(Constants.TABLE1_NAME, null, contentValues);
         return id;
     }
-    
+
 //incomplete
     public long insertPhotoData (Blob image){
         db = helper.getWritableDatabase();
