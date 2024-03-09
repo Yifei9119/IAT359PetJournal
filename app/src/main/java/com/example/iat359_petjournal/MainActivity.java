@@ -28,6 +28,8 @@ public class MainActivity extends Activity {
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
 
+        // image button listening on click
+//    after click start intent to journal class
         tips.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -35,6 +37,9 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+// add image button listening to onclick
+//    after click start intent to addPet class
         addPet.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -43,7 +48,17 @@ public class MainActivity extends Activity {
             }
         });
 
-// button listening to gotoSettings method
+        // journal button listens to onclick
+//    after click start intent to journal class
+        journal.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(), Journal.class);
+                startActivity(intent);
+            }
+        });
+
+// settings image button listens to onclick
 //    after click start intent to settings class
         settings.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -52,25 +67,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-    }
-
-// button listening to gotojournal method
-//    after click start intent to journal class
-    protected void gotojournal(View view){
-        Intent intent= new Intent(this, Journal.class);
-        startActivity(intent);
-    }
-
-// button listening to gotoAddPetPage method
-//    after click start intent to addPet class
-    protected void gotoAddPetPage(View view){
-//        Intent intent= new Intent(this, AddPet.class);
-//        startActivity(intent);
-    }
-
-    protected void gotoTips(View v){
-//        Intent intent= new Intent(this, TipsAdvice.class);
-//        startActivity(intent);
     }
 
 
