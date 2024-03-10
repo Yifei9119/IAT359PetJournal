@@ -28,6 +28,8 @@ public class MainActivity extends Activity {
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
 
+        Intent bgmusicPlayer = new Intent(this, MusicPlayer.class);
+        startService(bgmusicPlayer);
         // image button listening on click
 //    after click start intent to journal class
         tips.setOnClickListener(new View.OnClickListener(){
