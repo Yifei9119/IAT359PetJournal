@@ -57,7 +57,7 @@ public class MusicPlayer extends Service {
         try {
             mp = MediaPlayer.create(this, R.raw.bgmusic);
             mp.start();
-            mp.isLooping();
+            mp.setLooping(true);
         }
         catch (Exception e)
         {

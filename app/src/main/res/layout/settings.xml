@@ -108,8 +108,8 @@
                     android:max="100" />
 
                 <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="20dp"
+                    android:id="@+id/volume"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="0" />

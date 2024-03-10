@@ -32,10 +32,9 @@ public class Login extends AppCompatActivity {
         String password = sharedPrefs.getString("password", DEFAULT);
 
         if (username.equals(user.getText().toString()) && password.equals(pass.getText().toString())) {
-            Toast.makeText(this, "Data retrieve success", Toast.LENGTH_LONG).show();
             gotoHomePage();
         } else {
-            Toast.makeText(this, "No data found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Username or password is incorrect", Toast.LENGTH_LONG).show();
             gotoSignup();
         }
     }
