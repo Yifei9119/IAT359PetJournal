@@ -3,7 +3,6 @@ package com.example.iat359_petjournal;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,6 +22,7 @@ public class Settings extends AppCompatActivity {
     TextView volumeTextView;
     AudioManager audio;
     Intent bgMusicPlayer;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
@@ -33,6 +33,11 @@ public class Settings extends AppCompatActivity {
         volume = (SeekBar) findViewById(R.id.seekBar);
         volumeTextView = (TextView) findViewById(R.id.volume);
         bgMusicPlayer = new Intent(this, MusicPlayer.class);
+
+        Button auto = (Button) findViewById(R.id.autoButton);
+        Button nightmode = (Button) findViewById(R.id.DarkMode);
+        Button lightmode = (Button) findViewById(R.id.LightMode);
+
 
 
 //        initialize audio manager and find the audio service
@@ -86,6 +91,34 @@ public class Settings extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        auto.setBackgroundResource(R.drawable.text_image_button_selected);
+
+        auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auto.setBackgroundResource(R.drawable.text_image_button_selected);
+                lightmode.setBackgroundResource(R.drawable.text_image_button);
+                nightmode.setBackgroundResource(R.drawable.text_image_button);
+            }
+        });
+        nightmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auto.setBackgroundResource(R.drawable.text_image_button);
+                lightmode.setBackgroundResource(R.drawable.text_image_button);
+                nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+            }
+        });
+
+        lightmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auto.setBackgroundResource(R.drawable.text_image_button);
+                lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+                nightmode.setBackgroundResource(R.drawable.text_image_button);
+            }
+        });
+
 
     }
 

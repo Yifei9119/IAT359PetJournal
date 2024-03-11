@@ -77,7 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Background Music" />
+                    android:text="Background Music"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/toggleButton"
@@ -98,7 +99,8 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Volume" />
+                    android:text="Volume"
+                    android:textSize="16sp" />
 
                 <SeekBar
                     android:id="@+id/seekBar"
@@ -120,7 +122,58 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Appearance" />
+                android:layout_marginBottom="10dp"
+                android:text="Appearance"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/autoButton"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_image_button"
+                    android:drawableTop="@drawable/auto"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Auto"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/LightMode"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_image_button"
+                    android:backgroundTint="@null"
+                    android:drawableTop="@drawable/brightness"
+                    android:padding="15dp"
+                    android:text="Light Mode"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/DarkMode"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_image_button"
+                    android:backgroundTint="@null"
+                    android:drawableTop="@drawable/night_mode"
+                    android:padding="15dp"
+                    android:text="Dark Mode"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
