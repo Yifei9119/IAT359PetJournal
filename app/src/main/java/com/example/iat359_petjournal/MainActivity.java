@@ -20,20 +20,17 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class MainActivity extends Activity{
 
 //    declare variables
     LinearLayout petAvatars;
     ImageButton addPet;
     ImageButton tips;
     ImageButton settings;
-    Button journal;
+    static Button journal;
 
-    float threshold = 6;
-
-    SensorManager mySensorManager;
-    Sensor lightSensor;
-    SharedPreferences sharedPrefs;
+    Intent intent;
+    static SharedPreferences sharedPrefs;
 
 
     public static final String DEFAULT = "not available";
@@ -48,12 +45,18 @@ public class MainActivity extends Activity implements SensorEventListener {
         tips = (ImageButton) findViewById(R.id.tips_advice);
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
-        mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        lightSensor = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+
+        intent = new Intent(this, LightDarkMode.class);
+        startService(intent);
 
         Intent bgmusicPlayer = new Intent(this, MusicPlayer.class);
         startService(bgmusicPlayer);
+
+
+        setMode();
+
+
         // image button listening on click
 //    after click start intent to journal class
         tips.setOnClickListener(new View.OnClickListener(){
@@ -93,48 +96,38 @@ public class MainActivity extends Activity implements SensorEventListener {
                 startActivity(intent);
             }
         });
+
     }
 
-    protected void DarkLightMode(){
-        float light_val = sharedPrefs.getFloat("lightSensor", 0);
-        if(light_val<threshold){
+//    protected void DarkLightMode(){
+//        float light_val = sharedPrefs.getFloat("lightSensor", 0);
+//        if(light_val<threshold){
+//            journal.setBackgroundColor(Color.BLUE);
+//        }
+//        else{
+//            journal.setBackgroundColor(Color.RED);
+//        }
+//    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(intent);
+    }
+
+//    sets the dark, light, or auto mode based on user preferences
+// this method is called in the beginning to set up the UI and called in the service for any updates to user preferences.
+public static void setMode(){
+    float light_val = sharedPrefs.getFloat("lightSensor", 0);
+    float threshold = LightDarkMode.getThreshold();
+
+    if(light_val<threshold){
             journal.setBackgroundColor(Color.BLUE);
         }
         else{
             journal.setBackgroundColor(Color.RED);
         }
-    }
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        int type = event.sensor.getType();
-        if(type == Sensor.TYPE_LIGHT){
-            float light_val = event.values[0];
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            editor.putFloat("lightSensor", light_val);
-            editor.commit();
-            DarkLightMode();
-
-        }
-    }
-
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-    //    on resume start listening to the light and accelerometer sensors
-    @Override
-    protected void onResume(){
-        super.onResume();
-        mySensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    // on pause unregister or release all the sensors
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mySensorManager.unregisterListener(this);
-    }
-
+}
 }

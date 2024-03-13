@@ -1,7 +1,9 @@
 package com.example.iat359_petjournal;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,16 +18,21 @@ import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Settings extends AppCompatActivity {
+public class Settings extends AppCompatActivity implements View.OnClickListener {
     SeekBar volume;
     int currentVolume;
     TextView volumeTextView;
     AudioManager audio;
     Intent bgMusicPlayer;
 
+    SharedPreferences sharedPrefs;
+
+    Button auto, nightmode, lightmode;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
 //      initialize variables
         Button logout = findViewById(R.id.logout);
         ImageButton backButton = findViewById(R.id.backButton);
@@ -34,9 +41,15 @@ public class Settings extends AppCompatActivity {
         volumeTextView = (TextView) findViewById(R.id.volume);
         bgMusicPlayer = new Intent(this, MusicPlayer.class);
 
-        Button auto = (Button) findViewById(R.id.autoButton);
-        Button nightmode = (Button) findViewById(R.id.DarkMode);
-        Button lightmode = (Button) findViewById(R.id.LightMode);
+        auto = (Button) findViewById(R.id.autoButton);
+        nightmode = (Button) findViewById(R.id.DarkMode);
+        lightmode = (Button) findViewById(R.id.LightMode);
+
+        auto.setOnClickListener(this);
+        nightmode.setOnClickListener(this);
+        lightmode.setOnClickListener(this);
+
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
 
 
@@ -91,37 +104,27 @@ public class Settings extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        auto.setBackgroundResource(R.drawable.text_image_button_selected);
 
-        auto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auto.setBackgroundResource(R.drawable.text_image_button_selected);
-                lightmode.setBackgroundResource(R.drawable.text_image_button);
-                nightmode.setBackgroundResource(R.drawable.text_image_button);
-            }
-        });
-        nightmode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auto.setBackgroundResource(R.drawable.text_image_button);
-                lightmode.setBackgroundResource(R.drawable.text_image_button);
-                nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
-            }
-        });
+//        based on the sharedPrefs show the previous selection that the user has made
+        String modeString = sharedPrefs.getString("selected", "");
+        if(modeString.equals("")){
+            auto.setBackgroundResource(R.drawable.text_image_button_selected);
+        }
+        else if(modeString.equals("auto")) {
+            auto.setBackgroundResource(R.drawable.text_image_button_selected);
+        }
+        else if(modeString.equals("light")){
+            lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
 
-        lightmode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auto.setBackgroundResource(R.drawable.text_image_button);
-                lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
-                nightmode.setBackgroundResource(R.drawable.text_image_button);
-            }
-        });
+        }
+        else if(modeString.equals("dark")){
+            nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+        }
 
 
     }
 
+//    toggle button listening to whether the user has toggled on or off. If on play background music, otherwise stop music player
 CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
 @Override
 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -132,6 +135,8 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         stopService(bgMusicPlayer);
         }
     }};
+
+//    listen to the keys of volume up and down hardware buttons. If up increase volume, if down decrease volume and show the volume state in the seekbar
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
@@ -162,5 +167,39 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             default:
                 return super.dispatchKeyEvent(event);
         }
+    }
+
+//    handling button clicks for the light/dark mode
+    // if user selects on one of the three have the current selection active state
+// and set the threshold of the light sensor according to user preferences, the service class would handle the appearance changes
+    @Override
+    public void onClick(View v) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        if(v == findViewById(R.id.autoButton)){
+            auto.setBackgroundResource(R.drawable.text_image_button_selected);
+            lightmode.setBackgroundResource(R.drawable.text_image_button);
+            nightmode.setBackgroundResource(R.drawable.text_image_button);
+            LightDarkMode.setLightsensor(6);
+            editor.putString("selected", "auto");
+
+        }
+        else if(v == findViewById(R.id.LightMode)){
+            auto.setBackgroundResource(R.drawable.text_image_button);
+            lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+            nightmode.setBackgroundResource(R.drawable.text_image_button);
+            LightDarkMode.setLightsensor(0);
+            editor.putString("selected", "light");
+
+        }
+        else if(v == findViewById(R.id.DarkMode)){
+            auto.setBackgroundResource(R.drawable.text_image_button);
+            lightmode.setBackgroundResource(R.drawable.text_image_button);
+            nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+            LightDarkMode.setLightsensor(100);
+            editor.putString("selected", "dark");
+        }
+        editor.commit();
+
     }
 }

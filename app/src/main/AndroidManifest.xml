@@ -50,6 +50,10 @@
             android:name=".MusicPlayer"
             android:exported="false">
         </service>
+        <service
+            android:name=".LightDarkMode"
+            android:exported="false">
+        </service>
     </application>
 </manifest>
 
