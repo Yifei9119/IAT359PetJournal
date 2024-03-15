@@ -47,6 +47,9 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
                     Intent intent= new Intent(v.getContext(), MainActivity.class);
                     startActivity(intent);
                 }
+                else {
+                    Toast.makeText(v.getContext(), "Please enter a dog name and select a breed", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
@@ -57,15 +60,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
-//        Button homePage = findViewById(R.id.addPetButton);
-//        homePage.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent= new Intent(v.getContext(), MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
 
 
     }
