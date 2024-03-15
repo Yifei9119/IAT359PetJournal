@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.Blob;
 
@@ -25,6 +26,7 @@ public class MyDatabase {
         contentValues.put(Constants.TYPE, type);
 
         long id = db.insert(Constants.TABLE1_NAME, null, contentValues);
+        Log.d("mylog", "" + id);
         return id;
     }
 

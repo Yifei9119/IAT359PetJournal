@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/dogNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/yearEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextDate2"
+                android:id="@+id/monthEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,7 +62,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextDate3"
+                android:id="@+id/dayEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -110,7 +110,7 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/homePage"
+            android:id="@+id/addPetButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Pet" />

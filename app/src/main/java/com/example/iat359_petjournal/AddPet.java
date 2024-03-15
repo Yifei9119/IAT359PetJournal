@@ -1,43 +1,64 @@
 package com.example.iat359_petjournal;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
+public class AddPet extends AppCompatActivity implements TextWatcher, AdapterView.OnItemSelectedListener {
+    private EditText dogNameEditText;
+    private String dogName;
+    private EditText yearEditText, monthEditText, dayEditText;
+    private String year, month, day;
+    private Button addPetButton;
+    MyDatabase db;
 
-public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addpet);
-//        dropdown for pet options
+
+        db = new MyDatabase(this);
+
+        dogNameEditText = findViewById(R.id.dogNameEditText);
+        dogNameEditText.addTextChangedListener(this);
+        yearEditText = findViewById(R.id.yearEditText);
+        yearEditText.addTextChangedListener(this);
+        monthEditText = findViewById(R.id.monthEditText);
+        dayEditText = findViewById(R.id.dayEditText);
+        addPetButton = findViewById(R.id.addPetButton);
+        addPetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("mylog", "onClick");
+                long id = db.insertPetData(dogName, year);
+            }
+        });
         Spinner dropdown = findViewById(R.id.spinner);
-        String[] items = new String[]{"1", "2", "three"};
+        String[] items = new String[]{"German Shepherd", "Golden Retriever", "Poodle"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
 
-        Button homePage = findViewById(R.id.homePage);
-        homePage.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Button homePage = findViewById(R.id.addPetButton);
+//        homePage.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent= new Intent(v.getContext(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }
@@ -60,5 +81,32 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (dogNameEditText.isFocused()){
+            dogName = s.toString();
+        }
+        if (yearEditText.isFocused()){
+            year = s.toString();
+        }
+        if (monthEditText.isFocused()){
+            month = s.toString();
+        }
+        if (dayEditText.isFocused()){
+            day = s.toString();
+        }
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 
 }

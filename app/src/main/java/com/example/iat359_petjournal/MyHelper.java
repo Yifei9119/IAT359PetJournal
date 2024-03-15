@@ -10,6 +10,7 @@ public class MyHelper extends SQLiteOpenHelper {
 
     private Context context;
 
+
     private static final String CREATE_TABLE1 =
             "CREATE TABLE "+
                     Constants.TABLE1_NAME + " (" +
