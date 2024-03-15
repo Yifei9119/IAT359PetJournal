@@ -11,16 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddPet extends AppCompatActivity implements TextWatcher, AdapterView.OnItemSelectedListener {
+public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText dogNameEditText;
-    private String dogName;
     private EditText yearEditText, monthEditText, dayEditText;
-    private String year, month, day;
+//    private String year, month, day;
     private Button addPetButton;
+
+    private String dogBreed;
     MyDatabase db;
 
     @Override
@@ -31,17 +33,22 @@ public class AddPet extends AppCompatActivity implements TextWatcher, AdapterVie
         db = new MyDatabase(this);
 
         dogNameEditText = findViewById(R.id.dogNameEditText);
-        dogNameEditText.addTextChangedListener(this);
         yearEditText = findViewById(R.id.yearEditText);
-        yearEditText.addTextChangedListener(this);
         monthEditText = findViewById(R.id.monthEditText);
         dayEditText = findViewById(R.id.dayEditText);
         addPetButton = findViewById(R.id.addPetButton);
         addPetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("mylog", "onClick");
-                long id = db.insertPetData(dogName, year);
+                String dogName = dogNameEditText.getText().toString();
+
+                if(dogBreed != null && !dogName.isEmpty()) {
+                    db.insertPetData(dogName, dogBreed);
+                    Intent intent= new Intent(v.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+
+
             }
         });
         Spinner dropdown = findViewById(R.id.spinner);
@@ -65,47 +72,11 @@ public class AddPet extends AppCompatActivity implements TextWatcher, AdapterVie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-
-        }
+        dogBreed = parent.getItemAtPosition(position).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (dogNameEditText.isFocused()){
-            dogName = s.toString();
-        }
-        if (yearEditText.isFocused()){
-            year = s.toString();
-        }
-        if (monthEditText.isFocused()){
-            month = s.toString();
-        }
-        if (dayEditText.isFocused()){
-            day = s.toString();
-        }
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
 
     }
 
