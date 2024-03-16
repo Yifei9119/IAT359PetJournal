@@ -65,7 +65,7 @@ public class MyDatabase {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.NAME, Constants.TYPE};
 
-        String selection = Constants.TYPE + "='" +type+ "'";  //Constants.TYPE = 'type'
+        String selection = Constants.PETID + "='" +type+ "'";  //Constants.TYPE = 'type'
         Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
