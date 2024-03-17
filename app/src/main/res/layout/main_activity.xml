@@ -83,11 +83,30 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/petName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_marginBottom="20dp"
+                android:layout_weight="0"
+                android:gravity="start|end"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/petName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="text" />
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Edit" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/journal"

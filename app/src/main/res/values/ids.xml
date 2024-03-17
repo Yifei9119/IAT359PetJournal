@@ -1,0 +1,10 @@
+<resources>
+    <item type="id" name="saveButton"/>
+    <item type="id" name="editButton"/>
+    <item type="id" name="name1"/>
+    <item type="id" name="name2"/>
+    <item type="id" name="name3"/>
+    <item type="id" name="name4"/>
+    <item type="id" name="name5"/>
+
+</resources>

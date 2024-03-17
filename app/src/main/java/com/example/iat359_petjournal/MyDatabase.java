@@ -30,6 +30,17 @@ public class MyDatabase {
         return id;
     }
 
+    public long updatePetNameData (String name, String ids)
+    {
+        db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.NAME, name);
+
+        long id = db.update(Constants.TABLE1_NAME, contentValues, "_id=?", new String[]{ids});
+        Log.d("mylog", "" + ids);
+        return id;
+    }
+
 //incomplete
     public long insertPhotoData (Blob image){
         db = helper.getWritableDatabase();
@@ -81,6 +92,37 @@ public class MyDatabase {
         }
         return buffer.toString();
     }
+
+    public String getSelectedIDData(String name)
+    {
+        //select plants from database of type 'herb'
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.NAME, Constants.TYPE};
+
+        String selection = Constants.NAME + "='" +name+ "'";  //Constants.TYPE = 'type'
+        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+
+            int index1 = cursor.getColumnIndex(Constants.PETID);
+            int index2 = cursor.getColumnIndex(Constants.NAME);
+
+
+            String petID = cursor.getString(index1);
+            String petName = cursor.getString(index2);
+
+            buffer.append(petID+","+petName);
+        }
+        return buffer.toString();
+    }
+
+
+
+//    public void updateData(String name, ){
+//        String strSQL = "UPDATE myTable SET Column1 ="+ someValue+ " WHERE columnId = "+ someValue;
+//
+//    }
 
 }
 

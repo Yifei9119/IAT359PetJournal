@@ -6,21 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.KeyListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.ColorInt;
 
 import java.util.ArrayList;
 
@@ -32,10 +27,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     ImageButton settings;
     static Button journal;
 
-    TextView petName;
+    EditText petName;
     ImageView petSelected;
 
-    int breedSelected =1;
+    Button edit;
+
+    int breedSelected;
 
     MyDatabase db;
     MyHelper helper;
@@ -65,9 +62,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tips = (ImageButton) findViewById(R.id.tips_advice);
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
-        petName = (TextView) findViewById(R.id.petName);
+        petName = (EditText) findViewById(R.id.petName);
         petSelected = (ImageView) findViewById(R.id.petSelected);
+        edit = (Button) findViewById(R.id.editButton);
 
+
+        petName.setBackgroundResource(android.R.color.transparent);
+        makeEditable(false, petName);
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
@@ -134,9 +135,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
         breedSelected = createNewImageView(results[1]);
         petSelected.setImageResource(breedSelected);
 
-
         setMode();
 
+
+//      edit button after click make edittext clickable for user to edit the text
+//      update the text based on user input
+        edit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(v.getId()==R.id.editButton) {
+                    makeEditable(true, petName);
+                    edit.setId(R.id.saveButton);
+                    edit.setText("Save");
+                }
+                else if(v.getId()==R.id.saveButton){
+                    String id = "1";
+                    makeEditable(false,petName);
+                    edit.setId(R.id.editButton);
+                    edit.setText("Edit");
+
+                    Log.d("help", ""+petName.getId());
+                    if(petName.getId()==R.id.name1){
+                        id = "1";
+                    }
+                    else if(petName.getId()==R.id.name2){
+                        id = "2";
+                    }
+                    if(petName.getId()==R.id.name3){
+                        id = "3";
+                    }
+                    if(petName.getId()==R.id.name4){
+                        id = "4";
+                    }
+                    if(petName.getId()==R.id.name5){
+                        id = "5";
+                    }
+                    db.updatePetNameData(petName.getText().toString(), id);
+
+
+
+                }
+            }
+        });
 
         // image button listening on click
 //    after click start intent to journal class
@@ -204,8 +244,6 @@ public static void setMode(){
 }
     private Integer createNewImageView(String text) {
 
-        Log.d("tag", ""+text);
-
         switch (text) {
             case "German Shepherd":
                 breedSelected = R.drawable.germansherperd;
@@ -228,20 +266,32 @@ public static void setMode(){
     @Override
     public void onClick(View v) {
         if (v.getTag().equals(String.valueOf(1))) {
-                selectedImage=1;
+            selectedImage=1;
+            petName.setId(R.id.name1);
+
         }
         else if (v.getTag().equals(String.valueOf(2))) {
             selectedImage=2;
+            petName.setId(R.id.name2);
+
         }
         else if (v.getTag().equals(String.valueOf(3))) {
             selectedImage=3;
+            petName.setId(R.id.name3);
+
         }
         else if (v.getTag().equals(String.valueOf(4))) {
             selectedImage=4;
+            petName.setId(R.id.name4);
+
         }
         else if (v.getTag().equals(String.valueOf(5))) {
             selectedImage=5;
+            petName.setId(R.id.name5);
+
         }
+
+
 //        String selected = db.getSelectedData(String.valueOf(selectedImage));
 //        String[]  results = (selected.split(","));
 //        petName.setText(results[0]);
@@ -262,7 +312,10 @@ public static void setMode(){
         String selected = db.getSelectedData(String.valueOf(selectedImage));
         String[]  results = (selected.split(","));
         petName.setText(results[0]);
+        Log.d("LOG",results[1]);
+
         breedSelected = createNewImageView(results[1]);
+        Log.d("LOG", ""+breedSelected);
         petSelected.setImageResource(breedSelected);
 
 
@@ -273,4 +326,25 @@ public static void setMode(){
 //        }
 
     }
+
+    private void makeEditable(boolean isEditable, EditText et){
+        if(isEditable){
+            et.setFocusable(true);
+            et.setEnabled(true);
+            et.setClickable(true);
+            et.setFocusableInTouchMode(true);
+            et.setBackgroundResource(R.drawable.underline);
+            et.setKeyListener(new EditText(getApplicationContext()).getKeyListener());
+
+        }else{
+            et.setFocusable(false);
+            et.setClickable(false);
+            et.setFocusableInTouchMode(false);
+            et.setBackground(null);
+            et.setKeyListener(null);
+
+        }
+    }
+
+
 }
