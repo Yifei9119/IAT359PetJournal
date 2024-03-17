@@ -41,6 +41,19 @@ public class MyDatabase {
         return id;
     }
 
+    // below is the method for deleting our course.
+    public void deletePet(String id) {
+
+        // on below line we are creating
+        // a variable to write our database.
+        db = helper.getWritableDatabase();
+
+        // on below line we are calling a method to delete our
+        // pet and we are comparing it with our pet id.
+        db.delete(Constants.TABLE1_NAME, "" +
+                "_id=?", new String[]{id});
+    }
+
 //incomplete
     public long insertPhotoData (Blob image){
         db = helper.getWritableDatabase();
@@ -72,11 +85,11 @@ public class MyDatabase {
 
     public String getSelectedData(String type)
     {
-        //select plants from database of type 'herb'
+        //select pet from database of id type
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.NAME, Constants.TYPE};
 
-        String selection = Constants.PETID + "='" +type+ "'";  //Constants.TYPE = 'type'
+        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
         Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
