@@ -24,6 +24,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     TextView volumeTextView;
     AudioManager audio;
     Intent bgMusicPlayer;
+    ToggleButton bgMusictoggle;
+    String value;
 
     SharedPreferences sharedPrefs;
 
@@ -36,7 +38,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 //      initialize variables
         Button logout = findViewById(R.id.logout);
         ImageButton backButton = findViewById(R.id.backButton);
-        ToggleButton bgMusictoggle = findViewById(R.id.toggleButton);
+        bgMusictoggle = findViewById(R.id.toggleButton);
         volume = (SeekBar) findViewById(R.id.seekBar);
         volumeTextView = (TextView) findViewById(R.id.volume);
         bgMusicPlayer = new Intent(this, MusicPlayer.class);
@@ -121,6 +123,15 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
         }
 
+//
+        String togglebutton = sharedPrefs.getString("value","");
+        if(togglebutton.equals("ON")){
+            bgMusictoggle.setChecked(true);
+        }
+        else if(togglebutton.equals("OFF")){
+            bgMusictoggle.setChecked(false);
+        }
+
 
     }
 
@@ -128,12 +139,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
 @Override
 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked){
-            startService(bgMusicPlayer);
-        }
+    SharedPreferences.Editor editor = sharedPrefs.edit();
+
+    if(isChecked){
+
+        startService(bgMusicPlayer);
+        MainActivity.setStart(true);
+        editor.putString("value","ON");
+        editor.commit();
+    }
         else{
         stopService(bgMusicPlayer);
-        }
+        MainActivity.setStart(false);
+        editor.putString("value","OFF");
+        editor.commit();
+
+    }
     }};
 
 //    listen to the keys of volume up and down hardware buttons. If up increase volume, if down decrease volume and show the volume state in the seekbar
