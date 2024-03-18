@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -27,6 +24,8 @@ public class MainActivity extends Activity{
     ImageButton tips;
     ImageButton settings;
     static Button journal;
+
+    static Boolean start = true;
 
 //    LinearLayout linearLayout;
 //    ArrayList<ImageView> imageViewList;
@@ -72,19 +71,29 @@ public class MainActivity extends Activity{
         petSelected = (ImageView) findViewById(R.id.petSelected);
         edit = (Button) findViewById(R.id.editButton);
         delete = (Button) findViewById(R.id.delete);
-//        linearLayout = (LinearLayout) findViewById(R.id.imageViews);
 
 
         petName.setBackgroundResource(android.R.color.transparent);
         makeEditable(false, petName);
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
 
         intent = new Intent(this, LightDarkMode.class);
         startService(intent);
 
-        bgmusicPlayer = new Intent(this, MusicPlayer.class);
-        startService(bgmusicPlayer);
+        if(start) {
+//            String modeString = sharedPrefs.getString("music", "");
+//            if (modeString.equals("on")) {
+                bgmusicPlayer = new Intent(this, MusicPlayer.class);
+                startService(bgmusicPlayer);
+//            } else {
+//                stopService(bgmusicPlayer);
+//            }
+        }
+
+
 
         petSelected.setImageResource(breedSelected);
 
@@ -164,7 +173,7 @@ public class MainActivity extends Activity{
             cursor.moveToNext();
         }
 
-        images = new View[mArrayList.size()];
+        images = new View[container.getChildCount()];
         for(int i=0;i< container.getChildCount();i++){
             String s = mArrayList.get(i);
 
@@ -174,10 +183,12 @@ public class MainActivity extends Activity{
                 public void onClick(View v) {
                     if(v.getId()==Integer.parseInt(s)){
                         String selected = db.getSelectedData(s);
-                        String[] results = (selected.split(","));
+                        String[] results = selected.split(",");
+                        String[] results2 = results[1].split("\n");
                         petName.setText(results[0]);
                         petName.setTag(s);
-                        breedSelected = createNewImageView(results[1]);
+                        int breedSelected = createNewImageView(results2[0]);
+
                         petSelected.setImageResource(breedSelected);
 
                     }
@@ -189,7 +200,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     ImageView img = container.getChildAt(finalI).findViewById(Integer.valueOf(s));
-
+                    Log.d("test",s);
                     if(img.getId()==Integer.parseInt(s)) {
                         db.deletePet(s);
                         container.removeView(img);
@@ -204,9 +215,8 @@ public class MainActivity extends Activity{
 
                 }
             });
-
-            //      edit button after click make edittext clickable for user to edit the text
-//      update the text based on user input
+            //edit button after click make edittext clickable for user to edit the text
+            //update the text based on user input
 
             edit.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -217,7 +227,6 @@ public class MainActivity extends Activity{
                         edit.setText("Save");
                     }
                     else if(v.getId()==R.id.saveButton){
-                        Log.d("okokok",""+petName.getTag());
 
                         makeEditable(false,petName);
                         edit.setId(R.id.editButton);
@@ -225,7 +234,7 @@ public class MainActivity extends Activity{
                         if(petName.getTag().equals(s)){
                             db.updatePetNameData(petName.getText().toString(), s);
                         }
-                        
+
                     }
                 }
             });
@@ -242,7 +251,7 @@ public class MainActivity extends Activity{
         stopService(intent);
     }
 
-//    sets the dark, light, or auto mode based on user preferences
+// sets the dark, light, or auto mode based on user preferences
 // this method is called in the beginning to set up the UI and called in the service for any updates to user preferences.
 public static void setMode(){
         if(sharedPrefs!=null) {
@@ -260,7 +269,7 @@ public static void setMode(){
 
         switch (text) {
             case "German Shepherd":
-                breedSelected = R.drawable.germansherperd;
+                breedSelected = R.drawable.germansheperd;
                 break;
 
             case "Poodle":
@@ -272,6 +281,25 @@ public static void setMode(){
                 break;
 
 
+        }
+
+        return breedSelected;
+    }
+
+    private Integer createAvatars(String text) {
+
+        switch (text) {
+            case "German Shepherd":
+                breedSelected = R.drawable.germansheperdavatar;
+                break;
+
+            case "Poodle":
+                breedSelected = R.drawable.poodleavatar;
+                break;
+
+            case "Golden Retriever":
+                breedSelected = R.drawable.retrieveravatar;
+                break;
         }
 
         return breedSelected;
@@ -324,7 +352,7 @@ public static void setMode(){
          String s = mArrayList.get(i);
          String[] split = s.split(",");
          String petBreed = split[1];
-         breedSelected = createNewImageView(petBreed);
+         int breedSelected = createAvatars(petBreed);
          ImageView imageView = new ImageView(this);
          imageView.setImageResource(breedSelected);
 
@@ -345,13 +373,20 @@ public static void setMode(){
          String s = mArrayList.get(0);
          String[] split = s.split(",");
          String selected = db.getSelectedData(split[2]);
-         String[] results = (selected.split(","));
-         breedSelected = createNewImageView(results[1]);
+         String[] results = selected.split(",");
+         String[] results2 = results[1].split("\n");
+
+         int breedSelected = createNewImageView(results2[0]);
          petSelected.setImageResource(breedSelected);
+
          petName.setText(results[0]);
          petName.setTag(Integer.parseInt(split[2]));
      }
 
+ }
+
+ public static void setStart(Boolean edit){
+        start = edit;
  }
 
 }
