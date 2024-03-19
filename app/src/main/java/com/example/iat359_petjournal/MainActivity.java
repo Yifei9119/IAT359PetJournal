@@ -185,7 +185,6 @@ public class MainActivity extends Activity{
                         petName.setText(results[0]);
                         petName.setTag(s);
                         int breedSelected = createNewImageView(results2[0]);
-                        Log.d("tag", petName.getTag().toString());
 
                         petSelected.setImageResource(breedSelected);
 
@@ -208,7 +207,7 @@ public class MainActivity extends Activity{
                 @Override
                 public void onClick(View v) {
 
-                    ImageView img = container.getChildAt(finalJ).findViewById(Integer.valueOf(petName.getTag().toString()));
+                    ImageView img = findViewById(Integer.valueOf(petName.getTag().toString()));
 
                     db.deletePet(petName.getTag().toString());
                     container.removeView(img);
