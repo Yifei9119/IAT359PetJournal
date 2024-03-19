@@ -83,16 +83,15 @@ public class MainActivity extends Activity{
         intent = new Intent(this, LightDarkMode.class);
         startService(intent);
 
-        if(start) {
+        if (start) {
 //            String modeString = sharedPrefs.getString("music", "");
 //            if (modeString.equals("on")) {
-                bgmusicPlayer = new Intent(this, MusicPlayer.class);
-                startService(bgmusicPlayer);
+            bgmusicPlayer = new Intent(this, MusicPlayer.class);
+            startService(bgmusicPlayer);
 //            } else {
 //                stopService(bgmusicPlayer);
 //            }
         }
-
 
 
         petSelected.setImageResource(breedSelected);
@@ -100,38 +99,36 @@ public class MainActivity extends Activity{
         createImageViews();
         setMode();
 
-        if(container.getChildCount()<=1){
+        if (container.getChildCount() <= 1) {
             delete.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             delete.setVisibility(View.VISIBLE);
         }
 
 
-        if(container.getChildCount()==5){
+        if (container.getChildCount() == 5) {
             addPet.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             addPet.setVisibility(View.VISIBLE);
         }
 
 
         // image button listening on click
 //    after click start intent to journal class
-        tips.setOnClickListener(new View.OnClickListener(){
+        tips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(), TipsAdvice.class);
+                Intent intent = new Intent(v.getContext(), TipsAdvice.class);
                 startActivity(intent);
             }
         });
 
 // add image button listening to onclick
 //    after click start intent to addPet class
-        addPet.setOnClickListener(new View.OnClickListener(){
+        addPet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(), AddPet.class);
+                Intent intent = new Intent(v.getContext(), AddPet.class);
                 startActivity(intent);
                 stopService(bgmusicPlayer);
             }
@@ -139,20 +136,20 @@ public class MainActivity extends Activity{
 
         // journal button listens to onclick
 //    after click start intent to journal class
-        journal.setOnClickListener(new View.OnClickListener(){
+        journal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(), Journal.class);
+                Intent intent = new Intent(v.getContext(), Journal.class);
                 startActivity(intent);
             }
         });
 
 // settings image button listens to onclick
 //    after click start intent to settings class
-        settings.setOnClickListener(new View.OnClickListener(){
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(v.getContext(), Settings.class);
+                Intent intent = new Intent(v.getContext(), Settings.class);
                 startActivity(intent);
             }
         });
@@ -174,20 +171,21 @@ public class MainActivity extends Activity{
         }
 
         images = new View[container.getChildCount()];
-        for(int i=0;i< container.getChildCount();i++){
+        for (int i = 0; i < container.getChildCount(); i++) {
             String s = mArrayList.get(i);
 
             images[i] = ((ViewGroup) container).getChildAt(i).findViewById(Integer.parseInt(s));
             images[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(v.getId()==Integer.parseInt(s)){
+                    if (v.getId() == Integer.parseInt(s)) {
                         String selected = db.getSelectedData(s);
                         String[] results = selected.split(",");
                         String[] results2 = results[1].split("\n");
                         petName.setText(results[0]);
                         petName.setTag(s);
                         int breedSelected = createNewImageView(results2[0]);
+                        Log.d("tag", petName.getTag().toString());
 
                         petSelected.setImageResource(breedSelected);
 
@@ -196,49 +194,56 @@ public class MainActivity extends Activity{
             });
 
             int finalI = i;
+
+
+        }
+        //edit button after click make edittext clickable for user to edit the text
+        //update the text based on user input
+
+
+        for (int j = 0; j < container.getChildCount(); j++) {
+
+            int finalJ = j;
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ImageView img = container.getChildAt(finalI).findViewById(Integer.valueOf(s));
-                    Log.d("test",s);
-                    if(img.getId()==Integer.parseInt(s)) {
-                        db.deletePet(s);
-                        container.removeView(img);
 
-                    }
-                    if(container.getChildCount()==1){
+                    ImageView img = container.getChildAt(finalJ).findViewById(Integer.valueOf(petName.getTag().toString()));
+
+                    db.deletePet(petName.getTag().toString());
+                    container.removeView(img);
+
+
+                    if (container.getChildCount() == 1) {
                         delete.setVisibility(View.GONE);
-                    }
-                    else {
+                    } else {
                         delete.setVisibility(View.VISIBLE);
                     }
 
                 }
             });
-            //edit button after click make edittext clickable for user to edit the text
-            //update the text based on user input
-
-            edit.setOnClickListener(new View.OnClickListener(){
+        }
+            edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(v.getId()==R.id.editButton) {
+                    if (v.getId() == R.id.editButton) {
                         makeEditable(true, petName);
                         edit.setId(R.id.saveButton);
                         edit.setText("Save");
-                    }
-                    else if(v.getId()==R.id.saveButton){
+                    } else if (v.getId() == R.id.saveButton) {
 
-                        makeEditable(false,petName);
+                        makeEditable(false, petName);
                         edit.setId(R.id.editButton);
                         edit.setText("Edit");
-                        if(petName.getTag().equals(s)){
-                            db.updatePetNameData(petName.getText().toString(), s);
-                        }
+
+
+                            db.updatePetNameData(petName.getText().toString(), petName.getTag().toString());
+                            Log.d("edit", "success");
+
 
                     }
                 }
             });
-        }
 
 
     }
