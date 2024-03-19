@@ -19,13 +19,13 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
+//    declare variables
     SeekBar volume;
     int currentVolume;
     TextView volumeTextView;
     AudioManager audio;
     Intent bgMusicPlayer;
     ToggleButton bgMusictoggle;
-    String value;
 
     SharedPreferences sharedPrefs;
 
@@ -123,7 +123,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
         }
 
-//
+// gets the value from sharedpref to determine whether the sound toggle is on or off
         String togglebutton = sharedPrefs.getString("value","");
         if(togglebutton.equals("ON")){
             bgMusictoggle.setChecked(true);

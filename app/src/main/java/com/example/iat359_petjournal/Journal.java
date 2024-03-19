@@ -15,6 +15,8 @@ public class Journal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal);
         buttonStartCamera = findViewById(R.id.Addpost);
+
+//        explicit intent to add photo interface
         buttonStartCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

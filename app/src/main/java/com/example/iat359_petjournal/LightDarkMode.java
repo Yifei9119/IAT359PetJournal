@@ -17,11 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 public class LightDarkMode extends Service implements SensorEventListener {
-
+//    decalre variables
      Sensor lightSensor;
      static SensorManager mySensorManager;
     SharedPreferences sharedPrefs;
-//    MainActivity main;
 
     static float threshold = 6;
     boolean paused = false;
@@ -36,6 +35,7 @@ public class LightDarkMode extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
         paused = false;
+//        getshared prefs and get the light sensor
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -68,7 +68,7 @@ public class LightDarkMode extends Service implements SensorEventListener {
         }
         catch (Exception e)
         {
-            Log.e("Service LogTag", "Player failed", e);
+            Log.e("Service LogTag", "register failed", e);
         }
     }
 

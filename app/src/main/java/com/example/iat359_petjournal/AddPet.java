@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+//  initialize variables
     private EditText dogNameEditText;
     private EditText yearEditText, monthEditText, dayEditText;
-//    private String year, month, day;
     private Button addPetButton;
 
     private String dogBreed;
@@ -37,6 +37,8 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         monthEditText = findViewById(R.id.monthEditText);
         dayEditText = findViewById(R.id.dayEditText);
         addPetButton = findViewById(R.id.addPetButton);
+
+//        after clicking on add pet retrieve the name of the dog and dog breed and insert to db
         addPetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +50,14 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
                     startActivity(intent);
                 }
                 else {
+//                    if missing either dogbreed or dogname selection show toast
                     Toast.makeText(v.getContext(), "Please enter a dog name and select a breed", Toast.LENGTH_SHORT).show();
                 }
 
 
             }
         });
+//        dropdown button for breed selection
         Spinner dropdown = findViewById(R.id.spinner);
         String[] items = new String[]{"German Shepherd", "Golden Retriever", "Poodle"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -64,7 +68,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
     }
-
+// the dogbreed would be the selected item of the dropdown
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         dogBreed = parent.getItemAtPosition(position).toString();

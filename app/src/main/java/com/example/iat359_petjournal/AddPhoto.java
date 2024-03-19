@@ -48,7 +48,7 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
     private Button buttonCaptureSave, buttonCaptureShow;
     private ImageCapture imageCapture;
     private ImageView imageViewCaptured;
-private String  mImageFileLocation="";
+    private String  mImageFileLocation="";
     private static final int img_id = 1;
 
     // new
@@ -120,18 +120,15 @@ private String  mImageFileLocation="";
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonCaptureShow) {
-//        switch (view.getId()) {
-//            case R.id.buttonCaptureSave: {
-//                break;
-//            }
-//            case R.id.buttonCaptureShow: {
+
             Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera_intent, img_id);
 
 
-//                break;
-//            }
-//        }
+
+        }
+        else if(view.getId()==R.id.buttonCaptureSave){
+//            capturePhoto();
         }
     }
 
@@ -141,18 +138,19 @@ private String  mImageFileLocation="";
         imageViewCaptured.setImageBitmap(photo);
     }
 
-    private void capturePhoto() throws IOException {
+    private void capturePhoto() {
         long timeStamp = System.currentTimeMillis();
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
 
-        String longtimeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "IMAGE_" + timeStamp + "_";
-        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(imageFileName,".jpg",storageDirectory);
-        mImageFileLocation = image.getAbsolutePath();
+        // please ignore code below
+//        String longtimeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String imageFileName = "IMAGE_" + timeStamp + "_";
+//        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//
+//        File image = File.createTempFile(imageFileName,".jpg",storageDirectory);
+//        mImageFileLocation = image.getAbsolutePath();
 
         imageCapture.takePicture(
                 new ImageCapture.OutputFileOptions.Builder(
@@ -184,6 +182,7 @@ private String  mImageFileLocation="";
         return true;
     }
 
+//    in progress finding a way to rotate the image so it previews right
     private void rotateImage(Bitmap bitmap){
         ExifInterface exifInterface = null;
 //        try{

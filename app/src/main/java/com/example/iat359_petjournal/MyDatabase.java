@@ -18,6 +18,7 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
+//    inserts/adds new pet data
     public long insertPetData (String name, String type)
     {
         db = helper.getWritableDatabase();
@@ -30,6 +31,7 @@ public class MyDatabase {
         return id;
     }
 
+//    updates the pet names in db
     public long updatePetNameData (String name, String ids)
     {
         db = helper.getWritableDatabase();
@@ -37,7 +39,6 @@ public class MyDatabase {
         contentValues.put(Constants.NAME, name);
 
         long id = db.update(Constants.TABLE1_NAME, contentValues, "_id=?", new String[]{ids});
-        Log.d("mylog", "" + ids);
         return id;
     }
 
@@ -63,7 +64,7 @@ public class MyDatabase {
         return id;
     }
 
-
+//gets all the data from pet table
     public Cursor getPetData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -83,6 +84,7 @@ public class MyDatabase {
     }
 
 
+//gets the selected pet from the database
     public String getSelectedData(String type)
     {
         //select pet from database of id type
@@ -108,7 +110,7 @@ public class MyDatabase {
 
     public String getSelectedIDData(String name)
     {
-        //select plants from database of type 'herb'
+        //select pet from database of type 'id'
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.NAME, Constants.TYPE};
 
@@ -130,12 +132,6 @@ public class MyDatabase {
         return buffer.toString();
     }
 
-
-
-//    public void updateData(String name, ){
-//        String strSQL = "UPDATE myTable SET Column1 ="+ someValue+ " WHERE columnId = "+ someValue;
-//
-//    }
 
 }
 
