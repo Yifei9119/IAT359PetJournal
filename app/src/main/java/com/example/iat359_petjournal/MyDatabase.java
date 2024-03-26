@@ -74,12 +74,14 @@ public class MyDatabase {
         return cursor;
     }
 
-    public Cursor getTaskData()
+    public Cursor getTaskData(String type)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.PETID, Constants.NAME, Constants.TYPE};
-        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, null, null, null, null, null);
+        String[] columns = {Constants.TASKID, Constants.NAME, Constants.TYPE};
+        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
+
+        Cursor cursor = db.query(Constants.TABLE1_NAME+" inner join "+Constants.TABLE2_NAME+" on PETTABLE._id = SCHEDULETABLE.PetID", columns, selection, null, null, null, null);
         return cursor;
     }
 

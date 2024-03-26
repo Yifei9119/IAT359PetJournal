@@ -283,7 +283,7 @@ public static void setMode(){
 
         switch (text) {
             case "German Shepherd":
-                breedSelected = R.drawable.germansheperdavatar;
+                breedSelected = R.drawable.germanavatar;
                 break;
 
             case "Poodle":
