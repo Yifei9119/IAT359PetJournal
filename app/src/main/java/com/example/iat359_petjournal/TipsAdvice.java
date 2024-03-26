@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class TipsAdvice extends Activity {
-
+    //declaring variables
     private Button button1, button2, button3, button4, button5, button6, button7;
 
     @Override
@@ -16,10 +16,20 @@ public class TipsAdvice extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tips_advice);
 
+        //intializing variables
         button1 = findViewById(R.id.tableBut1);
+        button2 = findViewById(R.id.tableBut2);
+        button3 = findViewById(R.id.tableBut3);
+        button4 = findViewById(R.id.tableBut4);
+        button5 = findViewById(R.id.tableBut5);
+        button6 = findViewById(R.id.tableBut6);
+        button7 = findViewById(R.id.tableBut7);
+
+        //set onClick listeners for all buttons
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //creating an implicit intent for guiding users to an external resource
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse("https://www.preventivevet.com/resources/new-dog-puppy"));
                 startActivity(i);
@@ -53,7 +63,7 @@ public class TipsAdvice extends Activity {
             }
         });
         button5 = findViewById(R.id.tableBut5);
-        button4.setOnClickListener(new View.OnClickListener() {
+        button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_VIEW);

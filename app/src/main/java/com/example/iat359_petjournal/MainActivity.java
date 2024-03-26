@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,8 +89,9 @@ public class MainActivity extends Activity{
 
 // creates new image views for the pet avatars
         createImageViews();
-//        set the dark and light mode using journal button as a placeholder
+// set the dark and light mode using journal button as a placeholder
         setMode();
+        setBackground();
 
         if (container.getChildCount() <= 1) {
             delete.setVisibility(View.GONE);
@@ -245,16 +247,35 @@ public class MainActivity extends Activity{
 // this method is called in the beginning to set up the UI and called in the service for any updates to user preferences.
 public static void setMode(){
         if(sharedPrefs!=null) {
+
             float light_val = sharedPrefs.getFloat("lightSensor", 0);
             float threshold = LightDarkMode.getThreshold();
 
             if (light_val < threshold) {
                 journal.setBackgroundColor(Color.parseColor("#695C54"));
+
             } else {
                 journal.setBackgroundColor(Color.parseColor("#BC7245"));
             }
         }
 }
+
+    public void setBackground(){
+        if(sharedPrefs!=null) {
+            View view = this.getWindow().getDecorView();
+
+
+            float light_val = sharedPrefs.getFloat("lightSensor", 0);
+            float threshold = LightDarkMode.getThreshold();
+
+            if (light_val < threshold) {
+                view.setBackground(Drawable.createFromPath("dark_background"));
+
+            } else {
+                view.setBackground(Drawable.createFromPath("light_background"));
+            }
+        }
+    }
 
 //handles the string to see which dog breed is selected
     private Integer selectedAvatar(String text) {
