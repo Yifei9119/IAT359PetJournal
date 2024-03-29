@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -15,22 +16,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity{
 
 //    declare variables
-    ImageButton addPet;
-    ImageButton tips;
-    ImageButton settings;
+static ImageButton addPet;
+    static ImageButton tips;
+    static ImageButton settings;
     static Button journal;
 
     Button schedule;
 
+    static ConstraintLayout bg;
+
+
     static Boolean start = true;
 
-    EditText petName;
+    static EditText petName;
     ImageView petSelected;
 
     View[] images;
@@ -71,6 +79,8 @@ public class MainActivity extends Activity{
         edit = (Button) findViewById(R.id.editButton);
         delete = (Button) findViewById(R.id.delete);
 
+        bg = (ConstraintLayout) findViewById(R.id.bg);
+
 //show and set non editable text
         petName.setBackgroundResource(android.R.color.transparent);
         makeEditable(false, petName);
@@ -94,7 +104,6 @@ public class MainActivity extends Activity{
         createImageViews();
 // set the dark and light mode using journal button as a placeholder
         setMode();
-        setBackground();
 
         if (container.getChildCount() <= 1) {
             delete.setVisibility(View.GONE);
@@ -212,6 +221,21 @@ public class MainActivity extends Activity{
                     db.deletePet(petName.getTag().toString());
                     container.removeView(img);
 
+//                    get the last child from the container to show as the selected pet avatar
+                    View nextChild = ((ViewGroup) container).getChildAt(container.getChildCount()-1);
+
+                        String selected = db.getSelectedData(String.valueOf(nextChild.getId()));
+                        String[] results = selected.split(",");
+                        String[] results2 = results[1].split("\n");
+
+                        int breedSelected = selectedAvatar(results2[0]);
+                        petSelected.setImageResource(breedSelected);
+
+                        petName.setText(results[0]);
+                        petName.setTag(nextChild.getId());
+
+
+
 //                    delete button is only visible when there is more than 1
                     if (container.getChildCount() <= 1) {
                         delete.setVisibility(View.GONE);
@@ -258,35 +282,25 @@ public class MainActivity extends Activity{
 // this method is called in the beginning to set up the UI and called in the service for any updates to user preferences.
 public static void setMode(){
         if(sharedPrefs!=null) {
-
             float light_val = sharedPrefs.getFloat("lightSensor", 0);
             float threshold = LightDarkMode.getThreshold();
 
             if (light_val < threshold) {
-                journal.setBackgroundColor(Color.parseColor("#695C54"));
+                journal.setBackgroundResource(R.drawable.primary_buttonnight);
+                bg.setBackgroundResource(R.drawable.petbgnight);
+                addPet.setImageResource(R.drawable.addnight);
+                settings.setImageResource(R.drawable.settingnight);
+                tips.setImageResource(R.drawable.tipsnight);
 
             } else {
-                journal.setBackgroundColor(Color.parseColor("#BC7245"));
+                journal.setBackgroundResource(R.drawable.primary_button);
+                bg.setBackgroundResource(R.drawable.petbg);
+                addPet.setImageResource(R.drawable.add);
+                settings.setImageResource(R.drawable.setting);
+                tips.setImageResource(R.drawable.tips);
             }
         }
 }
-
-    public void setBackground(){
-        if(sharedPrefs!=null) {
-            View view = this.getWindow().getDecorView();
-
-
-            float light_val = sharedPrefs.getFloat("lightSensor", 0);
-            float threshold = LightDarkMode.getThreshold();
-
-            if (light_val < threshold) {
-                view.setBackground(Drawable.createFromPath("dark_background"));
-
-            } else {
-                view.setBackground(Drawable.createFromPath("light_background"));
-            }
-        }
-    }
 
 //handles the string to see which dog breed is selected
     private Integer selectedAvatar(String text) {
@@ -387,10 +401,11 @@ public static void setMode(){
          imageView.setId(Integer.valueOf(split[2]));
 
 //            set the view group to match the parent and wrap the content h x w
-         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                 ViewGroup.LayoutParams.MATCH_PARENT,
-                 ViewGroup.LayoutParams.WRAP_CONTENT
+         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                 RelativeLayout.LayoutParams.MATCH_PARENT,
+                 RelativeLayout.LayoutParams.WRAP_CONTENT
          );
+         params.setMargins(0, 0, 0, 30);
 
 //            view group container variable adds a new view based on the newly created imageview and the layout
          container.addView(imageView, params);
@@ -399,7 +414,13 @@ public static void setMode(){
 
 //     if there's over 0 in the database then you show the default selected first pet on the list
      if(cursor.getCount()>0) {
-         String s = mArrayList.get(0);
+         String s = null;
+         if(mArrayList.size()>1) {
+             s = mArrayList.get(mArrayList.size() - 1);
+         }
+         else if (mArrayList.size()==1){
+             s = mArrayList.get(0);
+         }
          String[] split = s.split(",");
          String selected = db.getSelectedData(split[2]);
          String[] results = selected.split(",");

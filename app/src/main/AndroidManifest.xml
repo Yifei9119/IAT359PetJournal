@@ -15,15 +15,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IAT359PetJournal"
+        android:theme="@style/AppTheme.Light"
         tools:targetApi="31">
         <activity
             android:name=".Login"
-            android:exported="false">
+            android:exported="false"
+            >
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            >
         </activity>
         <activity
             android:name=".AddPet"
