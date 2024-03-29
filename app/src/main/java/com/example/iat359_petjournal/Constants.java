@@ -20,5 +20,5 @@ public class Constants {
     public static final String IMAGEID = "_id";
 
 
-    public static final int DATABASE_VERSION = 19;
+    public static final int DATABASE_VERSION = 20;
 }
