@@ -26,6 +26,8 @@ public class MainActivity extends Activity{
     ImageButton settings;
     static Button journal;
 
+    Button schedule;
+
     static Boolean start = true;
 
     EditText petName;
@@ -63,6 +65,7 @@ public class MainActivity extends Activity{
         tips = (ImageButton) findViewById(R.id.tips_advice);
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
+        schedule = (Button) findViewById(R.id.schedule);
         petName = (EditText) findViewById(R.id.petName);
         petSelected = (ImageView) findViewById(R.id.petSelected);
         edit = (Button) findViewById(R.id.editButton);
@@ -134,6 +137,14 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Journal.class);
+                startActivity(intent);
+            }
+        });
+
+        schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Schedule.class);
                 startActivity(intent);
             }
         });

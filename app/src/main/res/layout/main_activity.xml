@@ -144,7 +144,6 @@
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:onClick="gotoschedule"
                 android:padding="20dp"
                 android:text="Schedule"
                 android:textSize="20sp" />
