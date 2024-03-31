@@ -15,12 +15,12 @@ public class Constants {
 
     public static final String TASKID = "_id";
     public static final String TASK = "Task";
-    public static final String START_TIME = "_id";
-    public static final String END_TIME = "_id";
+    public static final String START_TIME = "startTime";
+    public static final String END_TIME = "endTime";
     public static final String DESCRIPTION = "_id";
     public static final String TABLE3_NAME = "PHOTOTABLE";
     public static final String IMAGEID = "_id";
 
 
-    public static final int DATABASE_VERSION = 20;
+    public static final int DATABASE_VERSION = 24;
 }

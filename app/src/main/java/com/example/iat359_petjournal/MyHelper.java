@@ -20,14 +20,20 @@ public class MyHelper extends SQLiteOpenHelper {
             ;
     private static final String CREATE_TABLE2 =
             "CREATE TABLE "+
+
                     Constants.TABLE2_NAME + " (" +
                     Constants.TASKID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.TASK + " TEXT, " +
-                    Constants.START_TIME + " INT, "+
-                    Constants.END_TIME + " INT, "+
-                    "PetID INTEGER," + " FOREIGN KEY (PetID_ref) REFERENCES " + Constants.TABLE1_NAME + "("+Constants.PETID+" )) ";
-
+                    Constants.START_TIME + " INTEGER, "+
+                    Constants.END_TIME + " INTEGER);"
+//                    Constants.TABLE2_NAME + " (" +
+//                    Constants.TASKID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                    Constants.TASK + " TEXT, " +
+//                    Constants.START_TIME + " INTEGER, "+
+//                    Constants.END_TIME + " INTEGER, "+
+//                    "PetID INTEGER," + " FOREIGN KEY (PetID_ref) REFERENCES " + Constants.TABLE1_NAME + "("+Constants.PETID+" )) ";
             ;
+
 
     private static final String DROP_TABLE1 = "DROP TABLE IF EXISTS " + Constants.TABLE1_NAME;
     private static final String DROP_TABLE2 = "DROP TABLE IF EXISTS " + Constants.TABLE2_NAME;

@@ -87,16 +87,27 @@ public class MyDatabase {
         return cursor;
     }
 
-    public Cursor getTaskData(String type)
+    public Cursor getEventData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.TASKID, Constants.NAME, Constants.TYPE};
-        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
-
-        Cursor cursor = db.query(Constants.TABLE1_NAME+" inner join "+Constants.TABLE2_NAME+" on PETTABLE._id = SCHEDULETABLE.PetID", columns, selection, null, null, null, null);
+        String[] columns = {Constants.TASKID, Constants.TASK, Constants.START_TIME, Constants.END_TIME};
+        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, null, null, null, null, Constants.START_TIME);
+        Log.d("mylog", "getEventData: ");
         return cursor;
     }
+
+//    public Cursor getTaskData(String type)
+//    {
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//
+//        String[] columns = {Constants.TASKID, Constants.NAME, Constants.TYPE};
+//        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
+//
+//        Cursor cursor = db.query(Constants.TABLE1_NAME+" inner join "+Constants.TABLE2_NAME+" on PETTABLE._id = SCHEDULETABLE.PetID", columns, selection, null, null, null, null);
+//        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, selection, null, null, null, null);
+//        return cursor;
+//    }
 
 
 //gets the selected pet from the database

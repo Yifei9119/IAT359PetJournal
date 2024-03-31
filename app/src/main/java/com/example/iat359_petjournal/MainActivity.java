@@ -155,7 +155,7 @@ static ImageButton addPet;
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Schedule.class);
                 startActivity(intent);
-                Log.d("mylog", "onClick: ");
+                Log.d("mylog", "onClick: Schedule");
             }
         });
 

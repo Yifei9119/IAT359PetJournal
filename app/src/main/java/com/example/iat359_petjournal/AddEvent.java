@@ -37,8 +37,8 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
             public void onClick(View v) {
                 if(taskName != null && startTime != 0 && endTime != 0) {
                     db.insertEventData(taskName, startTime, endTime);
-                    Log.d("mylog", "inserted data:" + taskName + startTime + endTime);
-                    Intent intent= new Intent(v.getContext(), MainActivity.class);
+//                    Log.d("mylog", "inserted data:" + taskName + startTime + endTime);
+                    Intent intent= new Intent(v.getContext(), Schedule.class);
                     startActivity(intent);
                 }
                 else {
