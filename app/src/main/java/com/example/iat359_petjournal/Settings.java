@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,11 +26,18 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     SeekBar volume;
     int currentVolume;
     TextView volumeTextView;
+    static TextView bgmusicText;
+    static TextView appearanceText;
+    static TextView volumeText;
+
+    static TextView setting;
     AudioManager audio;
     Intent bgMusicPlayer;
     ToggleButton bgMusictoggle;
 
-    SharedPreferences sharedPrefs;
+    static LinearLayout bg;
+
+    static SharedPreferences sharedPrefs;
 
     Button auto, nightmode, lightmode;
 
@@ -35,12 +45,17 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-//      initialize variables
+        //      initialize variables
         Button logout = findViewById(R.id.logout);
         ImageButton backButton = findViewById(R.id.backButton);
         bgMusictoggle = findViewById(R.id.toggleButton);
         volume = (SeekBar) findViewById(R.id.seekBar);
         volumeTextView = (TextView) findViewById(R.id.volume);
+        bgmusicText = (TextView) findViewById(R.id.bgmusic);
+        appearanceText = (TextView) findViewById(R.id.appearance);
+        volumeText = (TextView) findViewById(R.id.volumetext);
+        setting = (TextView) findViewById(R.id.setting);
+
         bgMusicPlayer = new Intent(this, MusicPlayer.class);
 
         auto = (Button) findViewById(R.id.autoButton);
@@ -53,7 +68,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
-
+        bg = (LinearLayout) findViewById(R.id.bg);
 
 //        initialize audio manager and find the audio service
 //        set the max volume the to the music stream and set the seekbar to the max volume
@@ -195,32 +210,63 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 // and set the threshold of the light sensor according to user preferences, the service class would handle the appearance changes
     @Override
     public void onClick(View v) {
-        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         if(v == findViewById(R.id.autoButton)){
             auto.setBackgroundResource(R.drawable.text_image_button_selected);
             lightmode.setBackgroundResource(R.drawable.text_image_button);
             nightmode.setBackgroundResource(R.drawable.text_image_button);
-            LightDarkMode.setLightsensor(6);
-            editor.putString("selected", "auto");
 
         }
         else if(v == findViewById(R.id.LightMode)){
             auto.setBackgroundResource(R.drawable.text_image_button);
             lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
             nightmode.setBackgroundResource(R.drawable.text_image_button);
-            LightDarkMode.setLightsensor(0);
-            editor.putString("selected", "light");
 
         }
         else if(v == findViewById(R.id.DarkMode)){
             auto.setBackgroundResource(R.drawable.text_image_button);
             lightmode.setBackgroundResource(R.drawable.text_image_button);
             nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+        }
+
+    }
+
+    public void saveSettings(View view){
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        if (auto.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())){
+            LightDarkMode.setLightsensor(6);
+            editor.putString("selected", "auto");
+        }
+        else if(lightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())) {
+            LightDarkMode.setLightsensor(0);
+            editor.putString("selected", "light");
+        }
+        else if(nightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())) {
             LightDarkMode.setLightsensor(100);
             editor.putString("selected", "dark");
         }
+        setSettingsMode();
         editor.commit();
+    }
 
+    public static void setSettingsMode(){
+            if(sharedPrefs!=null) {
+                float light_val = sharedPrefs.getFloat("lightSensor", 0);
+                float threshold = LightDarkMode.getThreshold();
+
+                if (light_val < threshold) {
+                    bg.setBackgroundColor(Color.parseColor("#282828"));
+                    bgmusicText.setTextColor(Color.WHITE);
+                    volumeText.setTextColor(Color.WHITE);
+                    appearanceText.setTextColor(Color.WHITE);
+                    setting.setTextColor(Color.WHITE);
+                } else {
+                    bg.setBackgroundColor(Color.WHITE);
+                    bgmusicText.setTextColor(Color.BLACK);
+                    volumeText.setTextColor(Color.BLACK);
+                    appearanceText.setTextColor(Color.BLACK);
+                    setting.setTextColor(Color.BLACK);
+                }
+        }
     }
 }

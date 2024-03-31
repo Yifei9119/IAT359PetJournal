@@ -1,9 +1,12 @@
 package com.example.iat359_petjournal;
 
+import static androidx.core.app.ActivityCompat.recreate;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,6 +18,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class LightDarkMode extends Service implements SensorEventListener {
 //    decalre variables
@@ -25,7 +30,6 @@ public class LightDarkMode extends Service implements SensorEventListener {
     static float threshold = 6;
     boolean paused = false;
     Thread backgroundThread;
-
     public LightDarkMode(){
     }
 
@@ -41,7 +45,7 @@ public class LightDarkMode extends Service implements SensorEventListener {
         lightSensor = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         backgroundThread = new Thread(new Runnable() {
             public void run() {
-                playMusicFromWeb();
+                listenSensor();
             }
         });
         backgroundThread.start();
@@ -61,7 +65,7 @@ public class LightDarkMode extends Service implements SensorEventListener {
     }
 
     //    register listener
-    public void playMusicFromWeb()
+    public void listenSensor()
     {
         try {
             mySensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -91,7 +95,7 @@ public class LightDarkMode extends Service implements SensorEventListener {
             editor.commit();
 
             MainActivity.setMode();
-
+            Settings.setSettingsMode();
 
         }
     }
