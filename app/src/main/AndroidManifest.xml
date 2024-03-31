@@ -54,6 +54,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.iat359_petjournal.Schedule" />
+        <activity android:name="com.example.iat359_petjournal.AddEvent" />
 
         <service
             android:name=".MusicPlayer"

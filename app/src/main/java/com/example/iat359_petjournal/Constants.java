@@ -14,7 +14,9 @@ public class Constants {
     public static final String TYPE = "Type";
 
     public static final String TASKID = "_id";
-    public static final String TIME = "_id";
+    public static final String TASK = "Task";
+    public static final String START_TIME = "_id";
+    public static final String END_TIME = "_id";
     public static final String DESCRIPTION = "_id";
     public static final String TABLE3_NAME = "PHOTOTABLE";
     public static final String IMAGEID = "_id";

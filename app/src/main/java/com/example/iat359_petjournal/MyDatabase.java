@@ -31,6 +31,19 @@ public class MyDatabase {
         return id;
     }
 
+    public long insertEventData (String name, int startTime, int endTime)
+    {
+        db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.TASK, name);
+        contentValues.put(Constants.START_TIME, startTime);
+        contentValues.put(Constants.END_TIME, endTime);
+
+        long id = db.insert(Constants.TABLE2_NAME, null, contentValues);
+        Log.d("mylog", "" + id);
+        return id;
+    }
+
 //    updates the pet names in db
     public long updatePetNameData (String name, String ids)
     {
