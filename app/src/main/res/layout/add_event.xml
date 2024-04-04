@@ -21,33 +21,88 @@
         android:ems="10"
         android:hint="Task"
         android:inputType="text"
-        android:padding="20dp"
+        android:padding="25dp"
         android:text="" />
 
-    <EditText
-        android:id="@+id/startTimeEdit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Start Time"
-        android:inputType="text"
-        android:padding="20dp"
-        android:text="" />
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="10dp">
 
-    <EditText
-        android:id="@+id/endTimeEdit"
+        <TextView
+            android:id="@+id/selectDateText"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Date"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/selectDateButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Date" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="End Time"
-        android:inputType="text"
-        android:padding="20dp"
-        android:text="" />
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/startTimeText"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/startTimeButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/endTimeText"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/endTimeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Time" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="25dp">
 
 
         <Button
