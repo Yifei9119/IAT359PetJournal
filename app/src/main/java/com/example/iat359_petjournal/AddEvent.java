@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class AddEvent extends AppCompatActivity implements TextWatcher {
     private EditText taskEdit, startTimeEdit, endTimeEdit;
-    private int startTime, endTime;
+    private String date, startTime, endTime;
     private String taskName;
     MyDatabase db;
     private Button addEventButton, cancelButton;
@@ -38,7 +38,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event);
-
+        Log.d("mylog", "addevent oncreate");
         initDatePicker();
 
         taskEdit = findViewById(R.id.taskEditText);
@@ -60,26 +60,32 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
             }
         });
 
-
+        endTimeButton = findViewById(R.id.endTimeButton);
+        endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initTimePicker2();
+            }
+        });
 
         addEventButton = findViewById(R.id.addButton);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(taskName != null && startTime != 0 && endTime != 0) {
-                    db.insertEventData(taskName, startTime, endTime);
-//                    Log.d("mylog", "inserted data:" + taskName + startTime + endTime);
+                Log.d("mylog", "inserted data:" + taskName + date + startTime + endTime);
+                if(taskName != null && date != null && startTime != null && endTime != null) {
+                    db.insertEventData(taskName, date, startTime, endTime);
+                    Log.d("mylog", "inserted data:" + taskName + date + startTime + endTime);
                     Intent intent= new Intent(v.getContext(), Schedule.class);
                     startActivity(intent);
                 }
                 else {
 //                    if missing either
-                    Toast.makeText(v.getContext(), "Please enter a task and the start and end time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Please enter a task, date and the start and end time", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
         cancelButton = findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +104,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         int month = calendar.get(Calendar.MONTH);
         month = month + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        date = makeDateString(day, month, year);
         return makeDateString(day, month, year);
     }
     private void initDatePicker(){
@@ -105,8 +112,8 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day){
                 month = month +1;
-                String date = makeDateString(day, month, year);
-                startTimeButton.setText(date);
+                date = makeDateString(day, month, year);
+                selectDateButton.setText(date);
             }
 
         };
@@ -128,6 +135,24 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
                 hour = selectedHour;
                 minute = selectedMinute;
                 startTimeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                startTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+            }
+        };
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true);
+        timePickerDialog.setTitle("selected Time");
+        timePickerDialog.show();
+    }
+
+    private void initTimePicker2(){
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                hour = selectedHour;
+                minute = selectedMinute;
+                endTimeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                endTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
             }
         };
 
@@ -138,24 +163,28 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
     }
 
     private String makeDateString(int day, int month, int year){
-        return getMonthFormat(month) + " " + day + " " + year;
+        String dayString = "";
+        if (day < 10) dayString = "0" + day;
+        else dayString = "" + day;
+        return getMonthFormat(month) + " " + dayString + " " + year;
+
     }
 
     private String getMonthFormat(int month){
-        if (month == 1) return "JAN";
-        if (month == 2) return "FEB";
-        if (month == 3) return "MAR";
-        if (month == 4) return "APR";
-        if (month == 5) return "MAY";
-        if (month == 6) return "JUN";
-        if (month == 7) return "JULY";
-        if (month == 8) return "AUG";
-        if (month == 9) return "SEPT";
-        if (month == 10) return "OCT";
-        if (month == 11) return "NOV";
-        if (month == 12) return "DEC";
+        if (month == 1) return "Jan";
+        if (month == 2) return "Feb";
+        if (month == 3) return "Mar";
+        if (month == 4) return "Apr";
+        if (month == 5) return "May";
+        if (month == 6) return "Jun";
+        if (month == 7) return "Jul";
+        if (month == 8) return "Aug";
+        if (month == 9) return "Sept";
+        if (month == 10) return "Oct";
+        if (month == 11) return "Nov";
+        if (month == 12) return "Dec";
 
-        return "JAN";
+        return "Jan";
 
     }
 

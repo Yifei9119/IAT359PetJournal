@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.sql.Blob;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class MyDatabase {
     private SQLiteDatabase db;
@@ -31,11 +33,12 @@ public class MyDatabase {
         return id;
     }
 
-    public long insertEventData (String name, int startTime, int endTime)
+    public long insertEventData (String name, String date, String startTime, String endTime)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.TASK, name);
+        contentValues.put(Constants.DATE, date);
         contentValues.put(Constants.START_TIME, startTime);
         contentValues.put(Constants.END_TIME, endTime);
 
@@ -68,6 +71,18 @@ public class MyDatabase {
                 "_id=?", new String[]{id});
     }
 
+    public void deleteEvent(String id) {
+
+        // on below line we are creating
+        // a variable to write our database.
+        db = helper.getWritableDatabase();
+
+        // on below line we are calling a method to delete our
+        // pet and we are comparing it with our pet id.
+        db.delete(Constants.TABLE2_NAME, "" +
+                "_id=?", new String[]{id});
+    }
+
 //incomplete
     public long insertPhotoData (Blob image){
         db = helper.getWritableDatabase();
@@ -90,9 +105,13 @@ public class MyDatabase {
     public Cursor getEventData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy");
+        String dateString = dateFormat.format(currentDate);
+        Log.d("mylog", "hii" + dateString);
 
-        String[] columns = {Constants.TASKID, Constants.TASK, Constants.START_TIME, Constants.END_TIME};
-        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, null, null, null, null, Constants.START_TIME);
+        String[] columns = {Constants.TASKID, Constants.TASK, Constants.DATE, Constants.START_TIME, Constants.END_TIME};
+        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, "Date = ?", new String[]{dateString}, null, null, Constants.START_TIME);
         Log.d("mylog", "getEventData: ");
         return cursor;
     }

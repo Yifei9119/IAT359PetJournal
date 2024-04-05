@@ -15,6 +15,7 @@ public class Constants {
 
     public static final String TASKID = "_id";
     public static final String TASK = "Task";
+    public static final String DATE = "Date";
     public static final String START_TIME = "startTime";
     public static final String END_TIME = "endTime";
     public static final String DESCRIPTION = "_id";

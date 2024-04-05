@@ -34,6 +34,7 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
         int index1 = cursor.getColumnIndex(Constants.TASK);
         int index2 = cursor.getColumnIndex(Constants.START_TIME);
         int index3 = cursor.getColumnIndex(Constants.END_TIME);
+        int index0 = cursor.getColumnIndex(Constants.TASKID);
 
         ArrayList<String> mArrayList = new ArrayList<String>();
         cursor.moveToFirst();
@@ -41,7 +42,8 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
             String task = cursor.getString(index1);
             String startTime = cursor.getString(index2);
             String endTime = cursor.getString(index3);
-            String s = task +"," + startTime +"," +endTime;
+            String taskId = cursor.getString(index0);
+            String s = taskId + "," + task +"," + startTime +"," +endTime;
             mArrayList.add(s);
             cursor.moveToNext();
         }

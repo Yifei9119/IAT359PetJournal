@@ -24,8 +24,9 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.TABLE2_NAME + " (" +
                     Constants.TASKID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.TASK + " TEXT, " +
-                    Constants.START_TIME + " INTEGER, "+
-                    Constants.END_TIME + " INTEGER);"
+                    Constants.DATE + " TEXT, " +
+                    Constants.START_TIME + " TEXT, "+
+                    Constants.END_TIME + " TEXT);"
 //                    Constants.TABLE2_NAME + " (" +
 //                    Constants.TASKID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 //                    Constants.TASK + " TEXT, " +
