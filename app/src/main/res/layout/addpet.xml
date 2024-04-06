@@ -186,16 +186,35 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addPetButton"
-            android:layout_width="350dp"
+         <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/primary_button"
+            android:layout_marginLeft="30dp">
 
-            android:text="Add Pet"
-            android:textColor="#FFFFFF"/>
+             <Button
+                 android:id="@+id/cancelButton"
+                 android:layout_width="170dp"
+                 android:layout_height="wrap_content"
+
+                 android:background="@drawable/primary_button"
+
+                 android:text="Cancel"
+                 android:textColor="#FFFFFF"/>
+
+             <Button
+                 android:id="@+id/addPetButton"
+                 android:layout_width="170dp"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_marginLeft="10dp"
+                 android:background="@drawable/primary_button"
+
+                 android:text="Add Pet"
+                 android:textColor="#FFFFFF"/>
+
+         </LinearLayout>
 
     </LinearLayout>
 

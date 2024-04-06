@@ -20,7 +20,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 //  initialize variables
     private EditText dogNameEditText;
     private EditText yearEditText, monthEditText, dayEditText;
-    private Button addPetButton;
+    private Button addPetButton, cancelButton;
 
     private String dogBreed;
     MyDatabase db;
@@ -37,6 +37,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         monthEditText = findViewById(R.id.monthEditText);
         dayEditText = findViewById(R.id.dayEditText);
         addPetButton = findViewById(R.id.addPetButton);
+        cancelButton = findViewById(R.id.cancelButton);
 
 //        after clicking on add pet retrieve the name of the dog and dog breed and insert to db
         addPetButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,17 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+
 //        dropdown button for breed selection
         Spinner dropdown = findViewById(R.id.spinner);
         String[] items = new String[]{"German Shepherd", "Golden Retriever", "Poodle"};
