@@ -20,7 +20,7 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
     private CustomAdapter customAdapter;
     private MyHelper helper;
     private LinearLayoutManager mLayoutManager;
-    private Button addButton;
+    private Button addButton, returnButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule);
@@ -60,6 +60,15 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddEvent.class);
+                startActivity(intent);
+            }
+        });
+
+        returnButton = findViewById(R.id.returnButton);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

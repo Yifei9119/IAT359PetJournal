@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -55,6 +56,8 @@ static ImageButton addPet;
     static SharedPreferences sharedPrefs;
     Intent bgmusicPlayer;
     ViewGroup container;
+
+    TextView upcomingTaskTime, upcomingTask;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,6 +210,7 @@ static ImageButton addPet;
                     }
                 }
             });
+
 
         }
 
@@ -366,7 +370,33 @@ public static void setMode(){
         }
     }
 
-//    creates new image views based on all the pet data
+    private void setUpcomingSchedule(){
+        Cursor cursor = db.getEventData();
+
+        int index1 = cursor.getColumnIndex(Constants.TASK);
+        int index2 = cursor.getColumnIndex(Constants.START_TIME);
+        int index3 = cursor.getColumnIndex(Constants.END_TIME);
+
+        while (!cursor.isAfterLast()) {
+            String startTime = cursor.getString(index2);
+            String endTime = cursor.getString(index3);
+            String s = startTime +"- " +endTime;
+            upcomingTaskTime.setText(s);
+            cursor.moveToNext();
+        }
+
+        while (!cursor.isAfterLast()) {
+            String task = cursor.getString(index1);
+            String startTime = cursor.getString(index2);
+            String endTime = cursor.getString(index3);
+            String s = task +"," + startTime +"," +endTime;
+            cursor.moveToNext();
+        }
+
+    }
+
+
+    //    creates new image views based on all the pet data
  protected void createImageViews(){
 
 //        get all the data from the pet table
@@ -441,4 +471,6 @@ public static void setMode(){
         start = edit;
  }
 
+
 }
+

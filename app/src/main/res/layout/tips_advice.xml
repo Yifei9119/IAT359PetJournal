@@ -4,41 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="30dp">
+    android:orientation="vertical">
 
 
     <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:gravity="center"
+        android:background="#F7F2EE"
+
+
         android:text="Resources"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_weight="1"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textColor="#BC7245"
+        android:textStyle="bold"/>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_weight="7">
+        android:layout_height="500dp"
+        android:padding="30dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
 
             <TextView
                 android:id="@+id/tableText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Potty Training"
-                android:paddingRight="150dp"/>
+                android:paddingRight="150dp"
+
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -51,12 +59,15 @@
                 android:id="@+id/tableText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Crate Training" />
+                android:text="Crate Training"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -69,12 +80,15 @@
                 android:id="@+id/tableText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Training" />
+                android:text="Training"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -87,12 +101,15 @@
                 android:id="@+id/tableText4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Training Supplies" />
+                android:text="Training Supplies"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -105,12 +122,15 @@
                 android:id="@+id/tableText5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Socialization" />
+                android:text="Socialization"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -123,12 +143,15 @@
                 android:id="@+id/tableText6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Health and Safety" />
+                android:text="Health and Safety"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
 
@@ -141,15 +164,30 @@
                 android:id="@+id/tableText7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grooming" />
+                android:text="Grooming"
+                android:textSize="18dp"/>
 
             <Button
                 android:id="@+id/tableBut7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:textColor="#FFFFFF"
                 android:text="View" />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+
+        android:background="@drawable/primary_button"
+
+        android:text="Cancel"
+        android:textColor="#FFFFFF"/>
 
 
 </LinearLayout>

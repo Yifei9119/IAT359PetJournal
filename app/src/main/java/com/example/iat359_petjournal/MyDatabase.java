@@ -102,13 +102,13 @@ public class MyDatabase {
         return cursor;
     }
 
+    //gets all the data from task table for schedule
     public Cursor getEventData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy");
         String dateString = dateFormat.format(currentDate);
-        Log.d("mylog", "hii" + dateString);
 
         String[] columns = {Constants.TASKID, Constants.TASK, Constants.DATE, Constants.START_TIME, Constants.END_TIME};
         Cursor cursor = db.query(Constants.TABLE2_NAME, columns, "Date = ?", new String[]{dateString}, null, null, Constants.START_TIME);
