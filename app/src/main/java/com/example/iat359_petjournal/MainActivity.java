@@ -292,14 +292,14 @@ public static void setMode(){
 
             if (light_val < threshold) {
                 journal.setBackgroundResource(R.drawable.primary_buttonnight);
-                bg.setBackgroundResource(R.drawable.petbgnight);
+                bg.setBackgroundResource(R.drawable.background_dark);
                 addPet.setImageResource(R.drawable.addnight);
                 settings.setImageResource(R.drawable.settingnight);
                 tips.setImageResource(R.drawable.tipsnight);
 
             } else {
                 journal.setBackgroundResource(R.drawable.primary_button);
-                bg.setBackgroundResource(R.drawable.petbg);
+                bg.setBackgroundResource(R.drawable.background_light);
                 addPet.setImageResource(R.drawable.add);
                 settings.setImageResource(R.drawable.setting);
                 tips.setImageResource(R.drawable.tips);

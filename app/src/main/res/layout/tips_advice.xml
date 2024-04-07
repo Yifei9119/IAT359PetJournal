@@ -36,15 +36,16 @@
                 android:id="@+id/tableText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Potty Training"
-                android:paddingRight="150dp"
+                android:layout_weight="4"
 
+                android:text="Potty Training"
                 android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -59,6 +60,7 @@
                 android:id="@+id/tableText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Crate Training"
                 android:textSize="18dp"/>
 
@@ -66,6 +68,7 @@
                 android:id="@+id/tableBut2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -80,6 +83,7 @@
                 android:id="@+id/tableText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Training"
                 android:textSize="18dp"/>
 
@@ -87,6 +91,7 @@
                 android:id="@+id/tableBut3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -101,6 +106,7 @@
                 android:id="@+id/tableText4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Training Supplies"
                 android:textSize="18dp"/>
 
@@ -108,6 +114,7 @@
                 android:id="@+id/tableBut4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -122,6 +129,7 @@
                 android:id="@+id/tableText5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Socialization"
                 android:textSize="18dp"/>
 
@@ -129,6 +137,7 @@
                 android:id="@+id/tableBut5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -143,6 +152,7 @@
                 android:id="@+id/tableText6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Health and Safety"
                 android:textSize="18dp"/>
 
@@ -150,6 +160,7 @@
                 android:id="@+id/tableBut6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -164,6 +175,7 @@
                 android:id="@+id/tableText7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:text="Grooming"
                 android:textSize="18dp"/>
 
@@ -171,6 +183,7 @@
                 android:id="@+id/tableBut7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/primary_button"
                 android:textColor="#FFFFFF"
                 android:text="View" />
@@ -178,7 +191,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/returnButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
@@ -186,7 +199,7 @@
 
         android:background="@drawable/primary_button"
 
-        android:text="Cancel"
+        android:text="Return Home"
         android:textColor="#FFFFFF"/>
 
 

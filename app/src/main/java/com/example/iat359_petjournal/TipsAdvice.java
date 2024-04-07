@@ -10,6 +10,7 @@ import android.widget.Button;
 public class TipsAdvice extends Activity {
     //declaring variables
     private Button button1, button2, button3, button4, button5, button6, button7;
+    private Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class TipsAdvice extends Activity {
         button5 = findViewById(R.id.tableBut5);
         button6 = findViewById(R.id.tableBut6);
         button7 = findViewById(R.id.tableBut7);
+
+        returnButton = findViewById(R.id.returnButton);
 
         //set onClick listeners for all buttons
         button1.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +90,14 @@ public class TipsAdvice extends Activity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse("https://www.preventivevet.com/resources/new-dog-puppy"));
                 startActivity(i);
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
