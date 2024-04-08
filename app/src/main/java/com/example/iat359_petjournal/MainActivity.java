@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,8 +28,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity{
 
-//    declare variables
-static ImageButton addPet;
+    //    declare variables
+    static ImageButton addPet;
     static ImageButton tips;
     static ImageButton settings;
     static Button journal;
@@ -56,6 +58,10 @@ static ImageButton addPet;
     static SharedPreferences sharedPrefs;
     Intent bgmusicPlayer;
     ViewGroup container;
+    Date currentDate;
+
+    String currentTime;
+
 
     TextView upcomingTaskTime, upcomingTask;
 
@@ -70,6 +76,13 @@ static ImageButton addPet;
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
+        currentDate = Calendar.getInstance().getTime();
+        String currentTimeString = currentDate.toString();
+        String[] results = currentTimeString.split(" ");
+        String[] timeResults = results[3].split(":");
+        Log.d("mylog", "time" + timeResults[0] + ":" + timeResults[1]);
+        currentTime = timeResults[0] + ":" + timeResults[1];
+
 
         // initialize variables
         addPet = (ImageButton) findViewById(R.id.add_pet);
@@ -81,6 +94,8 @@ static ImageButton addPet;
         petSelected = (ImageView) findViewById(R.id.petSelected);
         edit = (Button) findViewById(R.id.editButton);
         delete = (Button) findViewById(R.id.delete);
+        upcomingTask = findViewById(R.id.recentTask);
+        upcomingTaskTime = findViewById(R.id.recentTaskTime);
 
         bg = (ConstraintLayout) findViewById(R.id.bg);
 
@@ -157,8 +172,9 @@ static ImageButton addPet;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Schedule.class);
+                intent.putExtra("petName", petName.getText().toString());
                 startActivity(intent);
-                Log.d("mylog", "onClick: Schedule");
+                Log.d("mylog", "onClick: Schedule" + petName.getText());
             }
         });
 
@@ -217,63 +233,64 @@ static ImageButton addPet;
 
 //delete button deletes the pet in db based on the selected pet
 //the avatar on the left is also removed
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    ImageView img = findViewById(Integer.valueOf(petName.getTag().toString()));
+                ImageView img = findViewById(Integer.valueOf(petName.getTag().toString()));
 
-                    db.deletePet(petName.getTag().toString());
-                    container.removeView(img);
+                db.deletePet(petName.getTag().toString());
+                container.removeView(img);
 
 //                    get the last child from the container to show as the selected pet avatar
-                    View nextChild = ((ViewGroup) container).getChildAt(container.getChildCount()-1);
+                View nextChild = ((ViewGroup) container).getChildAt(container.getChildCount()-1);
 
-                        String selected = db.getSelectedData(String.valueOf(nextChild.getId()));
-                        String[] results = selected.split(",");
-                        String[] results2 = results[1].split("\n");
+                String selected = db.getSelectedData(String.valueOf(nextChild.getId()));
+                String[] results = selected.split(",");
+                String[] results2 = results[1].split("\n");
 
-                        int breedSelected = selectedAvatar(results2[0]);
-                        petSelected.setImageResource(breedSelected);
+                int breedSelected = selectedAvatar(results2[0]);
+                petSelected.setImageResource(breedSelected);
 
-                        petName.setText(results[0]);
-                        petName.setTag(nextChild.getId());
+                petName.setText(results[0]);
+                petName.setTag(nextChild.getId());
 
 
 
 //                    delete button is only visible when there is more than 1
-                    if (container.getChildCount() <= 1) {
-                        delete.setVisibility(View.GONE);
-                    } else {
-                        delete.setVisibility(View.VISIBLE);
-                    }
-
+                if (container.getChildCount() <= 1) {
+                    delete.setVisibility(View.GONE);
+                } else {
+                    delete.setVisibility(View.VISIBLE);
                 }
-            });
+
+            }
+        });
 
         //edit button after click make edittext clickable for user to edit the text
         //update the text based on user input
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getId() == R.id.editButton) {
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.editButton) {
 //                        change save to edit button and change the editability of pet name to true
-                        makeEditable(true, petName);
-                        edit.setId(R.id.saveButton);
-                        edit.setText("Save");
-                    } else if (v.getId() == R.id.saveButton) {
+                    makeEditable(true, petName);
+                    edit.setId(R.id.saveButton);
+                    edit.setText("Save");
+                } else if (v.getId() == R.id.saveButton) {
 //                        change edit to save button and change the petname non editable
-                        makeEditable(false, petName);
-                        edit.setId(R.id.editButton);
-                        edit.setText("Edit");
+                    makeEditable(false, petName);
+                    edit.setId(R.id.editButton);
+                    edit.setText("Edit");
 
 //                        update database
-                        db.updatePetNameData(petName.getText().toString(), petName.getTag().toString());
+                    db.updatePetNameData(petName.getText().toString(), petName.getTag().toString());
 
-                    }
                 }
-            });
+            }
+        });
 
+        setUpcomingSchedule();
 
     }
 
@@ -283,9 +300,9 @@ static ImageButton addPet;
         stopService(intent);
     }
 
-// sets the dark, light, or auto mode based on user preferences
+    // sets the dark, light, or auto mode based on user preferences
 // this method is called in the beginning to set up the UI and called in the service for any updates to user preferences.
-public static void setMode(){
+    public static void setMode(){
         if(sharedPrefs!=null) {
             float light_val = sharedPrefs.getFloat("lightSensor", 0);
             float threshold = LightDarkMode.getThreshold();
@@ -305,9 +322,9 @@ public static void setMode(){
                 tips.setImageResource(R.drawable.tips);
             }
         }
-}
+    }
 
-//handles the string to see which dog breed is selected
+    //handles the string to see which dog breed is selected
     private Integer selectedAvatar(String text) {
 
         switch (text) {
@@ -329,7 +346,7 @@ public static void setMode(){
         return breedSelected;
     }
 
-//    avatars for users to click on
+    //    avatars for users to click on
     private Integer createAvatars(String text) {
 
         switch (text) {
@@ -350,7 +367,7 @@ public static void setMode(){
     }
 
 
-//function to determine whether the edit text for the dog name is editable
+    //function to determine whether the edit text for the dog name is editable
     private void makeEditable(boolean isEditable, EditText et){
         if(isEditable){
             et.setFocusable(true);
@@ -371,106 +388,113 @@ public static void setMode(){
     }
 
     private void setUpcomingSchedule(){
-        Cursor cursor = db.getEventData();
+
+        Cursor cursor = db.getEventData(petName.getText().toString());
 
         int index1 = cursor.getColumnIndex(Constants.TASK);
         int index2 = cursor.getColumnIndex(Constants.START_TIME);
         int index3 = cursor.getColumnIndex(Constants.END_TIME);
 
+        currentDate = Calendar.getInstance().getTime();
+
+        String currentTimeString = currentDate.toString();
+        String[] results = currentTimeString.split(" ");
+        String[] timeResults = results[3].split(":");
+
+        cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String startTime = cursor.getString(index2);
             String endTime = cursor.getString(index3);
-            String s = startTime +"- " +endTime;
-            upcomingTaskTime.setText(s);
+            String s = startTime +" - " +endTime;
+            String task = cursor.getString(index1);
+            if ((timeResults[0]+ ":" + timeResults[1]).compareTo(startTime) < 0){
+                upcomingTaskTime.setText(s);
+                upcomingTask.setText(task);
+                break;
+            }
             cursor.moveToNext();
+            Log.d("mylog", "setUpcomingSchedule333: ");
+
         }
 
-        while (!cursor.isAfterLast()) {
-            String task = cursor.getString(index1);
-            String startTime = cursor.getString(index2);
-            String endTime = cursor.getString(index3);
-            String s = task +"," + startTime +"," +endTime;
-            cursor.moveToNext();
-        }
 
     }
 
 
     //    creates new image views based on all the pet data
- protected void createImageViews(){
+    protected void createImageViews(){
 
 //        get all the data from the pet table
-     Cursor cursor = db.getPetData();
+        Cursor cursor = db.getPetData();
 
-     int index1 = cursor.getColumnIndex(Constants.NAME);
-     int index2 = cursor.getColumnIndex(Constants.TYPE);
-     int index3 = cursor.getColumnIndex(Constants.PETID);
+        int index1 = cursor.getColumnIndex(Constants.NAME);
+        int index2 = cursor.getColumnIndex(Constants.TYPE);
+        int index3 = cursor.getColumnIndex(Constants.PETID);
 
-     ArrayList<String> mArrayList = new ArrayList<String>();
-     cursor.moveToFirst();
+        ArrayList<String> mArrayList = new ArrayList<String>();
+        cursor.moveToFirst();
 
 //        get each of the pet name and pet breed and store in an arraylist
-     while (!cursor.isAfterLast()) {
-         String petName = cursor.getString(index1);
-         String petType = cursor.getString(index2);
-         String petID = cursor.getString(index3);
-         String s = petName +"," + petType +","+petID;
+        while (!cursor.isAfterLast()) {
+            String petName = cursor.getString(index1);
+            String petType = cursor.getString(index2);
+            String petID = cursor.getString(index3);
+            String s = petName +"," + petType +","+petID;
 
-         mArrayList.add(s);
-         cursor.moveToNext();
-     }
+            mArrayList.add(s);
+            cursor.moveToNext();
+        }
 
 //for loop to set each of the imageviews avatars based on the dog breed
-     for (int i = 0; i < mArrayList.size(); i++) {
-         String s = mArrayList.get(i);
-         String[] split = s.split(",");
-         String petBreed = split[1];
-         int breedSelected = createAvatars(petBreed);
-         ImageView imageView = new ImageView(this);
-         imageView.setImageResource(breedSelected);
+        for (int i = 0; i < mArrayList.size(); i++) {
+            String s = mArrayList.get(i);
+            String[] split = s.split(",");
+            String petBreed = split[1];
+            int breedSelected = createAvatars(petBreed);
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(breedSelected);
 
-         imageView.setId(Integer.valueOf(split[2]));
+            imageView.setId(Integer.valueOf(split[2]));
 
 //            set the view group to match the parent and wrap the content h x w
-         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                 RelativeLayout.LayoutParams.MATCH_PARENT,
-                 RelativeLayout.LayoutParams.WRAP_CONTENT
-         );
-         params.setMargins(0, 0, 0, 30);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(0, 0, 0, 30);
 
 //            view group container variable adds a new view based on the newly created imageview and the layout
-         container.addView(imageView, params);
+            container.addView(imageView, params);
 
-     }
+        }
 
 //     if there's over 0 in the database then you show the default selected first pet on the list
-     if(cursor.getCount()>0) {
-         String s = null;
-         if(mArrayList.size()>1) {
-             s = mArrayList.get(mArrayList.size() - 1);
-         }
-         else if (mArrayList.size()==1){
-             s = mArrayList.get(0);
-         }
-         String[] split = s.split(",");
-         String selected = db.getSelectedData(split[2]);
-         String[] results = selected.split(",");
-         String[] results2 = results[1].split("\n");
+        if(cursor.getCount()>0) {
+            String s = null;
+            if(mArrayList.size()>1) {
+                s = mArrayList.get(mArrayList.size() - 1);
+            }
+            else if (mArrayList.size()==1){
+                s = mArrayList.get(0);
+            }
+            String[] split = s.split(",");
+            String selected = db.getSelectedData(split[2]);
+            String[] results = selected.split(",");
+            String[] results2 = results[1].split("\n");
 
-         int breedSelected = selectedAvatar(results2[0]);
-         petSelected.setImageResource(breedSelected);
+            int breedSelected = selectedAvatar(results2[0]);
+            petSelected.setImageResource(breedSelected);
 
-         petName.setText(results[0]);
-         petName.setTag(Integer.parseInt(split[2]));
-     }
+            petName.setText(results[0]);
+            petName.setTag(Integer.parseInt(split[2]));
+        }
 
- }
+    }
 
-// sets the boolean of start
- public static void setStart(Boolean edit){
+    // sets the boolean of start
+    public static void setStart(Boolean edit){
         start = edit;
- }
+    }
 
 
 }
-

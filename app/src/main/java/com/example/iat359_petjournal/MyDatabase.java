@@ -33,7 +33,7 @@ public class MyDatabase {
         return id;
     }
 
-    public long insertEventData (String name, String date, String startTime, String endTime)
+    public long insertEventData (String name, String date, String startTime, String endTime, String petName)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -41,6 +41,7 @@ public class MyDatabase {
         contentValues.put(Constants.DATE, date);
         contentValues.put(Constants.START_TIME, startTime);
         contentValues.put(Constants.END_TIME, endTime);
+        contentValues.put(Constants.PET_NAME, petName);
 
         long id = db.insert(Constants.TABLE2_NAME, null, contentValues);
         Log.d("mylog", "" + id);
@@ -103,18 +104,20 @@ public class MyDatabase {
     }
 
     //gets all the data from task table for schedule
-    public Cursor getEventData()
+    public Cursor getEventData(String petName)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy");
         String dateString = dateFormat.format(currentDate);
+        String selection = Constants.PET_NAME + "='" + petName + "'";
 
-        String[] columns = {Constants.TASKID, Constants.TASK, Constants.DATE, Constants.START_TIME, Constants.END_TIME};
-        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, "Date = ?", new String[]{dateString}, null, null, Constants.START_TIME);
+        String[] columns = {Constants.TASKID, Constants.TASK, Constants.DATE, Constants.START_TIME, Constants.END_TIME, Constants.PET_NAME};
+        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, selection + " AND Date = ?" , new String[]{dateString}, null, null, Constants.START_TIME);
         Log.d("mylog", "getEventData: ");
         return cursor;
     }
+
 
 //    public Cursor getTaskData(String type)
 //    {

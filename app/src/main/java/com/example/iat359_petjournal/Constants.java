@@ -18,10 +18,11 @@ public class Constants {
     public static final String DATE = "Date";
     public static final String START_TIME = "startTime";
     public static final String END_TIME = "endTime";
+    public static final String PET_NAME = "petName";
     public static final String DESCRIPTION = "_id";
     public static final String TABLE3_NAME = "PHOTOTABLE";
     public static final String IMAGEID = "_id";
 
 
-    public static final int DATABASE_VERSION = 24;
+    public static final int DATABASE_VERSION = 25;
 }

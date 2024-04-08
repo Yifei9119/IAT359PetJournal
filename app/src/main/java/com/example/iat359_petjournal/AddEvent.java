@@ -79,10 +79,13 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String petName = getIntent().getStringExtra("petName");
+                Log.d("myeventlog", "" + petName);
                 //if the task name, date, start and end time isn't null, save data to SQLite
                 if(taskName != null && date != null && startTime != null && endTime != null) {
-                    db.insertEventData(taskName, date, startTime, endTime);
+                    db.insertEventData(taskName, date, startTime, endTime, petName);
                     Intent intent= new Intent(v.getContext(), Schedule.class);
+                    intent.putExtra("petName", petName);
                     startActivity(intent);
                 }
                 else {
