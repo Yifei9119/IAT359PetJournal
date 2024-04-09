@@ -229,6 +229,9 @@ public class MainActivity extends Activity{
                         petSelected.setImageResource(breedSelected);
                         petGender.setImageResource(genderSelected);
 
+                        Log.d("mylog", "switch avatar" + petName.getText());
+                        setUpcomingSchedule(petName);
+
                     }
                 }
             });
@@ -296,7 +299,7 @@ public class MainActivity extends Activity{
             }
         });
 
-        setUpcomingSchedule();
+        setUpcomingSchedule(petName);
 
     }
 
@@ -407,34 +410,40 @@ public class MainActivity extends Activity{
         }
     }
 
-    private void setUpcomingSchedule(){
+    private void setUpcomingSchedule(EditText name){
 
-        Cursor cursor = db.getEventData(petName.getText().toString());
+        Cursor cursor = db.getEventData(name.getText().toString());
+        Log.d("mylog", "upcoming schedule" + name.getText());
 
-        int index1 = cursor.getColumnIndex(Constants.TASK);
-        int index2 = cursor.getColumnIndex(Constants.START_TIME);
-        int index3 = cursor.getColumnIndex(Constants.END_TIME);
+        if (cursor.getCount() > 0) {
+            int index1 = cursor.getColumnIndex(Constants.TASK);
+            int index2 = cursor.getColumnIndex(Constants.START_TIME);
+            int index3 = cursor.getColumnIndex(Constants.END_TIME);
 
-        currentDate = Calendar.getInstance().getTime();
+            currentDate = Calendar.getInstance().getTime();
 
-        String currentTimeString = currentDate.toString();
-        String[] results = currentTimeString.split(" ");
-        String[] timeResults = results[3].split(":");
+            String currentTimeString = currentDate.toString();
+            String[] results = currentTimeString.split(" ");
+            String[] timeResults = results[3].split(":");
 
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String startTime = cursor.getString(index2);
-            String endTime = cursor.getString(index3);
-            String s = startTime +" - " +endTime;
-            String task = cursor.getString(index1);
-            if ((timeResults[0]+ ":" + timeResults[1]).compareTo(startTime) < 0){
-                upcomingTaskTime.setText(s);
-                upcomingTask.setText(task);
-                break;
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String startTime = cursor.getString(index2);
+                String endTime = cursor.getString(index3);
+                String s = startTime + " - " + endTime;
+                String task = cursor.getString(index1);
+                if ((timeResults[0] + ":" + timeResults[1]).compareTo(startTime) < 0) {
+                    upcomingTaskTime.setText(s);
+                    upcomingTask.setText(task);
+                    break;
+                }
+                cursor.moveToNext();
+
             }
-            cursor.moveToNext();
-            Log.d("mylog", "setUpcomingSchedule333: ");
 
+        }else{
+            upcomingTaskTime.setText("No Upcoming Task");
+            upcomingTask.setText("");
         }
 
 
