@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,21 +21,33 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
     private CustomAdapter customAdapter;
     private MyHelper helper;
     private LinearLayoutManager mLayoutManager;
-    private Button addButton;
+    private Button addButton, returnButton;
+    private TextView title;
+    private String petName;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule);
         myRecycler = findViewById(R.id.scheduleRecycler);
+        title = findViewById(R.id.titleText);
 
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
-        Cursor cursor = db.getEventData();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            petName = bundle.getString("petName");
+            Log.d("mylog", "Schedule " + petName);
+        }
 
+        title.setText(petName + "'s Schedule");
+
+        Cursor cursor = db.getEventData(petName);
+
+        int index0 = cursor.getColumnIndex(Constants.TASKID);
         int index1 = cursor.getColumnIndex(Constants.TASK);
         int index2 = cursor.getColumnIndex(Constants.START_TIME);
         int index3 = cursor.getColumnIndex(Constants.END_TIME);
-        int index0 = cursor.getColumnIndex(Constants.TASKID);
+
 
         ArrayList<String> mArrayList = new ArrayList<String>();
         cursor.moveToFirst();
@@ -60,6 +73,16 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddEvent.class);
+                intent.putExtra("petName", petName);
+                startActivity(intent);
+            }
+        });
+
+        returnButton = findViewById(R.id.returnButton);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

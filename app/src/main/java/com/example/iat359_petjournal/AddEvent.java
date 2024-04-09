@@ -24,7 +24,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AddEvent extends AppCompatActivity implements TextWatcher {
-    private EditText taskEdit, startTimeEdit, endTimeEdit;
+    //declear variables
+    private EditText taskEdit;
     private String date, startTime, endTime;
     private String taskName;
     MyDatabase db;
@@ -38,14 +39,17 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event);
-        Log.d("mylog", "addevent oncreate");
+        //call date picker function
         initDatePicker();
 
+        //defining variables
         taskEdit = findViewById(R.id.taskEditText);
         taskEdit.addTextChangedListener(this);
         selectDateButton = findViewById(R.id.selectDateButton);
         selectDateButton.setText(getTodaysDate());
+        //set onclick listener to buttons
         selectDateButton.setOnClickListener(new View.OnClickListener() {
+            //show datepicker pop up when clicked
             @Override
             public void onClick(View v) {
                 datePickerDialog.show();
@@ -54,6 +58,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
         startTimeButton = findViewById(R.id.startTimeButton);
         startTimeButton.setOnClickListener(new View.OnClickListener() {
+            //initiate start time picker when clicked
             @Override
             public void onClick(View v) {
                 initTimePicker();
@@ -62,6 +67,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
         endTimeButton = findViewById(R.id.endTimeButton);
         endTimeButton.setOnClickListener(new View.OnClickListener() {
+            //initiate end time picker when clicked
             @Override
             public void onClick(View v) {
                 initTimePicker2();
@@ -69,25 +75,30 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         });
 
         addEventButton = findViewById(R.id.addButton);
+        //set onclick listener for addevent button
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("mylog", "inserted data:" + taskName + date + startTime + endTime);
+                String petName = getIntent().getStringExtra("petName");
+                Log.d("myeventlog", "" + petName);
+                //if the task name, date, start and end time isn't null, save data to SQLite
                 if(taskName != null && date != null && startTime != null && endTime != null) {
-                    db.insertEventData(taskName, date, startTime, endTime);
-                    Log.d("mylog", "inserted data:" + taskName + date + startTime + endTime);
+                    db.insertEventData(taskName, date, startTime, endTime, petName);
                     Intent intent= new Intent(v.getContext(), Schedule.class);
+                    intent.putExtra("petName", petName);
                     startActivity(intent);
                 }
                 else {
-//                    if missing either
+//                    if information missing, display toast message to inform user
                     Toast.makeText(v.getContext(), "Please enter a task, date and the start and end time", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
         cancelButton = findViewById(R.id.cancelButton);
+        //set onclick listener for cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            //if cancel button pressed, go back to home page
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(v.getContext(), Schedule.class);
@@ -98,6 +109,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
     }
 
+    //function to obtain today's date
     private String getTodaysDate(){
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -107,6 +119,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         date = makeDateString(day, month, year);
         return makeDateString(day, month, year);
     }
+
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener(){
             @Override
