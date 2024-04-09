@@ -32,7 +32,7 @@
                 android:background="#00FFFFFF"
                 android:contentDescription="back button"
                 android:onClick="gotoHomePage"
-                android:src="@drawable/back_button" />
+                android:src="@drawable/backbutton" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

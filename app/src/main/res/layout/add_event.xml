@@ -5,32 +5,58 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/addEventTitleText"
+        android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="25dp"
         android:gravity="center"
-        android:padding="25dp"
+        android:background="#F7F2EE"
+
+
         android:text="Add Event"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textColor="#BC7245"
+        android:textStyle="bold"/>
 
-
-    <EditText
-        android:id="@+id/taskEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Task"
-        android:inputType="text"
-        android:padding="25dp"
-        android:text="" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:paddingTop="10dp">
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/taskNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="30dp"
+
+            android:text="Task"
+            android:textSize="18dp"
+            android:textColor="#BC7245"/>
+
+        <EditText
+            android:id="@+id/taskEditText"
+            android:background="@drawable/primary_textviews"
+            android:layout_width="185dp"
+            android:layout_height="50dp"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:ems="10"
+            android:hint="Enter Task"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/selectDateText"
@@ -38,14 +64,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Select Date"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:textColor="#BC7245"/>
 
         <Button
             android:id="@+id/selectDateButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/primary_button"
             android:layout_weight="1"
-            android:text="Select Date" />
+            android:text="Select Date"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -55,7 +84,7 @@
         android:orientation="horizontal"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:paddingTop="10dp">
+        android:paddingTop="20dp">
 
         <TextView
             android:id="@+id/startTimeText"
@@ -63,14 +92,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Start Time"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:textColor="#BC7245"/>
 
         <Button
             android:id="@+id/startTimeButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/primary_button"
             android:layout_weight="1"
-            android:text="Select Time" />
+            android:text="Select Time"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -78,9 +110,9 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:paddingTop="10dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp">
 
         <TextView
             android:id="@+id/endTimeText"
@@ -88,21 +120,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="End Time"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:textColor="#BC7245"/>
 
         <Button
             android:id="@+id/endTimeButton"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/primary_button"
             android:layout_weight="1"
-            android:text="Select Time" />
+            android:text="Select Time"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="25dp">
+        android:padding="30dp">
 
 
         <Button
@@ -110,16 +145,21 @@
             android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/primary_button"
             android:text="Add"
-            android:padding="20dp"/>
+            android:padding="20dp"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/primary_button"
             android:text="Cancel"
-            android:padding="20dp"/>
+            android:padding="20dp"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 

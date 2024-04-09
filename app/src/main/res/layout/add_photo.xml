@@ -14,7 +14,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="back button"
         android:onClick="goback"
-        android:src="@drawable/back_button" />
+        android:src="@drawable/backbutton" />
 
     <ImageView
         android:id="@+id/imageViewCapturedImg"

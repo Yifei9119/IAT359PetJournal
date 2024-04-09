@@ -30,11 +30,11 @@ public class MainActivity extends Activity{
 
     //    declare variables
     static ImageButton addPet;
-    static ImageButton tips;
     static ImageButton settings;
+    static ImageButton schedule;
     static Button journal;
+    static Button tips;
 
-    Button schedule;
 
     static ConstraintLayout bg;
 
@@ -86,10 +86,10 @@ public class MainActivity extends Activity{
 
         // initialize variables
         addPet = (ImageButton) findViewById(R.id.add_pet);
-        tips = (ImageButton) findViewById(R.id.tips_advice);
+        tips = (Button) findViewById(R.id.tips_advice);
         settings = (ImageButton) findViewById(R.id.settings);
         journal = (Button) findViewById(R.id.journal);
-        schedule = (Button) findViewById(R.id.schedule);
+        schedule = (ImageButton) findViewById(R.id.schedule);
         petName = (EditText) findViewById(R.id.petName);
         petSelected = (ImageView) findViewById(R.id.petSelected);
         edit = (Button) findViewById(R.id.editButton);
@@ -312,14 +312,14 @@ public class MainActivity extends Activity{
                 bg.setBackgroundResource(R.drawable.background_dark);
                 addPet.setImageResource(R.drawable.addnight);
                 settings.setImageResource(R.drawable.settingnight);
-                tips.setImageResource(R.drawable.tipsnight);
+                tips.setBackgroundResource(R.drawable.primary_buttonnight);
 
             } else {
                 journal.setBackgroundResource(R.drawable.primary_button);
                 bg.setBackgroundResource(R.drawable.background_light);
                 addPet.setImageResource(R.drawable.add);
                 settings.setImageResource(R.drawable.setting);
-                tips.setImageResource(R.drawable.tips);
+                tips.setBackgroundResource(R.drawable.primary_button);
             }
         }
     }

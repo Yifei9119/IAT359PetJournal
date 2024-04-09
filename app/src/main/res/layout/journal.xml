@@ -16,7 +16,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="back button"
         android:onClick="goBack"
-        android:src="@drawable/back_button" />
+        android:src="@drawable/backbutton" />
 
     <RelativeLayout
         android:layout_width="match_parent"
