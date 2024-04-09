@@ -52,7 +52,7 @@
                     android:gravity="left"
                     android:paddingLeft="25dp"
                     android:paddingTop="5dp"
-                    android:text="Time"
+                    android:text="No Upcoming Task"
                     android:textColor="#FFFFFF"
                     android:textSize="16dp" />
 
@@ -65,7 +65,7 @@
                     android:gravity="left"
                     android:paddingLeft="25dp"
                     android:paddingTop="5dp"
-                    android:text="Task"
+                    android:text=""
                     android:textColor="#FFFFFF"
                     android:textSize="16dp" />
 
