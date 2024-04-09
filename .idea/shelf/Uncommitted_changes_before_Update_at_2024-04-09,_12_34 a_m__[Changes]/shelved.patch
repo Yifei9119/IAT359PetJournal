@@ -1,0 +1,834 @@
+Index: app/src/main/res/layout/add_event.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:orientation=\"vertical\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\">\n\n    <TextView\n        android:id=\"@+id/titleText\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:padding=\"25dp\"\n        android:gravity=\"center\"\n        android:background=\"#F7F2EE\"\n\n\n        android:text=\"Add Event\"\n        android:textSize=\"20dp\"\n        android:textColor=\"#BC7245\"\n        android:textStyle=\"bold\"/>\n\n\n    <LinearLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"horizontal\"\n        android:layout_marginTop=\"20dp\">\n\n        <TextView\n            android:id=\"@+id/taskNameText\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:paddingLeft=\"30dp\"\n\n            android:text=\"Task\"\n            android:textSize=\"18dp\"\n            android:textColor=\"#BC7245\"/>\n\n        <EditText\n            android:id=\"@+id/taskEditText\"\n            android:background=\"@drawable/primary_textviews\"\n            android:layout_width=\"185dp\"\n            android:layout_height=\"50dp\"\n            android:paddingLeft=\"20dp\"\n            android:layout_marginLeft=\"30dp\"\n            android:layout_marginRight=\"30dp\"\n            android:ems=\"10\"\n            android:hint=\"Enter Task\"\n            android:inputType=\"text\" />\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"horizontal\"\n        android:paddingLeft=\"30dp\"\n        android:paddingRight=\"30dp\"\n        android:layout_marginTop=\"20dp\">\n\n        <TextView\n            android:id=\"@+id/selectDateText\"\n            android:layout_width=\"80dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:text=\"Select Date\"\n            android:textSize=\"18dp\"\n            android:textColor=\"#BC7245\"/>\n\n        <Button\n            android:id=\"@+id/selectDateButton\"\n            android:layout_width=\"100dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/primary_button\"\n            android:layout_weight=\"1\"\n            android:text=\"Select Date\"\n            android:textColor=\"#FFFFFF\"/>\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"horizontal\"\n        android:paddingLeft=\"25dp\"\n        android:paddingRight=\"25dp\"\n        android:paddingTop=\"20dp\">\n\n        <TextView\n            android:id=\"@+id/startTimeText\"\n            android:layout_width=\"80dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:text=\"Start Time\"\n            android:textSize=\"18dp\"\n            android:textColor=\"#BC7245\"/>\n\n        <Button\n            android:id=\"@+id/startTimeButton\"\n            android:layout_width=\"100dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/primary_button\"\n            android:layout_weight=\"1\"\n            android:text=\"Select Time\"\n            android:textColor=\"#FFFFFF\"/>\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"100dp\"\n        android:orientation=\"horizontal\"\n        android:paddingLeft=\"30dp\"\n        android:paddingRight=\"30dp\"\n        android:paddingTop=\"20dp\">\n\n        <TextView\n            android:id=\"@+id/endTimeText\"\n            android:layout_width=\"80dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:text=\"End Time\"\n            android:textSize=\"18dp\"\n            android:textColor=\"#BC7245\"/>\n\n        <Button\n            android:id=\"@+id/endTimeButton\"\n            android:layout_width=\"100dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/primary_button\"\n            android:layout_weight=\"1\"\n            android:text=\"Select Time\"\n            android:textColor=\"#FFFFFF\"/>\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:padding=\"30dp\">\n\n\n        <Button\n            android:id=\"@+id/addButton\"\n            android:layout_width=\"185dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:background=\"@drawable/primary_button\"\n            android:text=\"Add\"\n            android:padding=\"20dp\"\n            android:textColor=\"#FFFFFF\"/>\n\n        <Button\n            android:id=\"@+id/cancelButton\"\n            android:layout_width=\"185dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            android:layout_marginLeft=\"10dp\"\n            android:background=\"@drawable/primary_button\"\n            android:text=\"Cancel\"\n            android:padding=\"20dp\"\n            android:textColor=\"#FFFFFF\"/>\n\n    </LinearLayout>\n\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/add_event.xml b/app/src/main/res/layout/add_event.xml
+--- a/app/src/main/res/layout/add_event.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/add_event.xml	(date 1712647753106)
+@@ -4,20 +4,52 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+ 
+-    <TextView
+-        android:id="@+id/titleText"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:padding="25dp"
+-        android:gravity="center"
+-        android:background="#F7F2EE"
+-
+-
+-        android:text="Add Event"
+-        android:textSize="20dp"
+-        android:textColor="#BC7245"
+-        android:textStyle="bold"/>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:background="#F7F2EE"
++        >
++
++        <ImageButton
++            android:id="@+id/cancelButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingLeft="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++        <TextView
++            android:id="@+id/titleText"
++            android:layout_width="270dp"
++            android:layout_height="wrap_content"
++            android:paddingTop="25dp"
++            android:paddingBottom="25dp"
++            android:gravity="center"
++            android:text="Add Event"
++            android:textSize="20dp"
++            android:textColor="#BC7245"
++            android:textStyle="bold"/>
+ 
++        <ImageButton
++            android:id="@+id/invisButton"
++            android:visibility="invisible"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingRight="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++
++    </LinearLayout>
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+@@ -134,34 +166,16 @@
+ 
+     </LinearLayout>
+ 
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:padding="30dp">
+-
+-
+-        <Button
+-            android:id="@+id/addButton"
+-            android:layout_width="185dp"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:background="@drawable/primary_button"
+-            android:text="Add"
+-            android:padding="20dp"
+-            android:textColor="#FFFFFF"/>
++    <Button
++        android:id="@+id/addButton"
++        android:layout_width="355dp"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:background="@drawable/primary_button"
++        android:text="Add Event"
++        android:padding="20dp"
++        android:textColor="#FFFFFF"/>
+ 
+-        <Button
+-            android:id="@+id/cancelButton"
+-            android:layout_width="185dp"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:layout_marginLeft="10dp"
+-            android:background="@drawable/primary_button"
+-            android:text="Cancel"
+-            android:padding="20dp"
+-            android:textColor="#FFFFFF"/>
+-
+-    </LinearLayout>
+ 
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/addpet.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\">\n\n    <LinearLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:orientation=\"vertical\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\">\n\n        <TextView\n            android:id=\"@+id/textView6\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:padding=\"25dp\"\n            android:gravity=\"center\"\n            android:background=\"#F7F2EE\"\n\n\n            android:text=\"Add Pet\"\n            android:textSize=\"20dp\"\n            android:textColor=\"#BC7245\"\n            android:textStyle=\"bold\"/>\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:orientation=\"horizontal\"\n            android:layout_marginTop=\"20dp\">\n\n            <TextView\n                android:id=\"@+id/dogNameText\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:paddingLeft=\"30dp\"\n\n                android:text=\"Name\"\n                android:textSize=\"18dp\"\n                android:textColor=\"#BC7245\"/>\n\n            <EditText\n                android:id=\"@+id/dogNameEditText\"\n                android:background=\"@drawable/primary_textviews\"\n                android:layout_width=\"200dp\"\n                android:layout_height=\"50dp\"\n                android:layout_weight=\"2\"\n                android:paddingLeft=\"20dp\"\n                android:layout_marginLeft=\"30dp\"\n                android:layout_marginRight=\"30dp\"\n                android:ems=\"10\"\n                android:hint=\"Dog Name\"\n                android:inputType=\"text\" />\n\n        </LinearLayout>\n\n\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:orientation=\"horizontal\"\n            android:layout_marginTop=\"20dp\"\n            android:layout_marginRight=\"30dp\">\n\n            <TextView\n                android:id=\"@+id/petBirthText\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1.5\"\n                android:paddingLeft=\"30dp\"\n\n                android:text=\"Birthday\"\n                android:textSize=\"18dp\"\n                android:textColor=\"#BC7245\"/>\n\n            <EditText\n                android:id=\"@+id/yearEditText\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"50dp\"\n                android:background=\"@drawable/primary_textviews\"\n                android:paddingLeft=\"20dp\"\n                android:layout_weight=\"1\"\n\n                android:hint=\"YYYY\"\n                android:inputType=\"date\" />\n\n\n            <EditText\n                android:id=\"@+id/monthEditText\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"50dp\"\n                android:background=\"@drawable/primary_textviews\"\n                android:paddingLeft=\"20dp\"\n                android:layout_marginLeft=\"5dp\"\n                android:layout_weight=\"1\"\n                android:hint=\"MM\"\n                android:inputType=\"date\" />\n\n            <EditText\n                android:id=\"@+id/dayEditText\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"50dp\"\n                android:background=\"@drawable/primary_textviews\"\n                android:paddingLeft=\"20dp\"\n                android:layout_marginLeft=\"5dp\"\n                android:layout_weight=\"1\"\n                android:hint=\"DD\"\n                android:inputType=\"date\" />\n        </LinearLayout>\n\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:orientation=\"horizontal\"\n            android:layout_marginTop=\"20dp\"\n            android:layout_marginRight=\"30dp\">\n\n            <TextView\n                android:id=\"@+id/textView3\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:paddingLeft=\"30dp\"\n                android:layout_weight=\"1\"\n\n                android:text=\"Dog Breed\"\n                android:textSize=\"18dp\"\n                android:textColor=\"#BC7245\"/>\n\n            <Spinner\n                android:id=\"@+id/spinner\"\n                android:layout_width=\"220dp\"\n                android:layout_height=\"50dp\"\n                android:layout_weight=\"1\"\n                android:paddingLeft=\"10dp\"\n                android:background=\"@drawable/primary_textviews\"\n                />\n\n        </LinearLayout>\n\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:orientation=\"horizontal\"\n            android:layout_marginTop=\"20dp\"\n            android:layout_marginRight=\"30dp\">\n\n            <TextView\n                android:id=\"@+id/textView4\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:paddingLeft=\"30dp\"\n                android:layout_weight=\"1\"\n\n                android:text=\"Sex\"\n                android:textSize=\"18sp\"\n                android:textColor=\"#BC7245\"/>\n\n            <RadioGroup\n                android:id=\"@+id/gender\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\">\n\n                <RadioButton\n                    android:id=\"@+id/female\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:text=\"Female\" />\n\n                <RadioButton\n                    android:id=\"@+id/male\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:text=\"Male\" />\n\n            </RadioGroup>\n\n\n        </LinearLayout>\n\n         <LinearLayout\n             android:layout_width=\"match_parent\"\n             android:layout_height=\"wrap_content\"\n             android:orientation=\"horizontal\"\n             android:layout_marginTop=\"40dp\"\n             android:layout_marginLeft=\"30dp\"\n             android:layout_marginRight=\"30dp\">\n\n             <Button\n                 android:id=\"@+id/cancelButton\"\n                 android:layout_width=\"160dp\"\n                 android:layout_height=\"wrap_content\"\n\n                 android:background=\"@drawable/primary_button\"\n\n                 android:text=\"Cancel\"\n                 android:textColor=\"#FFFFFF\"/>\n\n             <Button\n                 android:id=\"@+id/addPetButton\"\n                 android:layout_width=\"160dp\"\n                 android:layout_height=\"wrap_content\"\n                 android:layout_gravity=\"center\"\n                 android:layout_marginLeft=\"10dp\"\n                 android:background=\"@drawable/primary_button\"\n\n                 android:text=\"Add Pet\"\n                 android:textColor=\"#FFFFFF\"/>\n\n         </LinearLayout>\n\n    </LinearLayout>\n\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/addpet.xml b/app/src/main/res/layout/addpet.xml
+--- a/app/src/main/res/layout/addpet.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/addpet.xml	(date 1712647753107)
+@@ -14,20 +14,52 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent">
+ 
+-        <TextView
+-            android:id="@+id/textView6"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:padding="25dp"
+-            android:gravity="center"
+-            android:background="#F7F2EE"
+-
+-
+-            android:text="Add Pet"
+-            android:textSize="20dp"
+-            android:textColor="#BC7245"
+-            android:textStyle="bold"/>
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:background="#F7F2EE"
++            >
++
++            <ImageButton
++                android:id="@+id/cancelButton"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:paddingTop="15dp"
++                android:paddingLeft="25dp"
++                android:background="#00FFFFFF"
++                android:layout_gravity="left"
++                android:contentDescription="back button"
++                android:onClick="gotoHomePage"
++                android:src="@drawable/backbutton" />
++
++            <TextView
++                android:id="@+id/titleText"
++                android:layout_width="270dp"
++                android:layout_height="wrap_content"
++                android:paddingTop="25dp"
++                android:paddingBottom="25dp"
++                android:gravity="center"
++                android:text="Add Pet"
++                android:textSize="20dp"
++                android:textColor="#BC7245"
++                android:textStyle="bold"/>
+ 
++            <ImageButton
++                android:id="@+id/invisButton"
++                android:visibility="invisible"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:paddingTop="15dp"
++                android:paddingRight="25dp"
++                android:background="#00FFFFFF"
++                android:layout_gravity="left"
++                android:contentDescription="back button"
++                android:onClick="gotoHomePage"
++                android:src="@drawable/backbutton" />
++
++        </LinearLayout>
++
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+@@ -187,37 +219,18 @@
+ 
+         </LinearLayout>
+ 
+-         <LinearLayout
+-             android:layout_width="match_parent"
+-             android:layout_height="wrap_content"
+-             android:orientation="horizontal"
+-             android:layout_marginTop="40dp"
+-             android:layout_marginLeft="30dp"
+-             android:layout_marginRight="30dp">
+ 
+-             <Button
+-                 android:id="@+id/cancelButton"
+-                 android:layout_width="160dp"
+-                 android:layout_height="wrap_content"
+-
+-                 android:background="@drawable/primary_button"
+-
+-                 android:text="Cancel"
+-                 android:textColor="#FFFFFF"/>
+-
+-             <Button
+-                 android:id="@+id/addPetButton"
+-                 android:layout_width="160dp"
+-                 android:layout_height="wrap_content"
+-                 android:layout_gravity="center"
+-                 android:layout_marginLeft="10dp"
+-                 android:background="@drawable/primary_button"
+-
+-                 android:text="Add Pet"
+-                 android:textColor="#FFFFFF"/>
++        <Button
++            android:id="@+id/addPetButton"
++            android:layout_width="355dp"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center"
++            android:background="@drawable/primary_button"
++            android:text="Add Pet"
++            android:layout_marginTop="20dp"
++            android:padding="20dp"
++            android:textColor="#FFFFFF"/>
+ 
+-         </LinearLayout>
+-
+     </LinearLayout>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/iat359_petjournal/AddPhoto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.iat359_petjournal;\n\nimport static android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT;\n\nimport android.app.Activity;\nimport android.content.ContentResolver;\nimport android.content.ContentValues;\nimport android.Manifest;\nimport android.content.Context;\nimport android.content.Intent;\nimport android.hardware.Camera;\nimport android.content.SharedPreferences;\nimport android.content.pm.PackageManager;\nimport android.database.Cursor;\nimport android.graphics.Bitmap;\nimport android.graphics.BitmapFactory;\nimport android.graphics.Matrix;\nimport android.media.ExifInterface;\nimport android.net.Uri;\nimport android.os.Build;\nimport android.os.Bundle;\nimport android.os.Environment;\nimport android.provider.MediaStore;\nimport android.util.Base64;\nimport android.util.Log;\nimport android.view.Surface;\nimport android.view.SurfaceHolder;\nimport android.view.View;\nimport android.widget.Button;\nimport android.widget.ImageButton;\nimport android.widget.ImageView;\nimport android.widget.Toast;\n\nimport com.google.common.util.concurrent.ListenableFuture;\n\nimport java.io.ByteArrayOutputStream;\nimport java.io.File;\nimport java.io.FileNotFoundException;\nimport java.io.FileOutputStream;\nimport java.io.IOException;\nimport java.io.ObjectOutputStream;\nimport java.io.OutputStream;\nimport java.text.SimpleDateFormat;\nimport java.util.Date;\nimport java.util.Objects;\nimport java.util.concurrent.ExecutionException;\nimport java.util.concurrent.Executor;\nimport java.util.concurrent.Executors;\n\nimport androidx.annotation.NonNull;\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.camera.core.AspectRatio;\nimport androidx.camera.core.CameraInfo;\nimport androidx.camera.core.CameraProvider;\nimport androidx.camera.core.CameraSelector;\nimport androidx.camera.core.CameraX;\nimport androidx.camera.core.ImageAnalysis;\nimport androidx.camera.core.ImageCapture;\nimport androidx.camera.core.ImageCaptureException;\nimport androidx.camera.core.Preview;\nimport androidx.camera.lifecycle.ProcessCameraProvider;\nimport androidx.camera.view.PreviewView;\nimport androidx.core.app.ActivityCompat;\nimport androidx.core.content.ContextCompat;\nimport androidx.lifecycle.LifecycleOwner;\n\npublic class AddPhoto extends AppCompatActivity implements View.OnClickListener {\n\n//    declare variables\n    private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;\n    PreviewView previewView;\n    private CameraProvider cameraProvider;\n\n    private Button buttonCaptureSave, buttonCaptureShow;\n    private ImageCapture imageCapture;\n    private ImageView imageViewCaptured;\n\n    private ImageButton back;\n    private String mImageFileLocation = \"\";\n    private static final int img_id = 1;\n\n    private MyDatabase db;\n\n    private MyHelper helper;\n\n    int photoNum = 0;\n\n    byte[] bmap = null;\n    // new\n    private Executor executor = Executors.newSingleThreadExecutor();\n    private int REQUEST_CODE_PERMISSIONS = 1001;\n    private final String[] REQUIRED_PERMISSIONS = new String[]{\"android.permission.CAMERA\"};\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.add_photo);\n\n//initialize variables\n        buttonCaptureSave = findViewById(R.id.buttonCaptureSave);\n        buttonCaptureShow = findViewById(R.id.buttonCaptureShow);\n        imageViewCaptured = findViewById(R.id.imageViewCapturedImg);\n\n        buttonCaptureSave.setOnClickListener(this);\n        buttonCaptureShow.setOnClickListener(this);\n        db = new MyDatabase(this);\n        helper = new MyHelper(this);\n        back = findViewById(R.id.backButton);\n        photoNum = 0;\n    }\n\n\n    @Override\n    public void onClick(View view) {\n        if (view.getId() == R.id.buttonCaptureShow) {\n            if ((ActivityCompat.checkSelfPermission(\n                    this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {\n                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {\n                    requestPermissions(new String[]{\n                            Manifest.permission.CAMERA,\n                    }, 123);\n                }\n            } else {\n//                start camera\n                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);\n                startActivityForResult(camera_intent, img_id);\n            }\n\n\n        } else if (view.getId() == R.id.buttonCaptureSave) {\n//            photoNum++;\n            photoNum = photoNum+1;\n\n//            inserting photo to db\n            db.insertPhotoData(photoNum, bmap, \"\"+bmap.length);\n            Toast t2 = Toast.makeText(this, \"Photo Inserted\",Toast.LENGTH_LONG);\n            t2.show();\n\n            Intent i = new Intent(view.getContext(), Journal.class);\n            startActivity(i);\n\n        }\n    }\n\n\n//go back to last activity\n    public void goback(View view){\n        Intent i = new Intent(view.getContext(), Journal.class);\n        startActivity(i);\n    }\n\n//    based on the result of take a photo button for camera\n    protected void onActivityResult(int requestCode, int resultCode, Intent data) {\n        super.onActivityResult(requestCode, resultCode, data);\n        Bitmap photo = (Bitmap) data.getExtras().get(\"data\");\n        imageViewCaptured.setImageBitmap(photo);\n        imageViewCaptured.setRotation(90);\n        imageViewCaptured.setScaleType(ImageView.ScaleType.FIT_XY);\n\n        long timeStamp = System.currentTimeMillis();\n        OutputStream fos;\n        try {\n//            saving photo to media storage\n            ContentResolver resolver = getContentResolver();\n            ContentValues contentValues = new ContentValues();\n            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);\n            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, \"image/jpeg\");\n\n            Uri imageURI = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);\n            fos = resolver.openOutputStream(Objects.requireNonNull(imageURI));\n            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();\n            photo.compress(Bitmap.CompressFormat.JPEG, 100, fos);\n            Objects.requireNonNull(fos);\n\n            photo.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);\n            bmap = outputStream.toByteArray();\n            Toast.makeText(AddPhoto.this, \"Saving...\", Toast.LENGTH_SHORT).show();\n\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n\n\n\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/iat359_petjournal/AddPhoto.java b/app/src/main/java/com/example/iat359_petjournal/AddPhoto.java
+--- a/app/src/main/java/com/example/iat359_petjournal/AddPhoto.java	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/java/com/example/iat359_petjournal/AddPhoto.java	(date 1712647753104)
+@@ -144,7 +144,7 @@
+ 
+ 
+ //go back to last activity
+-    public void goback(View view){
++    public void goBack(View view){
+         Intent i = new Intent(view.getContext(), Journal.class);
+         startActivity(i);
+     }
+Index: app/src/main/res/layout/schedule.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\">\n\n    <TextView\n        android:id=\"@+id/titleText\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:padding=\"25dp\"\n        android:gravity=\"center\"\n        android:background=\"#F7F2EE\"\n\n\n        android:text=\"Schedule of the Day\"\n        android:textSize=\"20dp\"\n        android:textColor=\"#BC7245\"\n        android:textStyle=\"bold\"/>\n\n    <androidx.recyclerview.widget.RecyclerView\n        android:id=\"@+id/scheduleRecycler\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"450dp\"\n        android:layout_weight=\"1\"\n        android:padding=\"25dp\" />\n\n\n    <LinearLayout\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:paddingLeft=\"20dp\"\n        android:paddingRight=\"20dp\"\n        android:paddingBottom=\"40dp\">\n\n        <Button\n            android:id=\"@+id/returnButton\"\n            android:layout_width=\"175dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/primary_button\"\n            android:layout_weight=\"1\"\n            android:padding=\"20dp\"\n            android:text=\"Return Home\"\n            android:textColor=\"#FFFFFF\"/>\n\n        <Button\n            android:id=\"@+id/addButton\"\n            android:layout_width=\"175dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginLeft=\"10dp\"\n            android:background=\"@drawable/primary_button\"\n            android:layout_weight=\"1\"\n            android:padding=\"20dp\"\n            android:text=\"Add Task\"\n            android:textColor=\"#FFFFFF\"/>\n\n    </LinearLayout>\n\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/schedule.xml b/app/src/main/res/layout/schedule.xml
+--- a/app/src/main/res/layout/schedule.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/schedule.xml	(date 1712647753112)
+@@ -4,20 +4,52 @@
+     android:layout_height="match_parent"
+     android:orientation="vertical">
+ 
+-    <TextView
+-        android:id="@+id/titleText"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:padding="25dp"
+-        android:gravity="center"
+-        android:background="#F7F2EE"
+-
+-
+-        android:text="Schedule of the Day"
+-        android:textSize="20dp"
+-        android:textColor="#BC7245"
+-        android:textStyle="bold"/>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:background="#F7F2EE">
++
++        <ImageButton
++            android:id="@+id/returnButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingLeft="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++        <TextView
++            android:id="@+id/titleText"
++            android:layout_width="270dp"
++            android:layout_height="wrap_content"
++            android:paddingTop="25dp"
++            android:paddingBottom="25dp"
++            android:gravity="center"
++            android:text="Schedule"
++            android:textSize="20dp"
++            android:textColor="#BC7245"
++            android:textStyle="bold"/>
+ 
++        <ImageButton
++            android:id="@+id/invisButton"
++            android:visibility="invisible"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingRight="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++
++    </LinearLayout>
++
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/scheduleRecycler"
+         android:layout_width="match_parent"
+@@ -33,19 +65,9 @@
+         android:paddingRight="20dp"
+         android:paddingBottom="40dp">
+ 
+-        <Button
+-            android:id="@+id/returnButton"
+-            android:layout_width="175dp"
+-            android:layout_height="wrap_content"
+-            android:background="@drawable/primary_button"
+-            android:layout_weight="1"
+-            android:padding="20dp"
+-            android:text="Return Home"
+-            android:textColor="#FFFFFF"/>
+-
+         <Button
+             android:id="@+id/addButton"
+-            android:layout_width="175dp"
++            android:layout_width="355dp"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:background="@drawable/primary_button"
+Index: app/src/main/res/layout/tips_advice.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\">\n\n\n    <TextView\n        android:id=\"@+id/textView6\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:padding=\"25dp\"\n        android:gravity=\"center\"\n        android:background=\"#F7F2EE\"\n\n\n        android:text=\"Resources\"\n        android:textSize=\"20dp\"\n        android:textColor=\"#BC7245\"\n        android:textStyle=\"bold\"/>\n\n    <TableLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"500dp\"\n        android:padding=\"30dp\">\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\"1\"\n            >\n\n            <TextView\n                android:id=\"@+id/tableText1\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n\n                android:text=\"Potty Training\"\n                android:textSize=\"18dp\" />\n\n            <Button\n                android:id=\"@+id/tableBut1\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText2\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Crate Training\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut2\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText3\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Training\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut3\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText4\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Training Supplies\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut4\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText5\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Socialization\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut5\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText6\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Health and Safety\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut6\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n\n        <TableRow\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\"1\">\n\n            <TextView\n                android:id=\"@+id/tableText7\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"4\"\n                android:text=\"Grooming\"\n                android:textSize=\"18dp\"/>\n\n            <Button\n                android:id=\"@+id/tableBut7\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_weight=\"1\"\n                android:background=\"@drawable/primary_button\"\n                android:textColor=\"#FFFFFF\"\n                android:text=\"View\" />\n        </TableRow>\n    </TableLayout>\n\n    <Button\n        android:id=\"@+id/returnButton\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginRight=\"30dp\"\n        android:layout_marginLeft=\"30dp\"\n\n        android:background=\"@drawable/primary_button\"\n\n        android:text=\"Return Home\"\n        android:textColor=\"#FFFFFF\"/>\n\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/tips_advice.xml b/app/src/main/res/layout/tips_advice.xml
+--- a/app/src/main/res/layout/tips_advice.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/tips_advice.xml	(date 1712647753113)
+@@ -7,20 +7,53 @@
+     android:orientation="vertical">
+ 
+ 
+-    <TextView
+-        android:id="@+id/textView6"
++    <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:padding="25dp"
+-        android:gravity="center"
++        android:orientation="horizontal"
+         android:background="#F7F2EE"
++        >
+ 
++        <ImageButton
++            android:id="@+id/returnButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingLeft="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
+ 
+-        android:text="Resources"
+-        android:textSize="20dp"
+-        android:textColor="#BC7245"
+-        android:textStyle="bold"/>
++        <TextView
++            android:id="@+id/titleText"
++            android:layout_width="270dp"
++            android:layout_height="wrap_content"
++            android:paddingTop="25dp"
++            android:paddingBottom="25dp"
++            android:gravity="center"
++            android:text="Resources"
++            android:textSize="20dp"
++            android:textColor="#BC7245"
++            android:textStyle="bold"/>
+ 
++        <ImageButton
++            android:id="@+id/invisButton"
++            android:visibility="invisible"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingRight="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++
++    </LinearLayout>
++
+     <TableLayout
+         android:layout_width="match_parent"
+         android:layout_height="500dp"
+@@ -190,17 +223,6 @@
+         </TableRow>
+     </TableLayout>
+ 
+-    <Button
+-        android:id="@+id/returnButton"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginRight="30dp"
+-        android:layout_marginLeft="30dp"
+-
+-        android:background="@drawable/primary_button"
+-
+-        android:text="Return Home"
+-        android:textColor="#FFFFFF"/>
+ 
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/event_row.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"wrap_content\">\n\n    <TextView\n        android:id=\"@+id/idTextView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"1\"\n        android:textSize=\"20dp\"\n        android:visibility=\"gone\"\n        android:text=\"\" />\n\n    <TextView\n        android:id=\"@+id/startTimeTextView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"1\"\n        android:textSize=\"20dp\"\n        android:text=\"11:00 -\" />\n\n    <TextView\n        android:id=\"@+id/toTextView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"1\"\n        android:textSize=\"20dp\"\n        android:text=\" - \" />\n\n    <TextView\n        android:id=\"@+id/endTimeTextView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"1\"\n        android:textSize=\"20dp\"\n        android:text=\"11:00\" />\n\n    <TextView\n        android:id=\"@+id/taskTextView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginLeft=\"15dp\"\n        android:layout_weight=\"6\"\n        android:textSize=\"18dp\"\n        android:text=\"TextView\" />\n\n    <Button\n        android:id=\"@+id/deleteEvent\"\n        android:layout_width=\"40dp\"\n        android:layout_height=\"40dp\"\n        android:layout_marginLeft=\"15dp\"\n        android:layout_marginBottom=\"15dp\"\n        android:background=\"@drawable/primary_delete\"\n        android:layout_weight=\"1\"\n        android:text=\"X\"\n        android:textSize=\"20dp\"\n        android:textColor=\"#FFFFFF\"/>\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/event_row.xml b/app/src/main/res/layout/event_row.xml
+--- a/app/src/main/res/layout/event_row.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/event_row.xml	(date 1712647753107)
+@@ -45,16 +45,17 @@
+         android:textSize="18dp"
+         android:text="TextView" />
+ 
+-    <Button
+-        android:id="@+id/deleteEvent"
+-        android:layout_width="40dp"
+-        android:layout_height="40dp"
+-        android:layout_marginLeft="15dp"
+-        android:layout_marginBottom="15dp"
+-        android:background="@drawable/primary_delete"
+-        android:layout_weight="1"
+-        android:text="X"
+-        android:textSize="20dp"
+-        android:textColor="#FFFFFF"/>
++    <ImageButton
++        android:id="@+id/seleteEvent"
++        android:visibility="invisible"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:paddingTop="15dp"
++        android:paddingRight="25dp"
++        android:background="#00FFFFFF"
++        android:layout_gravity="left"
++        android:contentDescription="back button"
++        android:onClick="gotoHomePage"
++        android:src="@drawable/delete" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/iat359_petjournal/AddEvent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.iat359_petjournal;\n\nimport android.app.AlertDialog;\nimport android.app.DatePickerDialog;\nimport android.app.TimePickerDialog;\nimport android.content.Intent;\nimport android.nfc.FormatException;\nimport android.os.Bundle;\nimport android.text.Editable;\nimport android.text.TextWatcher;\nimport android.util.Log;\nimport android.view.View;\nimport android.widget.Button;\nimport android.widget.DatePicker;\nimport android.widget.EditText;\nimport android.widget.Spinner;\nimport android.widget.TextView;\nimport android.widget.TimePicker;\nimport android.widget.Toast;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport java.util.Calendar;\nimport java.util.Locale;\n\npublic class AddEvent extends AppCompatActivity implements TextWatcher {\n    //declear variables\n    private EditText taskEdit;\n    private String date, startTime, endTime;\n    private String taskName;\n    MyDatabase db;\n    private Button addEventButton, cancelButton;\n\n    private DatePickerDialog datePickerDialog;\n    private Button selectDateButton, startTimeButton, endTimeButton;\n\n    int hour, minute;\n\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.add_event);\n        //call date picker function\n        initDatePicker();\n\n        //defining variables\n        taskEdit = findViewById(R.id.taskEditText);\n        taskEdit.addTextChangedListener(this);\n        selectDateButton = findViewById(R.id.selectDateButton);\n        selectDateButton.setText(getTodaysDate());\n        //set onclick listener to buttons\n        selectDateButton.setOnClickListener(new View.OnClickListener() {\n            //show datepicker pop up when clicked\n            @Override\n            public void onClick(View v) {\n                datePickerDialog.show();\n            }\n        });\n\n        startTimeButton = findViewById(R.id.startTimeButton);\n        startTimeButton.setOnClickListener(new View.OnClickListener() {\n            //initiate start time picker when clicked\n            @Override\n            public void onClick(View v) {\n                initTimePicker();\n            }\n        });\n\n        endTimeButton = findViewById(R.id.endTimeButton);\n        endTimeButton.setOnClickListener(new View.OnClickListener() {\n            //initiate end time picker when clicked\n            @Override\n            public void onClick(View v) {\n                initTimePicker2();\n            }\n        });\n\n        addEventButton = findViewById(R.id.addButton);\n        //set onclick listener for addevent button\n        addEventButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                String petName = getIntent().getStringExtra(\"petName\");\n                Log.d(\"myeventlog\", \"\" + petName);\n                //if the task name, date, start and end time isn't null, save data to SQLite\n                if(taskName != null && date != null && startTime != null && endTime != null) {\n                    db.insertEventData(taskName, date, startTime, endTime, petName);\n                    Intent intent= new Intent(v.getContext(), Schedule.class);\n                    intent.putExtra(\"petName\", petName);\n                    startActivity(intent);\n                }\n                else {\n//                    if information missing, display toast message to inform user\n                    Toast.makeText(v.getContext(), \"Please enter a task, date and the start and end time\", Toast.LENGTH_SHORT).show();\n                }\n\n            }\n        });\n        cancelButton = findViewById(R.id.cancelButton);\n        //set onclick listener for cancel button\n        cancelButton.setOnClickListener(new View.OnClickListener() {\n            //if cancel button pressed, go back to home page\n            @Override\n            public void onClick(View v) {\n                Intent intent= new Intent(v.getContext(), Schedule.class);\n                startActivity(intent);\n            }\n        });\n        db = new MyDatabase(this);\n\n    }\n\n    //function to obtain today's date\n    private String getTodaysDate(){\n        Calendar calendar = Calendar.getInstance();\n        int year = calendar.get(Calendar.YEAR);\n        int month = calendar.get(Calendar.MONTH);\n        month = month + 1;\n        int day = calendar.get(Calendar.DAY_OF_MONTH);\n        date = makeDateString(day, month, year);\n        return makeDateString(day, month, year);\n    }\n\n    private void initDatePicker(){\n        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener(){\n            @Override\n            public void onDateSet(DatePicker datePicker, int year, int month, int day){\n                month = month +1;\n                date = makeDateString(day, month, year);\n                selectDateButton.setText(date);\n            }\n\n        };\n\n        Calendar calendar = Calendar.getInstance();\n        int year = calendar.get(Calendar.YEAR);\n        int month = calendar.get(Calendar.MONTH);\n        int day = calendar.get(Calendar.DAY_OF_MONTH);\n\n        int style = AlertDialog.THEME_HOLO_LIGHT;\n        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);\n\n    }\n\n    private void initTimePicker(){\n        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {\n            @Override\n            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {\n                hour = selectedHour;\n                minute = selectedMinute;\n                startTimeButton.setText(String.format(Locale.getDefault(), \"%02d:%02d\", hour, minute));\n                startTime = String.format(Locale.getDefault(), \"%02d:%02d\", hour, minute);\n            }\n        };\n\n        int style = AlertDialog.THEME_HOLO_DARK;\n        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true);\n        timePickerDialog.setTitle(\"selected Time\");\n        timePickerDialog.show();\n    }\n\n    private void initTimePicker2(){\n        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {\n            @Override\n            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {\n                hour = selectedHour;\n                minute = selectedMinute;\n                endTimeButton.setText(String.format(Locale.getDefault(), \"%02d:%02d\", hour, minute));\n                endTime = String.format(Locale.getDefault(), \"%02d:%02d\", hour, minute);\n            }\n        };\n\n        int style = AlertDialog.THEME_HOLO_DARK;\n        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, minute, true);\n        timePickerDialog.setTitle(\"selected Time\");\n        timePickerDialog.show();\n    }\n\n    private String makeDateString(int day, int month, int year){\n        String dayString = \"\";\n        if (day < 10) dayString = \"0\" + day;\n        else dayString = \"\" + day;\n        return getMonthFormat(month) + \" \" + dayString + \" \" + year;\n\n    }\n\n    private String getMonthFormat(int month){\n        if (month == 1) return \"Jan\";\n        if (month == 2) return \"Feb\";\n        if (month == 3) return \"Mar\";\n        if (month == 4) return \"Apr\";\n        if (month == 5) return \"May\";\n        if (month == 6) return \"Jun\";\n        if (month == 7) return \"Jul\";\n        if (month == 8) return \"Aug\";\n        if (month == 9) return \"Sept\";\n        if (month == 10) return \"Oct\";\n        if (month == 11) return \"Nov\";\n        if (month == 12) return \"Dec\";\n\n        return \"Jan\";\n\n    }\n\n\n    @Override\n    public void beforeTextChanged(CharSequence s, int start, int count, int after) {\n\n    }\n\n    @Override\n    public void onTextChanged(CharSequence s, int start, int before, int count) {\n        if (taskEdit.isFocused()){\n            taskName = s.toString();\n        }\n\n    }\n\n    @Override\n    public void afterTextChanged(Editable s) {\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/iat359_petjournal/AddEvent.java b/app/src/main/java/com/example/iat359_petjournal/AddEvent.java
+--- a/app/src/main/java/com/example/iat359_petjournal/AddEvent.java	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/java/com/example/iat359_petjournal/AddEvent.java	(date 1712647753103)
+@@ -13,6 +13,7 @@
+ import android.widget.Button;
+ import android.widget.DatePicker;
+ import android.widget.EditText;
++import android.widget.ImageButton;
+ import android.widget.Spinner;
+ import android.widget.TextView;
+ import android.widget.TimePicker;
+@@ -29,7 +30,8 @@
+     private String date, startTime, endTime;
+     private String taskName;
+     MyDatabase db;
+-    private Button addEventButton, cancelButton;
++    private Button addEventButton;
++    private ImageButton cancelButton;
+ 
+     private DatePickerDialog datePickerDialog;
+     private Button selectDateButton, startTimeButton, endTimeButton;
+@@ -102,6 +104,8 @@
+             @Override
+             public void onClick(View v) {
+                 Intent intent= new Intent(v.getContext(), Schedule.class);
++                String petName = getIntent().getStringExtra("petName");
++                intent.putExtra("petName", petName);
+                 startActivity(intent);
+             }
+         });
+Index: app/src/main/java/com/example/iat359_petjournal/TipsAdvice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.iat359_petjournal;\n\nimport android.app.Activity;\nimport android.content.Intent;\nimport android.net.Uri;\nimport android.os.Bundle;\nimport android.view.View;\nimport android.widget.Button;\n\npublic class TipsAdvice extends Activity {\n    //declaring variables\n    private Button button1, button2, button3, button4, button5, button6, button7;\n    private Button returnButton;\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.tips_advice);\n\n        //intializing variables\n        button1 = findViewById(R.id.tableBut1);\n        button2 = findViewById(R.id.tableBut2);\n        button3 = findViewById(R.id.tableBut3);\n        button4 = findViewById(R.id.tableBut4);\n        button5 = findViewById(R.id.tableBut5);\n        button6 = findViewById(R.id.tableBut6);\n        button7 = findViewById(R.id.tableBut7);\n\n        returnButton = findViewById(R.id.returnButton);\n\n        //set onClick listeners for all buttons\n        button1.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                //creating an implicit intent for guiding users to an external resource\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button2 = findViewById(R.id.tableBut2);\n        button2.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button3 = findViewById(R.id.tableBut3);\n        button3.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button4 = findViewById(R.id.tableBut4);\n        button4.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button5 = findViewById(R.id.tableBut5);\n        button5.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button6 = findViewById(R.id.tableBut6);\n        button6.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n        button7 = findViewById(R.id.tableBut7);\n        button7.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent i = new Intent(Intent.ACTION_VIEW);\n                i.setData(Uri.parse(\"https://www.preventivevet.com/resources/new-dog-puppy\"));\n                startActivity(i);\n            }\n        });\n\n        returnButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent intent = new Intent(v.getContext(), MainActivity.class);\n                startActivity(intent);\n            }\n        });\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/iat359_petjournal/TipsAdvice.java b/app/src/main/java/com/example/iat359_petjournal/TipsAdvice.java
+--- a/app/src/main/java/com/example/iat359_petjournal/TipsAdvice.java	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/java/com/example/iat359_petjournal/TipsAdvice.java	(date 1712647753105)
+@@ -6,11 +6,12 @@
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
++import android.widget.ImageButton;
+ 
+ public class TipsAdvice extends Activity {
+     //declaring variables
+     private Button button1, button2, button3, button4, button5, button6, button7;
+-    private Button returnButton;
++    private ImageButton returnButton;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+Index: app/src/main/res/layout/add_photo.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"20dp\">\n\n    <ImageButton\n        android:id=\"@+id/backButton\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"0\"\n        android:background=\"#00FFFFFF\"\n        android:contentDescription=\"back button\"\n        android:onClick=\"goback\"\n        android:src=\"@drawable/backbutton\" />\n\n    <ImageView\n        android:id=\"@+id/imageViewCapturedImg\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"1\"\n        android:padding=\"40dp\"\n        app:srcCompat=\"@drawable/preview\" />\n\n    <Button\n        android:id=\"@+id/buttonCaptureShow\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_weight=\"0\"\n        android:background=\"@drawable/primary_button\"\n        android:padding=\"20dp\"\n        android:text=\"Take a photo\"\n        android:textColor=\"#FFFFFF\"\n        android:textSize=\"16sp\" />\n\n    <Button\n        android:id=\"@+id/buttonCaptureSave\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"20dp\"\n        android:layout_weight=\"0\"\n        android:background=\"@drawable/primary_button\"\n        android:padding=\"20dp\"\n        android:text=\"Save Photo\"\n        android:textColor=\"#FFFFFF\"\n        android:textSize=\"16sp\" />\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/add_photo.xml b/app/src/main/res/layout/add_photo.xml
+--- a/app/src/main/res/layout/add_photo.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/add_photo.xml	(date 1712647753107)
+@@ -4,18 +4,55 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+-    android:padding="20dp">
++    >
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:background="#F7F2EE">
+ 
+-    <ImageButton
+-        android:id="@+id/backButton"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_weight="0"
+-        android:background="#00FFFFFF"
+-        android:contentDescription="back button"
+-        android:onClick="goback"
+-        android:src="@drawable/backbutton" />
++        <ImageButton
++            android:id="@+id/backButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingLeft="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="goBack"
++            android:src="@drawable/backbutton" />
+ 
++        <TextView
++            android:id="@+id/titleText"
++            android:layout_width="270dp"
++            android:layout_height="wrap_content"
++            android:paddingTop="25dp"
++            android:paddingBottom="25dp"
++            android:gravity="center"
++            android:text="Add Post"
++            android:textSize="20dp"
++            android:textColor="#BC7245"
++            android:textStyle="bold"/>
++
++        <ImageButton
++            android:id="@+id/invisButton"
++            android:visibility="invisible"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingRight="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++
++    </LinearLayout>
++
++
+     <ImageView
+         android:id="@+id/imageViewCapturedImg"
+         android:layout_width="match_parent"
+@@ -24,26 +61,33 @@
+         android:padding="40dp"
+         app:srcCompat="@drawable/preview" />
+ 
+-    <Button
+-        android:id="@+id/buttonCaptureShow"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_weight="0"
+-        android:background="@drawable/primary_button"
+-        android:padding="20dp"
+-        android:text="Take a photo"
+-        android:textColor="#FFFFFF"
+-        android:textSize="16sp" />
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:padding="25dp">
++
++        <Button
++            android:id="@+id/buttonCaptureShow"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="@drawable/primary_button"
++            android:padding="20dp"
++            android:text="Take a photo"
++            android:textColor="#FFFFFF"
++            android:textSize="16sp" />
+ 
+-    <Button
+-        android:id="@+id/buttonCaptureSave"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="20dp"
+-        android:layout_weight="0"
+-        android:background="@drawable/primary_button"
+-        android:padding="20dp"
+-        android:text="Save Photo"
+-        android:textColor="#FFFFFF"
+-        android:textSize="16sp" />
++        <Button
++            android:id="@+id/buttonCaptureSave"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="20dp"
++            android:background="@drawable/primary_button"
++            android:padding="20dp"
++            android:text="Save Photo"
++            android:textColor="#FFFFFF"
++            android:textSize="16sp" />
++
++    </LinearLayout>
++
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/journal.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"20dp\">\n\n    <ImageButton\n        android:id=\"@+id/backButton\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginBottom=\"10dp\"\n        android:layout_weight=\"0\"\n        android:background=\"#00FFFFFF\"\n        android:contentDescription=\"back button\"\n        android:onClick=\"goBack\"\n        android:src=\"@drawable/backbutton\" />\n\n    <RelativeLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:layout_weight=\"1\">\n\n        <androidx.recyclerview.widget.RecyclerView\n            android:id=\"@+id/recyclerView\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\" />\n    </RelativeLayout>\n\n    <Button\n        android:id=\"@+id/Addpost\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"10dp\"\n        android:background=\"@drawable/primary_button\"\n        android:text=\"Add a post\"\n        android:textColor=\"#FFFFFF\" />\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/journal.xml b/app/src/main/res/layout/journal.xml
+--- a/app/src/main/res/layout/journal.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/layout/journal.xml	(date 1712647753112)
+@@ -4,23 +4,58 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    android:padding="20dp">
++    android:orientation="vertical">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:background="#F7F2EE">
+ 
+-    <ImageButton
+-        android:id="@+id/backButton"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginBottom="10dp"
+-        android:layout_weight="0"
+-        android:background="#00FFFFFF"
+-        android:contentDescription="back button"
+-        android:onClick="goBack"
+-        android:src="@drawable/backbutton" />
++        <ImageButton
++            android:id="@+id/backButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingLeft="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="goBack"
++            android:src="@drawable/backbutton" />
+ 
++        <TextView
++            android:id="@+id/titleText"
++            android:layout_width="270dp"
++            android:layout_height="wrap_content"
++            android:paddingTop="25dp"
++            android:paddingBottom="25dp"
++            android:gravity="center"
++            android:text="Journal"
++            android:textSize="20dp"
++            android:textColor="#BC7245"
++            android:textStyle="bold"/>
++
++        <ImageButton
++            android:id="@+id/invisButton"
++            android:visibility="invisible"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingTop="15dp"
++            android:paddingRight="25dp"
++            android:background="#00FFFFFF"
++            android:layout_gravity="left"
++            android:contentDescription="back button"
++            android:onClick="gotoHomePage"
++            android:src="@drawable/backbutton" />
++
++
++    </LinearLayout>
++
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
++        android:padding="20dp"
+         android:layout_weight="1">
+ 
+         <androidx.recyclerview.widget.RecyclerView
+@@ -33,7 +68,8 @@
+         android:id="@+id/Addpost"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:layout_marginTop="10dp"
++        android:layout_margin="20dp"
++        android:padding="20dp"
+         android:background="@drawable/primary_button"
+         android:text="Add a post"
+         android:textColor="#FFFFFF" />
+Index: app/src/main/res/drawable/delete.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:width=\"16dp\"\n    android:height=\"18dp\"\n    android:viewportWidth=\"16\"\n    android:viewportHeight=\"18\">\n  <path\n      android:pathData=\"M3,18C2.45,18 1.979,17.804 1.588,17.413C1.197,17.022 1.001,16.551 1,16V3H0V1H5V0H11V1H16V3H15V16C15,16.55 14.804,17.021 14.413,17.413C14.022,17.805 13.551,18.001 13,18H3ZM5,14H7V5H5V14ZM9,14H11V5H9V14Z\"\n      android:fillColor=\"#ffffff\"/>\n</vector>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/delete.xml b/app/src/main/res/drawable/delete.xml
+--- a/app/src/main/res/drawable/delete.xml	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/res/drawable/delete.xml	(date 1712647753105)
+@@ -1,9 +1,12 @@
+ <vector xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:width="16dp"
+-    android:height="18dp"
+-    android:viewportWidth="16"
+-    android:viewportHeight="18">
++    android:width="40dp"
++    android:height="40dp"
++    android:viewportWidth="40"
++    android:viewportHeight="40">
+   <path
+-      android:pathData="M3,18C2.45,18 1.979,17.804 1.588,17.413C1.197,17.022 1.001,16.551 1,16V3H0V1H5V0H11V1H16V3H15V16C15,16.55 14.804,17.021 14.413,17.413C14.022,17.805 13.551,18.001 13,18H3ZM5,14H7V5H5V14ZM9,14H11V5H9V14Z"
++      android:pathData="M20,20m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
++      android:fillColor="#E65555"/>
++  <path
++      android:pathData="M15,29C14.45,29 13.979,28.804 13.588,28.413C13.197,28.022 13.001,27.551 13,27V14H12V12H17V11H23V12H28V14H27V27C27,27.55 26.804,28.021 26.413,28.413C26.022,28.805 25.551,29.001 25,29H15ZM17,25H19V16H17V25ZM21,25H23V16H21V25Z"
+       android:fillColor="#ffffff"/>
+ </vector>
+Index: app/src/main/java/com/example/iat359_petjournal/Schedule.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.iat359_petjournal;\n\nimport android.content.Intent;\nimport android.database.Cursor;\nimport android.os.Bundle;\nimport android.util.Log;\nimport android.view.View;\nimport android.widget.AdapterView;\nimport android.widget.Button;\nimport android.widget.TextView;\n\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.recyclerview.widget.LinearLayoutManager;\nimport androidx.recyclerview.widget.RecyclerView;\n\nimport java.util.ArrayList;\n\npublic class Schedule extends AppCompatActivity implements AdapterView.OnItemClickListener{\n    private RecyclerView myRecycler;\n    private MyDatabase db;\n    private CustomAdapter customAdapter;\n    private MyHelper helper;\n    private LinearLayoutManager mLayoutManager;\n    private Button addButton, returnButton;\n    private TextView title;\n    private String petName;\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.schedule);\n        myRecycler = findViewById(R.id.scheduleRecycler);\n        title = findViewById(R.id.titleText);\n\n        db = new MyDatabase(this);\n        helper = new MyHelper(this);\n\n        Bundle bundle = getIntent().getExtras();\n        if (bundle != null) {\n            petName = bundle.getString(\"petName\");\n            Log.d(\"mylog\", \"Schedule \" + petName);\n        }\n\n        title.setText(petName + \"'s Schedule\");\n\n        Cursor cursor = db.getEventData(petName);\n\n        int index0 = cursor.getColumnIndex(Constants.TASKID);\n        int index1 = cursor.getColumnIndex(Constants.TASK);\n        int index2 = cursor.getColumnIndex(Constants.START_TIME);\n        int index3 = cursor.getColumnIndex(Constants.END_TIME);\n\n\n        ArrayList<String> mArrayList = new ArrayList<String>();\n        cursor.moveToFirst();\n        while (!cursor.isAfterLast()) {\n            String task = cursor.getString(index1);\n            String startTime = cursor.getString(index2);\n            String endTime = cursor.getString(index3);\n            String taskId = cursor.getString(index0);\n            String s = taskId + \",\" + task +\",\" + startTime +\",\" +endTime;\n            mArrayList.add(s);\n            cursor.moveToNext();\n        }\n\n        customAdapter = new CustomAdapter(mArrayList);\n        myRecycler.setAdapter(customAdapter);\n\n        // use a linear layout manager\n        mLayoutManager = new LinearLayoutManager(this);\n        myRecycler.setLayoutManager(mLayoutManager);\n\n        addButton = findViewById(R.id.addButton);\n        addButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent intent = new Intent(v.getContext(), AddEvent.class);\n                intent.putExtra(\"petName\", petName);\n                startActivity(intent);\n            }\n        });\n\n        returnButton = findViewById(R.id.returnButton);\n        returnButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                Intent intent = new Intent(v.getContext(), MainActivity.class);\n                startActivity(intent);\n            }\n        });\n    }\n\n\n    @Override\n    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/iat359_petjournal/Schedule.java b/app/src/main/java/com/example/iat359_petjournal/Schedule.java
+--- a/app/src/main/java/com/example/iat359_petjournal/Schedule.java	(revision 25d5e04eb0e71aa22a241f6ea38600804693e2cc)
++++ b/app/src/main/java/com/example/iat359_petjournal/Schedule.java	(date 1712647753104)
+@@ -7,6 +7,7 @@
+ import android.view.View;
+ import android.widget.AdapterView;
+ import android.widget.Button;
++import android.widget.ImageButton;
+ import android.widget.TextView;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+@@ -21,7 +22,9 @@
+     private CustomAdapter customAdapter;
+     private MyHelper helper;
+     private LinearLayoutManager mLayoutManager;
+-    private Button addButton, returnButton;
++    private Button addButton;
++
++    private ImageButton returnButton;
+     private TextView title;
+     private String petName;
+     protected void onCreate(Bundle savedInstanceState) {
