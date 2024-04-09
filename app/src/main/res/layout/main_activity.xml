@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="0"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/delete"
                     android:contentDescription="delete" />
             </LinearLayout>
 
