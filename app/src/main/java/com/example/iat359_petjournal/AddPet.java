@@ -22,8 +22,10 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 //  initialize variables
     private EditText dogNameEditText;
     private EditText yearEditText, monthEditText, dayEditText;
-    private Button addPetButton, cancelButton;
     private RadioGroup gender;
+    private Button addPetButton;
+
+    private ImageButton cancelButton;
 
     private String dogBreed;
 

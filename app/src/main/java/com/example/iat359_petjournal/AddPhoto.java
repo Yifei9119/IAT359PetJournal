@@ -144,7 +144,7 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
 
 
 //go back to last activity
-    public void goback(View view){
+    public void goBack(View view){
         Intent i = new Intent(view.getContext(), Journal.class);
         startActivity(i);
     }

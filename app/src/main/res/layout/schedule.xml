@@ -4,19 +4,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/titleText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:gravity="center"
-        android:background="#F7F2EE"
+        android:orientation="horizontal"
+        android:background="#F7F2EE">
+
+        <ImageButton
+            android:id="@+id/returnButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="25dp"
+            android:background="#00FFFFFF"
+            android:layout_gravity="left"
+            android:contentDescription="back button"
+            android:onClick="gotoHomePage"
+            android:src="@drawable/backbutton" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:gravity="center"
+            android:text="Schedule"
+            android:textSize="20dp"
+            android:textColor="#BC7245"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/invisButton"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingRight="25dp"
+            android:background="#00FFFFFF"
+            android:layout_gravity="left"
+            android:contentDescription="back button"
+            android:onClick="gotoHomePage"
+            android:src="@drawable/backbutton" />
 
 
-        android:text="Schedule of the Day"
-        android:textSize="20dp"
-        android:textColor="#BC7245"
-        android:textStyle="bold"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scheduleRecycler"
@@ -34,18 +66,8 @@
         android:paddingBottom="40dp">
 
         <Button
-            android:id="@+id/returnButton"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/primary_button"
-            android:layout_weight="1"
-            android:padding="20dp"
-            android:text="Return Home"
-            android:textColor="#FFFFFF"/>
-
-        <Button
             android:id="@+id/addButton"
-            android:layout_width="175dp"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@drawable/primary_button"

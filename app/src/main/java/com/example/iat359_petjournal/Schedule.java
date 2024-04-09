@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,9 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
     private CustomAdapter customAdapter;
     private MyHelper helper;
     private LinearLayoutManager mLayoutManager;
-    private Button addButton, returnButton;
+    private Button addButton;
+
+    private ImageButton returnButton;
     private TextView title;
     private String petName;
     protected void onCreate(Bundle savedInstanceState) {
