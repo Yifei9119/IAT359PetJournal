@@ -6,11 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class TipsAdvice extends Activity {
     //declaring variables
     private Button button1, button2, button3, button4, button5, button6, button7;
-    private Button returnButton;
+    private ImageButton returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
