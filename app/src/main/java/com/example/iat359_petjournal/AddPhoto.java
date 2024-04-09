@@ -157,18 +157,19 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
         imageViewCaptured.setScaleType(ImageView.ScaleType.FIT_XY);
 
         long timeStamp = System.currentTimeMillis();
-
+        OutputStream fos;
         try {
 //            saving photo to media storage
             ContentResolver resolver = getContentResolver();
             ContentValues contentValues = new ContentValues();
             contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
             contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-            contentValues.put(MediaStore.MediaColumns.ORIENTATION, 180);
 
             Uri imageURI = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-
+            fos = resolver.openOutputStream(Objects.requireNonNull(imageURI));
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            Objects.requireNonNull(fos);
 
             photo.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             bmap = outputStream.toByteArray();
