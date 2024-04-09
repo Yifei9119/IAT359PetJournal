@@ -83,13 +83,24 @@ public class MyDatabase {
                 "_id=?", new String[]{id});
     }
 
-//incomplete
-    public long insertPhotoData (Blob image){
+//inserts photos to the photo table
+    public long insertPhotoData (int photoNum, byte[] bmap, String sizeText){
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-
-        long id = db.insert(Constants.TABLE3_NAME, null, contentValues);
+        contentValues.put("ID", photoNum);
+        contentValues.put("Photo", bmap);
+        contentValues.put("Size", sizeText);
+       long id = db.insert("Photos", null, contentValues);
         return id;
+    }
+
+    //gets all the data from photo table
+    public Cursor getPhotoData()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT Photos.ID, Photos.Photo, Photos.Size FROM Photos", null);
+
+        return cursor;
     }
 
 //gets all the data from pet table
@@ -116,18 +127,6 @@ public class MyDatabase {
         return cursor;
     }
 
-//    public Cursor getTaskData(String type)
-//    {
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//
-//        String[] columns = {Constants.TASKID, Constants.NAME, Constants.TYPE};
-//        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
-//
-//        Cursor cursor = db.query(Constants.TABLE1_NAME+" inner join "+Constants.TABLE2_NAME+" on PETTABLE._id = SCHEDULETABLE.PetID", columns, selection, null, null, null, null);
-//        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, selection, null, null, null, null);
-//        return cursor;
-//    }
-
 
 //gets the selected pet from the database
     public String getSelectedData(String type)
@@ -152,31 +151,6 @@ public class MyDatabase {
         }
         return buffer.toString();
     }
-
-    public String getSelectedIDData(String name)
-    {
-        //select pet from database of type 'id'
-        SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.NAME, Constants.TYPE};
-
-        String selection = Constants.NAME + "='" +name+ "'";  //Constants.TYPE = 'type'
-        Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
-
-        StringBuffer buffer = new StringBuffer();
-        while (cursor.moveToNext()) {
-
-            int index1 = cursor.getColumnIndex(Constants.PETID);
-            int index2 = cursor.getColumnIndex(Constants.NAME);
-
-
-            String petID = cursor.getString(index1);
-            String petName = cursor.getString(index2);
-
-            buffer.append(petID+","+petName);
-        }
-        return buffer.toString();
-    }
-
 
 }
 

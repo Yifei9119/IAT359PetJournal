@@ -1,34 +1,59 @@
 package com.example.iat359_petjournal;
 
+import static android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT;
+
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
+import android.view.Surface;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
+import androidx.camera.core.AspectRatio;
+import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraProvider;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.CameraX;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
@@ -41,6 +66,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 public class AddPhoto extends AppCompatActivity implements View.OnClickListener {
 
+//    declare variables
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     PreviewView previewView;
     private CameraProvider cameraProvider;
@@ -48,9 +74,18 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
     private Button buttonCaptureSave, buttonCaptureShow;
     private ImageCapture imageCapture;
     private ImageView imageViewCaptured;
-    private String  mImageFileLocation="";
+
+    private ImageButton back;
+    private String mImageFileLocation = "";
     private static final int img_id = 1;
 
+    private MyDatabase db;
+
+    private MyHelper helper;
+
+    int photoNum = 1;
+
+    byte[] bmap = null;
     // new
     private Executor executor = Executors.newSingleThreadExecutor();
     private int REQUEST_CODE_PERMISSIONS = 1001;
@@ -61,148 +96,91 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_photo);
 
+//initialize variables
         buttonCaptureSave = findViewById(R.id.buttonCaptureSave);
         buttonCaptureShow = findViewById(R.id.buttonCaptureShow);
-//        previewView = findViewById(R.id.previewView);
         imageViewCaptured = findViewById(R.id.imageViewCapturedImg);
 
         buttonCaptureSave.setOnClickListener(this);
         buttonCaptureShow.setOnClickListener(this);
+        db = new MyDatabase(this);
+        helper = new MyHelper(this);
+        back = findViewById(R.id.backButton);
 
-//        if (allPermissionsGranted()) {
-//            startCamera(); //start camera if permission has been granted by user
-//        } else {
-//            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-//        }
     }
 
-    private Executor getExecutor() {
-        return ContextCompat.getMainExecutor(this);
-    }
-
-    private void startCamera() {
-
-        final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-
-        cameraProviderFuture.addListener(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindPreview(cameraProvider);
-
-                } catch (ExecutionException | InterruptedException e) {
-                    // This should never be reached.
-                }
-            }
-        }, ContextCompat.getMainExecutor(this));
-    }
-
-    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-
-        cameraProvider.unbindAll();
-
-        Preview preview = new Preview.Builder()
-                .build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-
-
-        imageCapture = new ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                .build();
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
-    }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonCaptureShow) {
+            if ((ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{
+                            Manifest.permission.CAMERA,
+                    }, 123);
+                }
+            } else {
+//                start camera
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(camera_intent, img_id);
+            }
 
-            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(camera_intent, img_id);
 
+        } else if (view.getId() == R.id.buttonCaptureSave) {
+            photoNum++;
 
+//            inserting photo to db
+            db.insertPhotoData(photoNum, bmap, ""+bmap.length);
+            Toast t2 = Toast.makeText(this, "Photo Inserted",Toast.LENGTH_LONG);
+            t2.show();
 
-        }
-        else if(view.getId()==R.id.buttonCaptureSave){
-//            capturePhoto();
+            Intent i = new Intent(view.getContext(), Journal.class);
+            startActivity(i);
+
         }
     }
 
+
+//go back to last activity
+    public void goback(View view){
+        Intent i = new Intent(view.getContext(), Journal.class);
+        startActivity(i);
+    }
+
+//    based on the result of take a photo button for camera
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap photo = (Bitmap) data.getExtras().get("data");
         imageViewCaptured.setImageBitmap(photo);
-    }
+        imageViewCaptured.setRotation(90);
+        imageViewCaptured.setScaleType(ImageView.ScaleType.FIT_XY);
 
-    private void capturePhoto() {
         long timeStamp = System.currentTimeMillis();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
 
-        // please ignore code below
-//        String longtimeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "IMAGE_" + timeStamp + "_";
-//        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//
-//        File image = File.createTempFile(imageFileName,".jpg",storageDirectory);
-//        mImageFileLocation = image.getAbsolutePath();
+        try {
+//            saving photo to media storage
+            ContentResolver resolver = getContentResolver();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+            contentValues.put(MediaStore.MediaColumns.ORIENTATION, 180);
 
-        imageCapture.takePicture(
-                new ImageCapture.OutputFileOptions.Builder(
-                        getContentResolver(),
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        contentValues
-                ).build(),
-                getExecutor(),
-                new ImageCapture.OnImageSavedCallback() {
-                    @Override
-                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        Toast.makeText(AddPhoto.this, "Saving...", Toast.LENGTH_SHORT).show();
-                    }
+            Uri imageURI = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
-                    @Override
-                    public void onError(@NonNull ImageCaptureException exception) {
-                        Toast.makeText(AddPhoto.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-    private boolean allPermissionsGranted() {
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            bmap = outputStream.toByteArray();
+            Toast.makeText(AddPhoto.this, "Saving...", Toast.LENGTH_SHORT).show();
 
-        for (String permission : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return true;
     }
 
-//    in progress finding a way to rotate the image so it previews right
-    private void rotateImage(Bitmap bitmap){
-        ExifInterface exifInterface = null;
-//        try{
-////            exifInterface = new ExifInterface();
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED);
-        Matrix matrix = new Matrix();
-        switch (orientation){
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.setRotate(90);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                matrix.setRotate(180);
-                break;
-                default:
-        }
-        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
-        imageViewCaptured.setImageBitmap(rotateBitmap);
-    }
+
+
+
 }
 

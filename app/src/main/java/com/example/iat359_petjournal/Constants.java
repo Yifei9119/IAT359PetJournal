@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Constants {
+//    constants
     public static final String DATABASE_NAME = "petdatabase";
     public static final String TABLE1_NAME = "PETTABLE";
 
@@ -18,10 +19,7 @@ public class Constants {
     public static final String DATE = "Date";
     public static final String START_TIME = "startTime";
     public static final String END_TIME = "endTime";
-    public static final String DESCRIPTION = "_id";
-    public static final String TABLE3_NAME = "PHOTOTABLE";
-    public static final String IMAGEID = "_id";
 
 
-    public static final int DATABASE_VERSION = 24;
+    public static final int DATABASE_VERSION = 25;
 }

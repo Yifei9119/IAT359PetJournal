@@ -146,6 +146,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         else if(togglebutton.equals("OFF")){
             bgMusictoggle.setChecked(false);
         }
+        setSettingsMode();
 
 
     }
@@ -254,13 +255,14 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 float light_val = sharedPrefs.getFloat("lightSensor", 0);
                 float threshold = LightDarkMode.getThreshold();
 
-                if (light_val < threshold) {
+
+                if (light_val < threshold || sharedPrefs.getString("selected","").equals("dark")) {
                     bg.setBackgroundColor(Color.parseColor("#282828"));
                     bgmusicText.setTextColor(Color.WHITE);
                     volumeText.setTextColor(Color.WHITE);
                     appearanceText.setTextColor(Color.WHITE);
                     setting.setTextColor(Color.WHITE);
-                } else {
+                } else if(light_val>=threshold || sharedPrefs.getString("selected","").equals("light")){
                     bg.setBackgroundColor(Color.WHITE);
                     bgmusicText.setTextColor(Color.BLACK);
                     volumeText.setTextColor(Color.BLACK);

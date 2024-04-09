@@ -49,6 +49,8 @@ public class MyHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(CREATE_TABLE1);
             db.execSQL(CREATE_TABLE2);
+            db.execSQL("CREATE TABLE Photos(ID INT,Photo Blob, Size Text);");
+
             Toast.makeText(context, "onCreate() called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
             Toast.makeText(context, "exception onCreate() db", Toast.LENGTH_LONG).show();
@@ -60,6 +62,8 @@ public class MyHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(DROP_TABLE1);
             db.execSQL(DROP_TABLE2);
+            db.execSQL("DROP TABLE IF EXISTS Photos;");
+
 
 
             onCreate(db);
