@@ -21,12 +21,13 @@ public class MyDatabase {
     }
 
 //    inserts/adds new pet data
-    public long insertPetData (String name, String type)
+    public long insertPetData (String name, String type, String gender)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.NAME, name);
         contentValues.put(Constants.TYPE, type);
+        contentValues.put(Constants.GENDER, gender);
 
         long id = db.insert(Constants.TABLE1_NAME, null, contentValues);
         Log.d("mylog", "" + id);
@@ -59,7 +60,7 @@ public class MyDatabase {
         return id;
     }
 
-    // below is the method for deleting our course.
+    // below is the method for deleting pets.
     public void deletePet(String id) {
 
         // on below line we are creating
@@ -70,6 +71,19 @@ public class MyDatabase {
         // pet and we are comparing it with our pet id.
         db.delete(Constants.TABLE1_NAME, "" +
                 "_id=?", new String[]{id});
+    }
+
+    // below is the method for deleting photos.
+    public void deletePhoto(String id) {
+
+        // on below line we are creating
+        // a variable to write our database.
+        db = helper.getWritableDatabase();
+
+        // on below line we are calling a method to delete our
+        // pet and we are comparing it with our pet id.
+        db.delete("Photos", "" +
+                "Size=?", new String[]{id});
     }
 
     public void deleteEvent(String id) {
@@ -130,25 +144,12 @@ public class MyDatabase {
     }
 
 
-//    public Cursor getTaskData(String type)
-//    {
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//
-//        String[] columns = {Constants.TASKID, Constants.NAME, Constants.TYPE};
-//        String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
-//
-//        Cursor cursor = db.query(Constants.TABLE1_NAME+" inner join "+Constants.TABLE2_NAME+" on PETTABLE._id = SCHEDULETABLE.PetID", columns, selection, null, null, null, null);
-//        Cursor cursor = db.query(Constants.TABLE2_NAME, columns, selection, null, null, null, null);
-//        return cursor;
-//    }
-
-
 //gets the selected pet from the database
     public String getSelectedData(String type)
     {
         //select pet from database of id type
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.NAME, Constants.TYPE};
+        String[] columns = {Constants.NAME, Constants.TYPE, Constants.GENDER};
 
         String selection = Constants.PETID + "='" +type+ "'";  //Constants.PETID = '_id'
         Cursor cursor = db.query(Constants.TABLE1_NAME, columns, selection, null, null, null, null);
@@ -158,11 +159,13 @@ public class MyDatabase {
 
             int index1 = cursor.getColumnIndex(Constants.NAME);
             int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.GENDER);
 
             String petName = cursor.getString(index1);
             String petBreed = cursor.getString(index2);
+            String petGender = cursor.getString(index3);
 
-            buffer.append(petName + "," + petBreed + "\n");
+            buffer.append(petName + "," + petBreed + "," + petGender +"\n");
         }
         return buffer.toString();
     }

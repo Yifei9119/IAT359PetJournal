@@ -10,19 +10,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener{
 //  initialize variables
     private EditText dogNameEditText;
     private EditText yearEditText, monthEditText, dayEditText;
     private Button addPetButton, cancelButton;
+    private RadioGroup gender;
 
     private String dogBreed;
+
+    private String genderType;
     MyDatabase db;
 
     @Override
@@ -38,6 +43,10 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         dayEditText = findViewById(R.id.dayEditText);
         addPetButton = findViewById(R.id.addPetButton);
         cancelButton = findViewById(R.id.cancelButton);
+        gender = findViewById(R.id.gender);
+        gender.setOnCheckedChangeListener(this);
+        RadioButton female = (RadioButton) findViewById(R.id.female);
+        female.setChecked(true);
 
 //        after clicking on add pet retrieve the name of the dog and dog breed and insert to db
         addPetButton.setOnClickListener(new View.OnClickListener() {
@@ -45,8 +54,8 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
             public void onClick(View v) {
                 String dogName = dogNameEditText.getText().toString();
 
-                if(dogBreed != null && !dogName.isEmpty()) {
-                    db.insertPetData(dogName, dogBreed);
+                if(dogBreed != null && !dogName.isEmpty() && !genderType.isEmpty()) {
+                    db.insertPetData(dogName, dogBreed, genderType);
                     Intent intent= new Intent(v.getContext(), MainActivity.class);
                     startActivity(intent);
                 }
@@ -91,4 +100,13 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if(checkedId == R.id.female) {
+            genderType = "Female";
+        }
+        else if(checkedId == R.id.male){
+            genderType = "Male";
+        }
+    }
 }

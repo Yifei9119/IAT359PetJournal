@@ -42,13 +42,16 @@ public class MainActivity extends Activity{
     static Boolean start = true;
 
     static EditText petName;
-    ImageView petSelected;
+    ImageView petSelected, petGender;
 
     View[] images;
 
-    Button edit, delete;
+    Button edit;
+    ImageButton delete;
 
     int breedSelected = 0;
+
+    int genderSelected = 0;
 
     MyDatabase db;
     MyHelper helper;
@@ -92,8 +95,9 @@ public class MainActivity extends Activity{
         schedule = (ImageButton) findViewById(R.id.schedule);
         petName = (EditText) findViewById(R.id.petName);
         petSelected = (ImageView) findViewById(R.id.petSelected);
+        petGender = (ImageView) findViewById(R.id.gender);
         edit = (Button) findViewById(R.id.editButton);
-        delete = (Button) findViewById(R.id.delete);
+        delete = (ImageButton) findViewById(R.id.delete);
         upcomingTask = findViewById(R.id.recentTask);
         upcomingTaskTime = findViewById(R.id.recentTaskTime);
 
@@ -216,12 +220,14 @@ public class MainActivity extends Activity{
                     if (v.getId() == Integer.parseInt(s)) {
                         String selected = db.getSelectedData(s);
                         String[] results = selected.split(",");
-                        String[] results2 = results[1].split("\n");
+                        String[] results2 = results[2].split("\n");
                         petName.setText(results[0]);
                         petName.setTag(s);
-                        int breedSelected = selectedAvatar(results2[0]);
+                        int breedSelected = selectedAvatar(results[1]);
+                        int genderSelected = selectedGender(results2[0]);
 
                         petSelected.setImageResource(breedSelected);
+                        petGender.setImageResource(genderSelected);
 
                     }
                 }
@@ -322,6 +328,20 @@ public class MainActivity extends Activity{
                 tips.setBackgroundResource(R.drawable.primary_button);
             }
         }
+    }
+
+//    handles the string to see which gender the pet is
+    private Integer selectedGender(String text) {
+        switch (text) {
+            case "Female":
+                genderSelected = R.drawable.female_vector;
+                break;
+
+            case "Male":
+                genderSelected = R.drawable.male_vector;
+                break;
+        }
+        return genderSelected;
     }
 
     //handles the string to see which dog breed is selected
@@ -480,10 +500,12 @@ public class MainActivity extends Activity{
             String[] split = s.split(",");
             String selected = db.getSelectedData(split[2]);
             String[] results = selected.split(",");
-            String[] results2 = results[1].split("\n");
-
-            int breedSelected = selectedAvatar(results2[0]);
+            String[] gendertype = results[2].split("\n");
+            int breedSelected = selectedAvatar(results[1]);
             petSelected.setImageResource(breedSelected);
+
+            int gender = selectedGender(gendertype[0]);
+            petGender.setImageResource(gender);
 
             petName.setText(results[0]);
             petName.setTag(Integer.parseInt(split[2]));

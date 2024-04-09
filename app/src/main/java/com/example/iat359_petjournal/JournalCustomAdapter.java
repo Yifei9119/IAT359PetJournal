@@ -5,9 +5,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,14 +18,17 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class JournalCustomAdapter extends RecyclerView.Adapter<JournalCustomAdapter.MyViewHolder> {
 //    declare byte arraylist
-    ArrayList<byte[]> bitmapArray = new ArrayList<byte[]>();
+    public ArrayList<byte[]> bitmapArray = new ArrayList<byte[]>();
+    public ArrayList<String> sizeArray = new ArrayList<String>();
 
-    public JournalCustomAdapter(ArrayList<byte[]> list) {
+    public JournalCustomAdapter(ArrayList<byte[]> list, ArrayList<String> list2) {
         this.bitmapArray = list;
+        this.sizeArray = list2;
     }
 
 //    inflate the individual item layout to viewholder
@@ -38,8 +43,9 @@ public class JournalCustomAdapter extends RecyclerView.Adapter<JournalCustomAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        bind the bitmaparray that gets the position and sets te imagebitmap
         Bitmap bmapRes = BitmapFactory.decodeByteArray(bitmapArray.get(position), 0, bitmapArray.get(position).length);
+        String size = sizeArray.get(position);
         holder.photo.setImageBitmap(bmapRes);
-        holder.photo.setTag(bmapRes.toString());
+        holder.photo.setTag(size);
         holder.photo.setRotation(90);
 
     }
@@ -51,11 +57,13 @@ public class JournalCustomAdapter extends RecyclerView.Adapter<JournalCustomAdap
         return bitmapArray.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageButton photo;
 
         public LinearLayout myLayout;
+
+        public ImageButton deletebtn;
 
         Context context;
 
@@ -65,9 +73,37 @@ public class JournalCustomAdapter extends RecyclerView.Adapter<JournalCustomAdap
             myLayout = (LinearLayout) itemView;
 
             photo = (ImageButton) itemView.findViewById(R.id.photoItem);
-
+            deletebtn = (ImageButton) itemView.findViewById(R.id.deletebtn);
+            deletebtn.setVisibility(View.GONE);
             itemView.setOnClickListener(this);
             context = itemView.getContext();
+
+            photo.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if(deletebtn.getVisibility()==View.GONE) {
+                         deletebtn.setVisibility(View.VISIBLE);
+                     }
+                     else if(deletebtn.getVisibility()==View.VISIBLE){
+                         deletebtn.setVisibility(View.GONE);
+                     }
+                 }
+            });
+
+
+
+            deletebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        MyDatabase db = new MyDatabase(context);
+                        db.deletePhoto(photo.getTag().toString());
+                        bitmapArray.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                }
+            });
 
         }
 

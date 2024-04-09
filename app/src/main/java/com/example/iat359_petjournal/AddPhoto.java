@@ -83,7 +83,7 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
 
     private MyHelper helper;
 
-    int photoNum = 1;
+    int photoNum = 0;
 
     byte[] bmap = null;
     // new
@@ -106,7 +106,7 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
         db = new MyDatabase(this);
         helper = new MyHelper(this);
         back = findViewById(R.id.backButton);
-
+        photoNum = 0;
     }
 
 
@@ -128,7 +128,8 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
 
 
         } else if (view.getId() == R.id.buttonCaptureSave) {
-            photoNum++;
+//            photoNum++;
+            photoNum = photoNum+1;
 
 //            inserting photo to db
             db.insertPhotoData(photoNum, bmap, ""+bmap.length);

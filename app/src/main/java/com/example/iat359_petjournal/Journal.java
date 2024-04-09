@@ -59,16 +59,21 @@ public class Journal extends AppCompatActivity {
         Cursor cursor = db.getPhotoData();
 
         int index2 = cursor.getColumnIndex("Photo");
+        int index3 = cursor.getColumnIndex("Size");
 
 
         ArrayList<byte[]> bitmapArray = new ArrayList<byte[]>();
+        ArrayList<String> sizeArray = new ArrayList<String>();
+
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             bitmapArray.add(cursor.getBlob(index2));
+            sizeArray.add(cursor.getString(index3));
+
             cursor.moveToNext();
         }
 
-        customAdapter = new JournalCustomAdapter(bitmapArray);
+        customAdapter = new JournalCustomAdapter(bitmapArray, sizeArray);
 
         myRecycler.setAdapter(customAdapter);
 

@@ -165,18 +165,19 @@
                 android:textColor="#BC7245"/>
 
             <RadioGroup
+                android:id="@+id/gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/female"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Female" />
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/male"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Male" />
