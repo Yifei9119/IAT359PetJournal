@@ -16,6 +16,7 @@
         android:id="@+id/startTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:layout_weight="1"
         android:textSize="20dp"
         android:text="11:00 -" />
@@ -46,16 +47,13 @@
         android:text="TextView" />
 
     <ImageButton
-        android:id="@+id/seleteEvent"
-        android:visibility="invisible"
+        android:id="@+id/deleteEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingRight="25dp"
+        android:padding="5dp"
         android:background="#00FFFFFF"
         android:layout_gravity="left"
         android:contentDescription="back button"
-        android:onClick="gotoHomePage"
         android:src="@drawable/delete" />
 
 </LinearLayout>

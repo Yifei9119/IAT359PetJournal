@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public TextView idTextView, taskTextView, startTimeTextView, endTimeTextView;
         public LinearLayout myLayout;
-        public Button deleteEvent;
+        public ImageButton deleteEvent;
 
         Context context;
 
@@ -62,7 +63,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             taskTextView = (TextView) itemView.findViewById(R.id.taskTextView);
             startTimeTextView = (TextView) itemView.findViewById(R.id.startTimeTextView);
             endTimeTextView = (TextView) itemView.findViewById(R.id.endTimeTextView);
-            deleteEvent = (Button) itemView.findViewById(R.id.deleteEvent);
+            deleteEvent = (ImageButton) itemView.findViewById(R.id.deleteEvent);
 
             itemView.setOnClickListener(this);
             context = itemView.getContext();

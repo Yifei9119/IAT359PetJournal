@@ -88,8 +88,6 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         dropdown.setOnItemSelectedListener(this);
 
 
-
-
     }
 // the dogbreed would be the selected item of the dropdown
     @Override
