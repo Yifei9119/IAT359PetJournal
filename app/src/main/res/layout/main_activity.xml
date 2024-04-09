@@ -8,6 +8,7 @@
     android:background="@drawable/background_light">
 
     <LinearLayout
+        android:id="@+id/upcomings"
         android:layout_width="270dp"
         android:layout_height="100dp"
         android:layout_gravity="right"
@@ -75,16 +76,14 @@
                 android:id="@+id/schedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
                 android:layout_gravity="center"
-                android:paddingRight="15dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="Add a Pet"
                 android:onClick="gotoAddPetPage"
+                android:paddingRight="15dp"
                 android:src="@drawable/forwardbutton" />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

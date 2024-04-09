@@ -1,13 +1,17 @@
 package com.example.iat359_petjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,17 +26,27 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
     private CustomAdapter customAdapter;
     private MyHelper helper;
     private LinearLayoutManager mLayoutManager;
-    private Button addButton;
+    private static Button addButton;
 
-    private ImageButton returnButton;
-    private TextView title;
+
+    private static ImageButton returnButton;
+    static LinearLayout bg, header;
+    static TextView title;
     private String petName;
+    static SharedPreferences sharedPrefs;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule);
         myRecycler = findViewById(R.id.scheduleRecycler);
+        bg = findViewById(R.id.bg);
         title = findViewById(R.id.titleText);
+        header = findViewById(R.id.header);
+//        get shared prefs
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
+        SharedPreferences.Editor editor = sharedPrefs.edit();
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
@@ -89,11 +103,39 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemCli
                 startActivity(intent);
             }
         });
+
+        setScheduleMode();
+
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    public static void setScheduleMode(){
+        if(sharedPrefs!=null) {
+            float light_val = sharedPrefs.getFloat("lightSensor", 0);
+            float threshold = LightDarkMode.getThreshold();
+
+            if (light_val < threshold) {
+                bg.setBackgroundColor(Color.parseColor("#4C4C4C"));
+                title.setTextColor(Color.parseColor("#695C54"));
+                header.setBackgroundColor(Color.parseColor("#BCBCBC"));
+                returnButton.setImageResource(R.drawable.backbuttonnight);
+                addButton.setBackgroundResource(R.drawable.primary_buttonnight);
+
+
+
+            } else {
+                bg.setBackgroundColor(Color.WHITE);
+                title.setTextColor(Color.parseColor("#BC7245"));
+                header.setBackgroundColor(Color.parseColor("#F7F2EE"));
+                returnButton.setImageResource(R.drawable.backbutton);
+                addButton.setBackgroundResource(R.drawable.primary_button);
+
+            }
+        }
     }
 }

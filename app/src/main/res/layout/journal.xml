@@ -2,39 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#F7F2EE">
+        android:background="#F7F2EE"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingLeft="25dp"
-            android:background="#00FFFFFF"
             android:layout_gravity="left"
+            android:background="#00FFFFFF"
             android:contentDescription="back button"
             android:onClick="goBack"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
             android:src="@drawable/backbutton" />
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingTop="25dp"
             android:paddingBottom="25dp"
-            android:gravity="center"
             android:text="Journal"
-            android:textSize="20dp"
             android:textColor="#BC7245"
-            android:textStyle="bold"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -42,8 +44,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -56,8 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:padding="20dp"
         android:background="@drawable/primary_button"
+        android:padding="20dp"
         android:text="Add a post"
         android:textColor="#FFFFFF" />
 

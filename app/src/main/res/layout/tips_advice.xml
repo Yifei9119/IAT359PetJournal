@@ -2,54 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#F7F2EE"
-        >
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/returnButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingLeft="25dp"
-            android:background="#00FFFFFF"
             android:layout_gravity="left"
+            android:background="#00FFFFFF"
             android:contentDescription="back button"
             android:onClick="gotoHomePage"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
             android:src="@drawable/backbutton" />
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingTop="25dp"
             android:paddingBottom="25dp"
-            android:gravity="center"
             android:text="Resources"
-            android:textSize="20dp"
             android:textColor="#BC7245"
-            android:textStyle="bold"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/invisButton"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingRight="25dp"
-            android:background="#00FFFFFF"
             android:layout_gravity="left"
+            android:background="#00FFFFFF"
             android:contentDescription="back button"
             android:onClick="gotoHomePage"
-            android:src="@drawable/backbutton" />
+            android:paddingTop="15dp"
+            android:paddingRight="25dp"
+            android:src="@drawable/backbutton"
+            android:visibility="invisible" />
 
 
     </LinearLayout>
@@ -62,8 +63,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/tableText1"
@@ -80,8 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Crate Training"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut2"
@@ -103,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Training"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut3"
@@ -126,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Training Supplies"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut4"
@@ -149,8 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Socialization"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut5"
@@ -172,8 +172,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Health and Safety"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut6"
@@ -195,8 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
 
         <TableRow
@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Grooming"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/tableBut7"
@@ -218,11 +218,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/primary_button"
-                android:textColor="#FFFFFF"
-                android:text="View" />
+                android:text="View"
+                android:textColor="#FFFFFF" />
         </TableRow>
     </TableLayout>
-
 
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.iat359_petjournal;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public ArrayList<String> eventList;
     Context context;
+
 
     public CustomAdapter(ArrayList<String> list) {
         this.eventList = list;

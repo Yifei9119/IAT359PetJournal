@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 //    declare variables
     SeekBar volume;
     int currentVolume;
-    TextView volumeTextView;
+    static TextView volumeTextView;
     static TextView bgmusicText;
     static TextView appearanceText;
     static TextView volumeText;
@@ -33,21 +34,27 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     static TextView setting;
     AudioManager audio;
     Intent bgMusicPlayer;
-    ToggleButton bgMusictoggle;
+    static ToggleButton bgMusictoggle;
 
     static LinearLayout bg;
 
     static SharedPreferences sharedPrefs;
 
-    Button auto, nightmode, lightmode;
+    static Button auto;
+    static Button nightmode;
+    static Button lightmode, save, logout;
+
+    static ImageButton backButton;
+
+    static Drawable autoimage, nightimage,lightimage, lightimage2,nightimage2,autoimage2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
         //      initialize variables
-        Button logout = findViewById(R.id.logout);
-        ImageButton backButton = findViewById(R.id.backButton);
+        logout = findViewById(R.id.logout);
+        backButton = findViewById(R.id.backButton);
         bgMusictoggle = findViewById(R.id.toggleButton);
         volume = (SeekBar) findViewById(R.id.seekBar);
         volumeTextView = (TextView) findViewById(R.id.volume);
@@ -55,6 +62,14 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         appearanceText = (TextView) findViewById(R.id.appearance);
         volumeText = (TextView) findViewById(R.id.volumetext);
         setting = (TextView) findViewById(R.id.setting);
+        save = findViewById(R.id.save);
+        autoimage = getResources().getDrawable(R.drawable.auto_night);
+        lightimage = getResources().getDrawable(R.drawable.brightness_dark);
+        nightimage = getResources().getDrawable(R.drawable.night_mode_night);
+
+        autoimage2 = getResources().getDrawable(R.drawable.auto);
+        lightimage2 = getResources().getDrawable(R.drawable.brightness);
+        nightimage2 = getResources().getDrawable(R.drawable.night_mode);
 
         bgMusicPlayer = new Intent(this, MusicPlayer.class);
 
@@ -211,38 +226,79 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 // and set the threshold of the light sensor according to user preferences, the service class would handle the appearance changes
     @Override
     public void onClick(View v) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        if(v == findViewById(R.id.autoButton)){
-            auto.setBackgroundResource(R.drawable.text_image_button_selected);
-            lightmode.setBackgroundResource(R.drawable.text_image_button);
-            nightmode.setBackgroundResource(R.drawable.text_image_button);
+        Log.d("tags",sharedPrefs.getString("selected",""));
+        if (v == findViewById(R.id.autoButton)) {
+
+            if (sharedPrefs.getString("selected", "").equals("dark")) {
+                auto.setBackgroundResource(R.drawable.text_image_button_selected_night);
+                lightmode.setBackgroundResource(R.drawable.text_image_button_night);
+                nightmode.setBackgroundResource(R.drawable.text_image_button_night);
+
+//                editor.putFloat("lightSensor", 0);
+//                editor.commit();
+
+            } else if (sharedPrefs.getString("selected", "").equals("auto") || sharedPrefs.getString("selected", "").equals("light")) {
+                auto.setBackgroundResource(R.drawable.text_image_button_selected);
+                lightmode.setBackgroundResource(R.drawable.text_image_button);
+                nightmode.setBackgroundResource(R.drawable.text_image_button);
+
+//                editor.putFloat("lightSensor", 100);
+//                editor.commit();
+
+            }
 
         }
-        else if(v == findViewById(R.id.LightMode)){
-            auto.setBackgroundResource(R.drawable.text_image_button);
-            lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
-            nightmode.setBackgroundResource(R.drawable.text_image_button);
+
+        else if (v == findViewById(R.id.LightMode)) {
+                if (sharedPrefs.getString("selected", "").equals("dark")) {
+                    auto.setBackgroundResource(R.drawable.text_image_button_night);
+                    lightmode.setBackgroundResource(R.drawable.text_image_button_selected_night);
+//                    nightmode.setBackgroundResource(R.drawable.text_image_button_night);
+//                    editor.putFloat("lightSensor", 0);
+//                    editor.commit();
+
+                } else if (sharedPrefs.getString("selected", "").equals("light") || sharedPrefs.getString("selected", "").equals("auto")) {
+                    auto.setBackgroundResource(R.drawable.text_image_button);
+                    lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+                    nightmode.setBackgroundResource(R.drawable.text_image_button);
+//                    editor.putFloat("lightSensor", 100);
+//                    editor.commit();
+                }
+
+            } else if (v == findViewById(R.id.DarkMode)) {
+                if (sharedPrefs.getString("selected", "").equals("light") || sharedPrefs.getString("selected", "").equals("auto")) {
+                    auto.setBackgroundResource(R.drawable.text_image_button);
+                    lightmode.setBackgroundResource(R.drawable.text_image_button);
+                    nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+//                    editor.putFloat("lightSensor", 100);
+//                    editor.commit();
+
+                } else if (sharedPrefs.getString("selected", "").equals("dark")) {
+                auto.setBackgroundResource(R.drawable.text_image_button_night);
+                lightmode.setBackgroundResource(R.drawable.text_image_button_night);
+                nightmode.setBackgroundResource(R.drawable.text_image_button_selected_night);
+//                    editor.putFloat("lightSensor", 0);
+//                        editor.commit();
+
+                }
+
 
         }
-        else if(v == findViewById(R.id.DarkMode)){
-            auto.setBackgroundResource(R.drawable.text_image_button);
-            lightmode.setBackgroundResource(R.drawable.text_image_button);
-            nightmode.setBackgroundResource(R.drawable.text_image_button_selected);
-        }
-
     }
 
     public void saveSettings(View view){
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        if (auto.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())){
+        if (auto.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState()) || auto.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected_night).getConstantState())){
             LightDarkMode.setLightsensor(6);
             editor.putString("selected", "auto");
         }
-        else if(lightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())) {
+        else if(lightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())|| lightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected_night).getConstantState())) {
             LightDarkMode.setLightsensor(0);
             editor.putString("selected", "light");
         }
-        else if(nightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())) {
+        else if(nightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected).getConstantState())|| nightmode.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.text_image_button_selected_night).getConstantState())) {
             LightDarkMode.setLightsensor(100);
             editor.putString("selected", "dark");
         }
@@ -251,23 +307,77 @@ public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
     }
 
     public static void setSettingsMode(){
-            if(sharedPrefs!=null) {
+        if(sharedPrefs!=null) {
                 float light_val = sharedPrefs.getFloat("lightSensor", 0);
                 float threshold = LightDarkMode.getThreshold();
 
 
-                if (light_val < threshold || sharedPrefs.getString("selected","").equals("dark")) {
-                    bg.setBackgroundColor(Color.parseColor("#282828"));
+                if (light_val < threshold) {
+                    bg.setBackgroundColor(Color.parseColor("#4C4C4C"));
                     bgmusicText.setTextColor(Color.WHITE);
                     volumeText.setTextColor(Color.WHITE);
                     appearanceText.setTextColor(Color.WHITE);
                     setting.setTextColor(Color.WHITE);
-                } else if(light_val>=threshold || sharedPrefs.getString("selected","").equals("light")){
+                    save.setBackgroundResource(R.drawable.primary_buttonnight);
+                    bgMusictoggle.setBackgroundResource(R.drawable.primary_buttonnight);
+                    logout.setBackgroundResource(R.drawable.primary_buttonnight);
+                    backButton.setImageResource(R.drawable.backbuttonnight);
+                    volumeTextView.setTextColor(Color.WHITE);
+
+                    if(sharedPrefs.getString("selected","").equals("dark")) {
+                        nightmode.setBackgroundResource(R.drawable.text_image_button_selected_night);
+                        auto.setBackgroundResource(R.drawable.text_image_button_night);
+                        lightmode.setBackgroundResource(R.drawable.text_image_button_night);
+                    }
+                    else if(sharedPrefs.getString("selected","").equals("auto")){
+                        nightmode.setBackgroundResource(R.drawable.text_image_button_night);
+                        auto.setBackgroundResource(R.drawable.text_image_button_selected_night);
+                        lightmode.setBackgroundResource(R.drawable.text_image_button_night);
+                    }
+
+                    auto.setTextColor(Color.WHITE);
+                    auto.setCompoundDrawablesWithIntrinsicBounds(null, autoimage, null, null);
+                    lightmode.setTextColor(Color.WHITE);
+                    lightmode.setCompoundDrawablesWithIntrinsicBounds(null, lightimage, null, null);
+
+                    nightmode.setTextColor(Color.WHITE);
+                    nightmode.setCompoundDrawablesWithIntrinsicBounds(null, nightimage, null, null);
+
+
+                } else if(light_val>=threshold){
                     bg.setBackgroundColor(Color.WHITE);
                     bgmusicText.setTextColor(Color.BLACK);
                     volumeText.setTextColor(Color.BLACK);
                     appearanceText.setTextColor(Color.BLACK);
                     setting.setTextColor(Color.BLACK);
+                    save.setBackgroundResource(R.drawable.primary_button);
+                    bgMusictoggle.setBackgroundResource(R.drawable.primary_button);
+                    logout.setBackgroundResource(R.drawable.primary_button);
+                    backButton.setImageResource(R.drawable.backbutton);
+                    volumeTextView.setTextColor(Color.BLACK);
+
+
+                    if(sharedPrefs.getString("selected","").equals("light")) {
+                        auto.setBackgroundResource(R.drawable.text_image_button);
+                        lightmode.setBackgroundResource(R.drawable.text_image_button_selected);
+                        nightmode.setBackgroundResource(R.drawable.text_image_button);
+
+                    }
+                    else if(sharedPrefs.getString("selected","").equals("auto")){
+                        auto.setBackgroundResource(R.drawable.text_image_button_selected);
+                        lightmode.setBackgroundResource(R.drawable.text_image_button);
+                        nightmode.setBackgroundResource(R.drawable.text_image_button);
+
+                    }
+                    auto.setTextColor(Color.BLACK);
+                    auto.setCompoundDrawablesWithIntrinsicBounds(null, autoimage2, null, null);
+
+                    lightmode.setTextColor(Color.BLACK);
+                    lightmode.setCompoundDrawablesWithIntrinsicBounds(null, lightimage2, null, null);
+
+                    nightmode.setTextColor(Color.BLACK);
+                    nightmode.setCompoundDrawablesWithIntrinsicBounds(null, nightimage2, null, null);
+
                 }
         }
     }

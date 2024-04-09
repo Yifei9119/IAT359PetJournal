@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.Calendar;
@@ -35,6 +36,8 @@ public class MainActivity extends Activity{
     static Button journal;
     static Button tips;
 
+    static LinearLayout upcomings;
+
 
     static ConstraintLayout bg;
 
@@ -46,7 +49,7 @@ public class MainActivity extends Activity{
 
     View[] images;
 
-    Button edit;
+    static Button edit;
     ImageButton delete;
 
     int breedSelected = 0;
@@ -100,6 +103,7 @@ public class MainActivity extends Activity{
         delete = (ImageButton) findViewById(R.id.delete);
         upcomingTask = findViewById(R.id.recentTask);
         upcomingTaskTime = findViewById(R.id.recentTaskTime);
+        upcomings = findViewById(R.id.upcomings);
 
         bg = (ConstraintLayout) findViewById(R.id.bg);
 
@@ -322,6 +326,8 @@ public class MainActivity extends Activity{
                 addPet.setImageResource(R.drawable.addnight);
                 settings.setImageResource(R.drawable.settingnight);
                 tips.setBackgroundResource(R.drawable.primary_buttonnight);
+                upcomings.setBackgroundResource(R.drawable.upcoming_schedule_dark);
+                edit.setBackgroundResource(R.drawable.primary_buttonnight);
 
             } else {
                 journal.setBackgroundResource(R.drawable.primary_button);
@@ -329,6 +335,9 @@ public class MainActivity extends Activity{
                 addPet.setImageResource(R.drawable.add);
                 settings.setImageResource(R.drawable.setting);
                 tips.setBackgroundResource(R.drawable.primary_button);
+                upcomings.setBackgroundResource(R.drawable.upcoming_schedule);
+                edit.setBackgroundResource(R.drawable.primary_button);
+
             }
         }
     }

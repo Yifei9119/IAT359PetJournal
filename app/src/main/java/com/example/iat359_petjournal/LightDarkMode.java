@@ -96,6 +96,10 @@ public class LightDarkMode extends Service implements SensorEventListener {
 
             MainActivity.setMode();
             Settings.setSettingsMode();
+            Journal.setJournalMode();
+            TipsAdvice.setTipsAdviceMode();
+            Schedule.setScheduleMode();
+            AddPhoto.setPhotoMode();
 
         }
     }

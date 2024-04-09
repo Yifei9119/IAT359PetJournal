@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -29,6 +30,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -71,11 +74,12 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
     PreviewView previewView;
     private CameraProvider cameraProvider;
 
-    private Button buttonCaptureSave, buttonCaptureShow;
+    private static Button buttonCaptureSave;
+    private static Button buttonCaptureShow;
     private ImageCapture imageCapture;
-    private ImageView imageViewCaptured;
+    private static ImageView imageViewCaptured;
 
-    private ImageButton back;
+    private static ImageButton back;
     private String mImageFileLocation = "";
     private static final int img_id = 1;
 
@@ -84,6 +88,10 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
     private MyHelper helper;
 
     int photoNum = 0;
+
+    static SharedPreferences sharedPrefs;
+    static LinearLayout bg, header;
+    static TextView title;
 
     byte[] bmap = null;
     // new
@@ -107,6 +115,13 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
         helper = new MyHelper(this);
         back = findViewById(R.id.backButton);
         photoNum = 0;
+
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+
+        bg = findViewById(R.id.bg);
+        title = findViewById(R.id.titleText);
+        header = findViewById(R.id.header);
+setPhotoMode();
     }
 
 
@@ -182,7 +197,32 @@ public class AddPhoto extends AppCompatActivity implements View.OnClickListener 
     }
 
 
+    public static void setPhotoMode(){
+        if(sharedPrefs!=null) {
+            float light_val = sharedPrefs.getFloat("lightSensor", 0);
+            float threshold = LightDarkMode.getThreshold();
 
+            if (light_val < threshold) {
+                bg.setBackgroundColor(Color.parseColor("#4C4C4C"));
+                title.setTextColor(Color.parseColor("#695C54"));
+                header.setBackgroundColor(Color.parseColor("#BCBCBC"));
+                back.setImageResource(R.drawable.backbuttonnight);
+                buttonCaptureSave.setBackgroundResource(R.drawable.primary_buttonnight);
+                buttonCaptureShow.setBackgroundResource(R.drawable.primary_buttonnight);
+                imageViewCaptured.setImageResource(R.drawable.previewnight);
+
+            } else {
+                bg.setBackgroundColor(Color.WHITE);
+                title.setTextColor(Color.parseColor("#BC7245"));
+                header.setBackgroundColor(Color.parseColor("#F7F2EE"));
+                back.setImageResource(R.drawable.backbutton);
+                buttonCaptureSave.setBackgroundResource(R.drawable.primary_button);
+                buttonCaptureShow.setBackgroundResource(R.drawable.primary_button);
+                imageViewCaptured.setImageResource(R.drawable.preview);
+
+            }
+        }
+    }
 
 }
 
