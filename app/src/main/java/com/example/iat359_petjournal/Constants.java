@@ -22,6 +22,6 @@ public class Constants {
     public static final String PET_NAME = "petName";
 
 
-    public static final int DATABASE_VERSION = 28;
+    public static final int DATABASE_VERSION = 29;
     public static final String GENDER = "gender";
 }

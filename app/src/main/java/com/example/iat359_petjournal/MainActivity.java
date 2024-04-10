@@ -86,7 +86,6 @@ public class MainActivity extends Activity{
         String currentTimeString = currentDate.toString();
         String[] results = currentTimeString.split(" ");
         String[] timeResults = results[3].split(":");
-        Log.d("mylog", "time" + timeResults[0] + ":" + timeResults[1]);
         currentTime = timeResults[0] + ":" + timeResults[1];
 
 
@@ -182,7 +181,6 @@ public class MainActivity extends Activity{
                 Intent intent = new Intent(v.getContext(), Schedule.class);
                 intent.putExtra("petName", petName.getText().toString());
                 startActivity(intent);
-                Log.d("mylog", "onClick: Schedule" + petName.getText());
             }
         });
 
@@ -233,7 +231,6 @@ public class MainActivity extends Activity{
                         petSelected.setImageResource(breedSelected);
                         petGender.setImageResource(genderSelected);
 
-                        Log.d("mylog", "switch avatar" + petName.getText());
                         setUpcomingSchedule(petName);
 
                     }
@@ -419,22 +416,25 @@ public class MainActivity extends Activity{
         }
     }
 
+    //function to set upcoming schedule to the most recent schedule based on the current time
     private void setUpcomingSchedule(EditText name){
 
         Cursor cursor = db.getEventData(name.getText().toString());
-        Log.d("mylog", "upcoming schedule" + name.getText());
 
         if (cursor.getCount() > 0) {
             int index1 = cursor.getColumnIndex(Constants.TASK);
             int index2 = cursor.getColumnIndex(Constants.START_TIME);
             int index3 = cursor.getColumnIndex(Constants.END_TIME);
 
+            //obtaining the current time
             currentDate = Calendar.getInstance().getTime();
 
             String currentTimeString = currentDate.toString();
             String[] results = currentTimeString.split(" ");
             String[] timeResults = results[3].split(":");
 
+
+            //compare the current time with the obtain task's startTime
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 String startTime = cursor.getString(index2);
@@ -442,6 +442,7 @@ public class MainActivity extends Activity{
                 String s = startTime + " - " + endTime;
                 String task = cursor.getString(index1);
                 if ((timeResults[0] + ":" + timeResults[1]).compareTo(startTime) < 0) {
+                    //set upcoming schedule's text to most recet task's information
                     upcomingTaskTime.setText(s);
                     upcomingTask.setText(task);
                     break;

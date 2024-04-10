@@ -81,6 +81,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //retrieving information sent through intent
                 String petName = getIntent().getStringExtra("petName");
                 Log.d("myeventlog", "" + petName);
                 //if the task name, date, start and end time isn't null, save data to SQLite
@@ -124,6 +125,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         return makeDateString(day, month, year);
     }
 
+    //function using DatePickerDialog to store user's selection
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -145,6 +147,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
     }
 
+    //function using TimePickerDialog to store user's selection for task start time
     private void initTimePicker(){
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -162,6 +165,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         timePickerDialog.show();
     }
 
+    //2 time picker function using TimePickerDialog to store user's selection for task end time
     private void initTimePicker2(){
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -179,6 +183,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
         timePickerDialog.show();
     }
 
+    //function got turning results from datepicker to string
     private String makeDateString(int day, int month, int year){
         String dayString = "";
         if (day < 10) dayString = "0" + day;
@@ -187,6 +192,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
     }
 
+    //storing the alphabetical representation of months
     private String getMonthFormat(int month){
         if (month == 1) return "Jan";
         if (month == 2) return "Feb";
@@ -211,6 +217,7 @@ public class AddEvent extends AppCompatActivity implements TextWatcher {
 
     }
 
+    //using onTextChanged to read the task name edit text
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (taskEdit.isFocused()){
